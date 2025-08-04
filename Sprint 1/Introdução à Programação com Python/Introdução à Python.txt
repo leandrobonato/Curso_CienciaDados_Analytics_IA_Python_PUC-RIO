@@ -1,0 +1,5 @@
+Introdução à Python - Anotações
+
+Dúvidas:
+1. existe algum padrão para boas práticas de programação ou alguma convenção que possamos seguir para escrever um código mais limpo?
+
