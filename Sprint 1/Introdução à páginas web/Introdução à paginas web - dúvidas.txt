@@ -1,0 +1,4 @@
+Introdução à paginas web - dúvidas
+1. Quanto a criar tudo na mesma página, como deverá ser utilizado? 
+Porque fiz o footer e header com o id correto e apenas com #ID_DESTINO não foi para a próxima página, poderia dar um exemplo? 
+Em pesquisas vi que é possível especificar a outra página e o ID_DESTINO com a página, ou ainda se estiver em outra pasta também é possível especificar e depois seguido do #ID_DESTINO.

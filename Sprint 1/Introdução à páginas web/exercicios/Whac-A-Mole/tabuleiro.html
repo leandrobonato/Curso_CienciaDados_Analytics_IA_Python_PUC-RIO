@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Tabuleiro</title>
+    </head>
+    <body>
+        <header id="header-tabuleiro"> 
+            <div class="arrow">
+                <a href="regras.html#footer-regras">
+                    <img src="images/arrow-up.png" alt="regras">
+                </a>
+            </div>
+        </header>
+        <section class="tabuleiro" id="tabuleiro">
+            <div class="gramado" id="gramado"> 
+                <img src="images/hole.png" alt="buraco" id="buraco1" class="hole">
+                <img src="images/hole.png" alt="buraco" id="buraco2" class="hole">
+                <img src="images/hole.png" alt="buraco" id="buraco3" class="hole">
+                <img src="images/hole.png" alt="buraco" id="buraco4" class="hole">
+                <img src="images/hole.png" alt="buraco" id="buraco5" class="hole"> 
+            </div>
+            <div class="pontuacao">
+                <table border="0">  
+                    <thead>
+                        <tr>
+                            <th class="cab_pontuacao" colspan="2">Pontuação</thead>
+                        </tr>
+                    </thead>   
+                    <tbody class="pontuacao_conteudo">
+                        <tr class="pontuacao_acertos">
+                            <td>Acertos:</td>
+                            <td id="acertos">
+                                <img src="images/caractere_0.gif" alt="acertos">
+                                <img src="images/caractere_0.gif" alt="acertos">
+                                <img src="images/caractere_0.gif" alt="acertos">
+                            </td> 
+                        </tr>
+                        <tr class="pontuacao_perdidos">
+                            <td>Perdidos:</td>
+                            <td id="perdidos">
+                                <img src="images/caractere_0.gif" alt="perdas">
+                                <img src="images/caractere_0.gif" alt="perdas">
+                                <img src="images/caractere_0.gif" alt="perdas">
+                            </td> 
+                        </tr class="pontuacao_errados">
+                            <td>Errados:</td>
+                            <td id="errados">
+                                <img src="images/caractere_0.gif" alt="erros">
+                                <img src="images/caractere_0.gif" alt="erros">
+                                <img src="images/caractere_0.gif" alt="erros">
+                            </td>                        
+                        <tr class="pontuacao_saldo">
+                            <td>Saldo:</td>
+                            <td id="saldo">
+                                <img src="images/caractere_0.gif" alt="saldo">
+                                <img src="images/caractere_0.gif" alt="saldo">
+                                <img src="images/caractere_0.gif" alt="saldo">
+                            </td>                        
+                        </tr>
+                        <tr class="botao_start">
+                            <td  colspan="2" > 
+                                <button class="botao_start" type="button" name="btnStart" id="btnStart">Iniciar</button>                                
+                            </td>
+                        </tr>
+                    </tbody>                                
+                </table>
+            </div>
+        </section>
+        <footer id="footer-tabuleiro">
+            <div class="arrow">
+                <a href="recordes.html#header-recordes" class="circulo">
+                    <img src="images/arrow-down.png" alt="recordes" class="arrow">
+                </a>
+            </div>
+        </footer>
+    </body>
+</html>
