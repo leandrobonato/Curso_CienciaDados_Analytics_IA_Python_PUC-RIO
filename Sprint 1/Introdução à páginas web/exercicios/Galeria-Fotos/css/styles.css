@@ -1,0 +1,13 @@
+.titulo {
+    text-align: center;
+}
+
+.fotos {
+    width: 300px;
+    height: auto;    
+} 
+
+.texto_fotos {
+    width: 150px;
+    text-align: justify;    
+}
