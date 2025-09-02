@@ -9,6 +9,7 @@
         <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=Bungee+Spice&display=swap" rel="stylesheet">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="" crossorigin="anonymous">
+        <script src="javascript/tabuleiro.js"></script>
     </head>
     <body>
         <header id="header-tabuleiro"> 
@@ -19,12 +20,13 @@
             </div>
         </header>
         <section class="tabuleiro" id="tabuleiro">
+            <div class="nivel" id="nivel">Nível 1</div>
             <div class="gramado" id="gramado"> 
+                <img src="images/hole.png" alt="buraco" id="buraco0" class="hole">
                 <img src="images/hole.png" alt="buraco" id="buraco1" class="hole">
                 <img src="images/hole.png" alt="buraco" id="buraco2" class="hole">
                 <img src="images/hole.png" alt="buraco" id="buraco3" class="hole">
-                <img src="images/hole.png" alt="buraco" id="buraco4" class="hole">
-                <img src="images/hole.png" alt="buraco" id="buraco5" class="hole"> 
+                <img src="images/hole.png" alt="buraco" id="buraco4" class="hole"> 
             </div>
             <div class="pontuacao">
                 <table border="0">  
@@ -37,31 +39,31 @@
                         <tr class="pontuacao_acertos">
                             <td>Acertos:</td>
                             <td id="acertos">
-                                <img src="images/caractere_0.gif" alt="acertos">
-                                <img src="images/caractere_0.gif" alt="acertos">
-                                <img src="images/caractere_0.gif" alt="acertos">
+                                <img id="acertos_centena" src="images/caractere_0.gif" alt="acertos">
+                                <img id="acertos_dezena" src="images/caractere_0.gif" alt="acertos">
+                                <img id="acertos_unidade" src="images/caractere_0.gif" alt="acertos">
                             </td> 
                         </tr>
                         <tr class="pontuacao_perdidos">
                             <td>Perdidos:</td>
                             <td id="perdidos">
-                                <img src="images/caractere_0.gif" alt="perdas">
-                                <img src="images/caractere_0.gif" alt="perdas">
-                                <img src="images/caractere_0.gif" alt="perdas">
+                                <img id="perdidos_centena" src="images/caractere_0.gif" alt="perdas">
+                                <img id="perdidos_dezena" src="images/caractere_0.gif" alt="perdas">
+                                <img id="perdidos_unidade" src="images/caractere_0.gif" alt="perdas">
                             </td> 
                         </tr class="pontuacao_errados">
                             <td>Errados:</td>
                             <td id="errados">
-                                <img src="images/caractere_0.gif" alt="erros">
-                                <img src="images/caractere_0.gif" alt="erros">
-                                <img src="images/caractere_0.gif" alt="erros">
+                                <img id="errados_centena" src="images/caractere_0.gif" alt="erros">
+                                <img id="errados_dezena" src="images/caractere_0.gif" alt="erros">
+                                <img id="errados_unidade" src="images/caractere_0.gif" alt="erros">
                             </td>                        
                         <tr class="pontuacao_saldo">
                             <td>Saldo:</td>
                             <td id="saldo">
-                                <img src="images/caractere_0.gif" alt="saldo">
-                                <img src="images/caractere_0.gif" alt="saldo">
-                                <img src="images/caractere_0.gif" alt="saldo">
+                                <img id="saldo_centena" src="images/caractere_0.gif" alt="saldo">
+                                <img id="saldo_dezena" src="images/caractere_0.gif" alt="saldo">
+                                <img id="saldo_unidade" src="images/caractere_0.gif" alt="saldo">
                             </td>                        
                         </tr>
                         <tr class="botao_start">

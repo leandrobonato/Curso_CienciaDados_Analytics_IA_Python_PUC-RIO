@@ -270,3 +270,17 @@ html, body {
         font-size: 15px;
     }
 }
+
+.tabuleiro .nivel {
+    font-size: 50px;
+    font-family: 'Bungee Spice', sans-serif;
+    position: absolute; /* Posiciona o nível em relação ao tabuleiro */
+    top: 0; /* Fixa no topo */
+    left: 0; /* Alinha à esquerda */
+    width: 100%; /* Garante que ocupe toda a largura */
+    text-align: center; /* Centraliza o texto horizontalmente */
+    background-color: rgba(0, 0, 0, 0.5); /* Fundo semi-transparente (opcional) */
+    color: white; /* Cor do texto */
+    padding: 10px 0; /* Espaçamento interno */
+    z-index: 10; /* Garante que fique sobre outros elementos, se necessário */
+}
