@@ -1,0 +1,6 @@
+Country / País - refere-se ao país da informação
+Date / Data - refere-se à data no formato: DD/MM/YYYY que o dado foi coletado
+Sector / Setor - refere-se ao setor da informação
+Value / Valor - refere-se ao valor de CO2 emitidos por dia em metros
+
+** Vale ressaltar que há um país no final de cada dia que chama-se WORLD que irá servir para se referir à quantidade de emissão de CO2 no mundo inteiro para o respectivo dia **
