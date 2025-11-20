@@ -28,7 +28,7 @@ O que será do futuro da humanidade quanto ao meio ambiente?
 
 2\. Objetivos
 
-Esta pergunta é muito ampla para ser respondida, e poderíamos escrever inúmeras páginas de livros para tentar (talvez nem conseguir) responder de forma definitiva, então para este projeto foi dividido em novas pequenas perguntas que podem ser respondidas com os dados públicos coletados, e com isso, chegar em uma breve conclusão sobre alguns dos problemas que o nosso planeta enfrenta e como entender e poder ajudar de alguma forma. 
+Esta pergunta é muito ampla para ser respondida, e poderíamos escrever inúmeras páginas de livros para tentar (talvez nem conseguir) responder de forma definitiva, então para este projeto foi dividido em novas pequenas perguntas que podem ser respondidas com os dados públicos coletados, e com isso, chegar em uma breve conclusão sobre alguns dos problemas que o nosso planeta enfrenta e como entender e poder ajudar de alguma forma.
 
 
 
@@ -78,7 +78,7 @@ Esta pergunta é muito ampla para ser respondida, e poderíamos escrever inúmer
 
 
 
-2.6. Sobre projeções. 
+2.6. Sobre projeções.
 
 2.6.1. Qual é a projeção de emissão de carbono no planeta por ano?
 
@@ -110,7 +110,7 @@ Esta pergunta é muito ampla para ser respondida, e poderíamos escrever inúmer
 
 3\. Dados Coletados
 
-As seguintes fontes de dados foram usadas para a coleta dos dados, são elas: Carbon Monitor, Climate Watch (CW), International Energy Agency (IEA), National Aeronautics and Space Administration (NASA), Organização das Nações Unidas (ONU), Our World in Data, World Bank Group. 
+As seguintes fontes de dados foram usadas para a coleta dos dados, são elas: Carbon Monitor, Climate Watch (CW), International Energy Agency (IEA), National Aeronautics and Space Administration (NASA), Organização das Nações Unidas (ONU), Our World in Data, World Bank Group.
 
 
 
@@ -144,19 +144,21 @@ Link para download direto, onde será um arquivo XLSX e terá que fazer um cadas
 
 Link para download direto: https://acdisc.gsfc.nasa.gov/data/CMS/CMSFluxTotal.3
 
-\*\* Os passsos são: 
+\*\* Os passsos são:
 
 1\. Clique em Once Registered, you can click here.
 
 2\. Caso não tenha um cadastro, crie um.
 
-3\. Depois realize o login 
+3\. Depois realize o login
 
-4\. Volte na página do link direto para download 
+4\. Volte na página do link direto para download
 
 5\. Clique no arquivo CMSFluxTotal201001\_202212\_v3.nc
 
 6\. Baixe o arquivo.
+
+\*\*\* Os arquivos da NASA possuem mais de 500 mb, e o GitHub não aceita tais arquivos, então pra isso foi feito um algoritmo para separá-los em arquivos menores com no máximo 50 mb cada um. 
 
 
 
@@ -172,25 +174,25 @@ Link para os DataSets: https://di.unfccc.int/time\_series
 
 Link para os dados: https://ourworldindata.org/search?q=co2
 
-\*\* Pesquisar por CO2 e então os que foram feitos downloads foram as seguintes informações: 
+\*\* Pesquisar por CO2 e então os que foram feitos downloads foram as seguintes informações:
 
-&nbsp;- CO₂ emissions per capita
+ - CO₂ emissions per capita
 
-&nbsp;- Annual CO₂ emissions 
+ - Annual CO₂ emissions
 
-&nbsp;- Annual concentration of atmospheric carbon dioxide
+ - Annual concentration of atmospheric carbon dioxide
 
-&nbsp;- Annual CO₂ emissions by world region
+ - Annual CO₂ emissions by world region
 
-&nbsp;- Share of global CO₂ emissions
+ - Share of global CO₂ emissions
 
-&nbsp;- Cumulative CO₂ emissions
+ - Cumulative CO₂ emissions
 
-&nbsp;- Cumulative CO₂ emissions by world region
+ - Cumulative CO₂ emissions by world region
 
-&nbsp;- Share of global cumulative CO₂ emissions
+ - Share of global cumulative CO₂ emissions
 
-&nbsp;- Carbon dioxide emissions factors
+ - Carbon dioxide emissions factors
 
 
 
@@ -210,7 +212,7 @@ Link para a fonte de dados: um dos arquivos está contido nesta página, e é XL
 
 3.8.4. Muitos dados não serão usados até o final do projeto, porém terão alguma explicação para este acontecimento.
 
-3.8.5. Nos links disponibilizados para realizar o download dos arquivos, foi encontrado muitos arquivos com outros formatos, como o XLSX que por si só já possuí um conversor para CSV, entretanto foi encontrado também arquivos com o formato NC, que é um formato de dados de processamento pelo Python, desta forma foi criado um algoritmo em Python para realizar a leitura, conversão e a junção destes arquivos em um único arquivo CSV. 
+3.8.5. Nos links disponibilizados para realizar o download dos arquivos, foi encontrado muitos arquivos com outros formatos, como o XLSX que por si só já possuí um conversor para CSV, entretanto foi encontrado também arquivos com o formato NC, que é um formato de dados de processamento pelo Python, desta forma foi criado um algoritmo em Python para realizar a leitura, conversão e a junção destes arquivos em um único arquivo CSV.
 
 
 
@@ -221,6 +223,7 @@ Para responder à pergunta "O que será do futuro da humanidade quanto ao meio a
 
 
 Entretanto, sendo um dos principais vilões, o dióxido de carbono é: .....
+
 
 
 Conclusão final, entendi nesse tema uma única pessoa tem um poder enorme de mudar muita coisa, e melhorar o mundo em que vivemos muito exponencialmente, veja os dados de produção de dióxido de carbono por pessoa, e não apenas plantando uma árvore em algum lugar qualquer, mas sim que com mais estudos (não sobre meio ambiente) sobre tecnologia, poderemos fazer mais e mais com muito menos, veja a pecuária de produção de leite dos Estados Unidos, conseguem produzir muito mais leite que o Brasil, que é o segundo colocado, e com muito menos vacas e consequentemente produzindo menos gás metano. Com isso, podemos concluir que é puro estudos e pura tecnologia que os favorecem.
