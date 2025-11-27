@@ -1,0 +1,31 @@
+Roteiro do MVP
+1. Encontrar um tema. (concluído)
+2. Criar algumas perguntas (Concluído)
+3. Encontrar os dataset´s e dados para baixar sobre o tema nas organizações mundiais (Concluído)
+3.1. Encontrado alguns arquivos no formato NC e XLSX, deverão ser convertidos. (Concluído)
+4. Converter os arquivos NC  e XLSX (Concluído)
+4.1. Criado um script em python para converter os arquivos NC para CSV (Concluído)
+4.2. Usado o Google Sheets para converter os arquivos XLSX para CSV (Concluído)
+5. Alguns arquivos geraram problemas na importação no GitHub devido ao seu tamanho. (Concluído)
+5.1. Criado um script em python para separar os arquivos em no máximo 50 MB (Concluído)
+6. Subir tudo no GitHub (Concluído)
+7. Criar um ReadMe.md no GitHub com MarkDown que será todo o trabalho em detalhes. (Concluído)
+7.1. Detalhar as perguntas  (Concluído)
+7.2. Detalhar a introdução   (Concluído)
+7.3. Detalhar os campos, arquivos, localizações das informações de dados baixados das organizações
+7.3.1. resumo escrito do que faz o arquivo 
+7.3.2. localização do arquivo no repositório (Concluído)
+7.3.3. fonte do arquivo na organização/internet (concluído)
+7.3.4. processo de realização do download do arquivo (concluído)
+7.3.5. documentação sobre os campos e valores (concluído)
+7.4. Documentação sobre o processamento e armazenamento dos dados 
+7.4.1. Usar o Neo4J para armazenar todos os dados 
+7.4.2. Analisar cada nó para criar uma junção dos dados em um único nó ou nós maiores que sejam mais resumidos para entendimento no final
+7.4.3. Criar consultas no AuraDB com base nas perguntas e nos dados
+8. Criar uma base de dados nova em CSV no Neo4J com os dados coletados
+8.1. No readme deverá constar a fonte dos dados e os detalhamentos das consultas criadas.
+9. Criar um algoritmo no Python com pyspark e panda para analisar os dados e responder as perguntas mencionadas na introdução.
+9.1. Detalhar o algoritmo no ReadMe 
+10. Criar uma conclusão com tudo
+11. Formatar o Readme para estar mais adequado à leitura 
+12. Publicar tudo no GitHub 

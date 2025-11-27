@@ -96,16 +96,6 @@ Esta pergunta é muito ampla para ser respondida, e poderíamos escrever inúmer
 
 
 
-2.7. Sobre o crédito de carbono.
-
-2.7.1. O que é o crédito de carbono?
-
-2.7.2. Como ele poderá ajudar a diminuir o efeito estufa?
-
-2.7.3. Quem patrocina o crédito de carbono?
-
-
-
 
 
 3\. Dados Coletados
@@ -124,7 +114,7 @@ Todas as organizações listadas anteriormente, possuem dados públicos que fora
 
 
 
-3.1.2. Local no repositório de arquivos coletados: 
+3.1.2. Local no repositório de arquivos coletados:
 
 \\projeto\\Data\\Carbon Monitor\\
 
@@ -136,13 +126,13 @@ Todas as organizações listadas anteriormente, possuem dados públicos que fora
 
 
 
-3.1.4. Documentação dos campos: 
+3.1.4. Documentação dos campos:
 
 3.1.4.1. Country / País - refere-se ao país da informação
 
 3.1.4.2. Date / Data - refere-se à data no formato: DD/MM/YYYY que o dado foi coletado
 
-3.1.4.3. Sector / Setor - refere-se ao setor da informação	
+3.1.4.3. Sector / Setor - refere-se ao setor da informação
 
 3.1.4.4. Value / Valor - refere-se ao valor de CO2 emitidos por dia em metros
 
@@ -154,7 +144,7 @@ Todas as organizações listadas anteriormente, possuem dados públicos que fora
 
 3.2. Climate Watch: https://www.climatewatchdata.org
 
-3.2.1. Link para download da fonte de dados: 
+3.2.1. Link para download da fonte de dados:
 
 https://www.climatewatchdata.org/data-explorer/historical-emissions?historical-emissions-data-sources=climate-watch\&historical-emissions-gases=all-ghg\&historical-emissions-regions=All%20Selected\&historical-emissions-sectors=total-including-lulucf\&page=1
 
@@ -182,7 +172,7 @@ https://www.climatewatchdata.org/data-explorer/historical-emissions?historical-e
 
 
 
-3.2.2. Local no repositório de arquivos coletados: 
+3.2.2. Local no repositório de arquivos coletados:
 
 \\projeto\\Data\\Climate Watch\\
 
@@ -214,7 +204,7 @@ https://www.climatewatchdata.org/data-explorer/historical-emissions?historical-e
 
 3.2.3.1.1.2.7. share\_in\_land\_area\_4 - Share in Land Area, Forest - áreas do terreno compartilhada com florestas
 
-3.2.3.1.1.3. Years - Anos - estará os valores de anos no restantes das colunas com os dados da quantidade de hectares dividido por 1000 ha  
+3.2.3.1.1.3. Years - Anos - estará os valores de anos no restantes das colunas com os dados da quantidade de hectares dividido por 1000 ha
 
 
 
@@ -226,13 +216,13 @@ https://www.climatewatchdata.org/data-explorer/historical-emissions?historical-e
 
 3.2.3.2.1.2. Short Name - nome curto do tipo dado ou sigla do campo nas referências, aqui é para a intensidade de emissões agrícolas e a referências de valores de: kg CO2eq/kg de produto
 
-3.2.3.2.1.2.1. emission\_intensity\_cereals - Cereals excluding rice - Cereais (excluindo arroz) 
+3.2.3.2.1.2.1. emission\_intensity\_cereals - Cereals excluding rice - Cereais (excluindo arroz)
 
 3.2.3.2.1.2.2. emission\_intensity\_rice - Rice paddy - arrozal
 
 3.2.3.2.1.2.3. emission\_intensity\_meat\_cattle - Meat cattle - Carne de Gado
 
-3.2.3.2.1.2.4. emission\_intensity\_meat\_goat - Meat goat - Carne de cabra 
+3.2.3.2.1.2.4. emission\_intensity\_meat\_goat - Meat goat - Carne de cabra
 
 3.2.3.2.1.2.5. emission\_intensity\_meat\_chicken - Meat chicken - Carne de frango
 
@@ -290,7 +280,7 @@ https://www.climatewatchdata.org/data-explorer/historical-emissions?historical-e
 
 3.2.3.4.1.2.3. meat\_consumption\_3 - Poultry - carne de aves
 
-3.2.3.4.1.2.3. meat\_consumption\_4 - Sheep - carne de ovelha 
+3.2.3.4.1.2.3. meat\_consumption\_4 - Sheep - carne de ovelha
 
 3.2.3.4.1.2.1. meat\_consumption\_per\_capita\_1 - Beef - carne de gado
 
@@ -316,7 +306,7 @@ https://www.climatewatchdata.org/data-explorer/historical-emissions?historical-e
 
 3.2.3.5.1.2.3. total\_fertilizers - Total Fertilizers - Uso total de fertilizantes na agricultura (N, P2O5, K2O)
 
-3.2.3.5.1.2.3. total\_pesticides\_use - Total pesticides - Uso total de pesticidas 
+3.2.3.5.1.2.3. total\_pesticides\_use - Total pesticides - Uso total de pesticidas
 
 3.2.3.5.1.3. Years - Anos - estará os valores de anos no restantes das colunas com os dados em toneladas
 
@@ -375,7 +365,7 @@ https://www.climatewatchdata.org/data-explorer/historical-emissions?historical-e
 
 3.2.3.7.1.2.16. trade\_export\_6 - Trade of agriculture commodities - Export - Chicken - Comércio de produtos agrícolas exportação de frango
 
-3.2.3.7.1.2.17. trade\_export\_7 - Trade of agriculture commodities - Export - Goat - Comércio de produtos agrícolas exportação de cabra 
+3.2.3.7.1.2.17. trade\_export\_7 - Trade of agriculture commodities - Export - Goat - Comércio de produtos agrícolas exportação de cabra
 
 3.2.3.7.1.2.18. trade\_export\_8 - Trade of agriculture commodities - Export - Pig - Comércio de produtos agrícolas exportação de porco
 
@@ -421,7 +411,7 @@ https://www.climatewatchdata.org/data-explorer/historical-emissions?historical-e
 
 3.2.3.9.1.2. source - tecnologia que realizou a coleta de dados, nesse arquivo terá duas, sendo elas: UNFCCC\_AI (por inteligência artificial) e UNFCCC\_NAI (Refere-se aos países que não estão listados no Anexo I da Convenção-Quadro das Nações Unidas)
 
-3.2.3.9.1.2. sector - Setor da emissão do gás que o dado está sendo verificado 
+3.2.3.9.1.2. sector - Setor da emissão do gás que o dado está sendo verificado
 
 3.2.3.9.1.2. Gas - tipo do gás que está sendo verificado no dado
 
@@ -469,7 +459,7 @@ https://www.climatewatchdata.org/data-explorer/historical-emissions?historical-e
 
 3.2.3.11.1.3. sector - Setor da emissão do gás que o dado está sendo verificado
 
-3.2.3.11.1.4. source - sigla da instituição que realizou a coleta dos dados 
+3.2.3.11.1.4. source - sigla da instituição que realizou a coleta dos dados
 
 3.2.3.11.1.5. Gas - tipo do gás que está sendo verificado no dado
 
@@ -491,7 +481,7 @@ https://www.climatewatchdata.org/data-explorer/historical-emissions?historical-e
 
 3.2.3.12.1.5. Gas - tipo do gás que está sendo verificado no dado
 
-3.2.3.12.1.6. Unit - unidade de medida do gás 
+3.2.3.12.1.6. Unit - unidade de medida do gás
 
 3.2.3.12.1.7. Years - Anos - estará os valores de anos no restantes das colunas com os dados dos valores em MtCO₂e (milhões de toneladas de dióxido de carbono equivalente).
 
@@ -555,13 +545,13 @@ https://www.climatewatchdata.org/data-explorer/historical-emissions?historical-e
 
 3.3.4.1.1. Documentação dos campos
 
-3.3.4.1.1. Type emission - tipo de emissão 
+3.3.4.1.1. Type emission - tipo de emissão
 
 3.3.4.1.2. CO2 emissions - origem de emissão de CO2
 
 3.3.4.2.3. Unit - unidade de medida da emissão de CO2
 
-3.3.4.2.4. Year - ano da emissão de CO2 conforme a unidade de medida 
+3.3.4.2.4. Year - ano da emissão de CO2 conforme a unidade de medida
 
 3.3.4.2.5. Grow rate % Year - taxa de variação em porcentagem entre os anos 1 e 2, 2 e 3
 
@@ -589,7 +579,7 @@ https://www.climatewatchdata.org/data-explorer/historical-emissions?historical-e
 
 3.4.1. Link para download direto: https://acdisc.gsfc.nasa.gov/data/CMS/CMSFluxTotal.3
 
-3.4.1.1. Os passos para download são: 
+3.4.1.1. Os passos para download são:
 
 3.4.1.1.1. Clique em Once Registered, you can click here.
 
@@ -606,8 +596,6 @@ https://www.climatewatchdata.org/data-explorer/historical-emissions?historical-e
 3.4.1.2. Observações sobre os arquivos
 
 3.4.1.2.1. Os arquivos da NASA possuem mais de 500 mb, e o GitHub não aceita tais arquivos, então pra isso foi feito um algoritmo para separá-los em arquivos menores com no máximo 50 mb cada um.
-
-3.4.1.2.2. Também há um arquivo no formato de PDF para a documentação completa oficial sobre o arquivo
 
 
 
@@ -659,53 +647,575 @@ https://www.climatewatchdata.org/data-explorer/historical-emissions?historical-e
 
 3.5. Organização das Nações Unidas (ONU): https://unfccc.int/
 
-Link para os DataSets: https://di.unfccc.int/time\_series
+3.5.1. Link para os DataSets: https://di.unfccc.int/time\_series
 
-\*\* São vários datasets e conforme vai navegando poderá ir baixando os dados, exemplo, se clicar em Flexible Queries > Preencher todas as informações relacionadas à carbbono (em inglês Carbon) ou CO² mostrará então um relatório em tabela para exportar para CSV, ou em Time Series - Annex I, poderá ir filtrando as informações relacionadas com estas palavras-chaves e então modificando o resultado da consulta da tabela, e com isso exportar para XLSX e posteriormente converter para CSV.
-
-
-
-3.6. Our World in Data: https://ourworldindata.org
-
-Link para os dados: https://ourworldindata.org/search?q=co2
-
-\*\* Pesquisar por CO2 e então os que foram feitos downloads foram as seguintes informações:
-
- - CO₂ emissions per capita
-
- - Annual CO₂ emissions
-
- - Annual concentration of atmospheric carbon dioxide
-
- - Annual CO₂ emissions by world region
-
- - Share of global CO₂ emissions
-
- - Cumulative CO₂ emissions
-
- - Cumulative CO₂ emissions by world region
-
- - Share of global cumulative CO₂ emissions
-
- - Carbon dioxide emissions factors
+3.5.1.1. São vários datasets e conforme vai navegando poderá ir baixando os dados, exemplo, se clicar em Flexible Queries > Preencher todas as informações relacionadas à carbbono (em inglês Carbon) ou CO² mostrará então um relatório em tabela para exportar para CSV, ou em Time Series - Annex I, poderá ir filtrando as informações relacionadas com estas palavras-chaves e então modificando o resultado da consulta da tabela, e com isso exportar para XLSX e posteriormente converter para CSV.
 
 
 
-3.7. World Bank Group: https://www.worldbank.org
+3.5.2. Local dos arquivos no repositório:
 
-Link para a fonte de dados: um dos arquivos está contido nesta página, e é XLSX, e a mesma foi aberta e convertida para CSV https://carbonpricingdashboard.worldbank.org/sites/default/files/carbon-pricing-dashboard-data/data\_08\_2025.xlsx
+\\projeto\\Data\\ONU\\
 
 
 
-3.8. Explicação final dos arquivos e de todos os processamentos
+3.5.3. Arquivos de dados
 
-3.8.1. Todos os arquivos estarão dentro de uma pasta com o nome da instituição / organização.
+3.5.3.1. Time Series - CO₂ total with LULUCF, in kt.csv
 
-3.8.2. Os arquivos estarão no repositório do github na subpasta Data.
+3.5.3.1.1. Filtros realizados para emitir o relatório
 
-3.8.4. Muitos dados não serão usados até o final do projeto, porém terão alguma explicação para este acontecimento.
+3.5.3.1.1.1. URL: https://di.unfccc.int/time\_series
 
-3.8.5. Nos links disponibilizados para realizar o download dos arquivos, foi encontrado muitos arquivos com outros formatos, como o XLSX que por si só já possuí um conversor para CSV, entretanto foi encontrado também arquivos com o formato NC, que é um formato de dados de processamento pelo Python, desta forma foi criado um algoritmo em Python para realizar a leitura, conversão e a junção destes arquivos em um único arquivo CSV.
+3.5.3.1.1.2. CO₂ total with LULUCF (Uso da Terra, Mudança no Uso da Terra e Florestas).
+
+3.5.3.1.2. Documentação dos campos
+
+3.5.3.1.2.1. Party - País ou parte do mundo do registro
+
+3.5.3.1.2.2. Base year - ano base
+
+3.5.3.1.2.3. Campos de anos
+
+3.5.3.1.2.4. Last inventory Year (2021) - ano de 2021 que foi a última coleta
+
+3.5.3.1.2.5. Change from base yar to latest reported year - comparativo entre a última coleta e a coleta base
+
+
+
+3.5.3.2. Annual greenhouse gas (GHG) emissions for Annex I, in kt.csv
+
+3.5.3.2.1. Filtros realizados para emitir o relatório
+
+3.5.3.2.1.1. URL: https://di.unfccc.int/detailed\_data\_by\_party
+
+3.5.3.2.1.2. Select Party - Annex I
+
+3.5.3.2.1.3. Select Base Year - All Years
+
+3.5.3.2.1.4. Select Totals - Total GHG emissions with LULUCF
+
+3.5.3.2.1.5. Select Aggregate GHGs - CO2
+
+3.5.3.2.1.6. Select kt - kt
+
+3.5.3.2.2. Documentação dos campos
+
+3.5.3.2.2.1. Category - Categoria do setor de emissão
+
+3.5.3.2.2.2. Base year - ano base
+
+3.5.3.2.2.3. Campos de anos
+
+3.5.3.2.2.4. Last inventory Year (2021) - ano de 2021 que foi a última coleta
+
+
+
+3.5.3.3. Annual Net emissions\_removals in kt.csv
+
+3.5.3.3.1. Filtros realizados para emitir o relatório
+
+3.5.3.3.1.1. URL: https://di.unfccc.int/flex\_annex1
+
+3.5.3.3.1.2. Select Party - Annex I
+
+3.5.3.3.1.3. Select Base Year - All Years
+
+3.5.3.3.1.4. Select Totals - Total GHG emissions with LULUCF
+
+3.5.3.3.1.5. Select Total for category
+
+3.5.3.3.1.6. Select Type of valye: Net emiissions/removals
+
+3.5.3.3.1.7. Select kt - kt
+
+3.5.3.3.2. Documentação dos campos
+
+3.5.3.3.2.1. Category - Categoria do setor de emissão
+
+3.5.3.3.2.2. Base year - ano base
+
+3.5.3.3.2.3. Campos de anos
+
+3.5.3.3.2.4. Last inventory Year (2021) - ano de 2021 que foi a última coleta
+
+
+
+
+
+3.6. Food And Agriculture Organization of the United Nations - Organização de comida e agricultura das nações unidas
+
+3.6.1. Link: https://www.fao.org/faostat/en/?spm=a2ty\_o01.29997173.0.0.145bc921b3fju9#data/GT
+
+3.6.2. Local do repositórios dos dados:
+
+\\projeto\\Data\\FAOSTAT\\
+
+3.6.3. Filtros utilizados para obter os dados
+
+3.6.3.1. Countries - Select all
+
+3.6.3.2. Elements - Emissions CO2
+
+3.6.3.3. Items - Select All
+
+3.6.3.4. Years - Select all
+
+3.6.3.5. FAO Source - Select All
+
+3.6.3.6. Ohters Sources - Select All
+
+3.6.4. Para realizar o download
+
+3.6.4.1. Seguir para Bulk Downloads
+
+3.6.4.2. All Data
+
+3.6.4.3. Descompactar os arquivos
+
+3.6.4.4. O arquivo com os dados é o Emissions\_Totals\_E\_All\_Data.csv
+
+3.6.4.4.1. Observação principal: será usado o arquivo Emissions\_Totals\_E\_All\_Data\_NOFLAG.csv, pois o arquivo com FLAGs, há marcações que não estão descritas na documentação, então não sabe-se o que poderá ser estas marcações.
+
+3.6.4.5. Os demais arquivos são de códigos e outros, entretanto poderá ser descartado para este projeto.
+
+3.6.5. Documentação dos campos
+
+3.6.5.1. Area code - código da área - descrito no arquivo de Emissions\_Totals\_E\_AreaCodes.csv
+
+3.6.5.2. Area code M49 - código da área conforme a tabela M49 - descrito no arquivo de Emissions\_Totals\_E\_AreaCodes.csv
+
+3.6.5.3. Area - Nome do país ou da área do registro
+
+3.6.5.4. Item Code - código dos itens
+
+3.6.5.4.1. Era para ter os registros de códigos dos itens no arquivo: Emissions\_Totals\_E\_ItemCodes.csv, porém este arquivo não possuí nenhum informação, apenas o cabeçalho.
+
+3.6.5.5. Item - Nome do item
+
+3.6.5.6. Element Code - Código do elemento do registro e/ou da emissão - disponível no arquivo Emissions\_Totals\_E\_Elements.csv
+
+3.6.5.7. Element - nome do elemento do registro
+
+3.6.5.8. Source Code - código da fonte de dados - detalhes no arquivo: Emissions\_Totals\_E\_Sources.csv
+
+3.6.5.9. Source - fonte dos dados
+
+3.6.5.10. unit - unidade de medida do elemento
+
+3.6.5.11. Years - campos com os Anos
+
+3.6.5.11.1. arquivo com flags: Y - representando o ano, o número do ano no formato YYYY - X - Letra da Flag, ficando da seguinte forma: Y2025X
+
+3.6.5.11.2. no arquivo que possuí as flags, há anos que possuem a flag: N, entretanto não há informações sobre esta flag no arquivo e flags, então por este motivo foi optado por usar o arquivo NOFLAG
+
+3.6.5.11.3. o arquivo NOFLAG possuí apenas o Y seguido do ano em 4 dígitos (Ex.: Y2025)
+
+
+
+
+
+3.7. Our World in Data: https://ourworldindata.org
+
+3.7.1. Link para os dados: https://ourworldindata.org/search?q=co2
+
+3.7.2. Pesquisar por CO2 irá ser mostrada as seguintes informações, realizar download das informações abaixo
+
+3.7.2.1. CO₂ emissions per capita
+
+3.7.2.2. Annual CO₂ emissions
+
+3.7.2.3. Annual concentration of atmospheric carbon dioxide
+
+3.7.2.4. Annual CO₂ emissions by world region
+
+3.7.2.5. Share of global CO₂ emissions
+
+3.7.2.6. Cumulative CO₂ emissions
+
+3.7.2.7. Cumulative CO₂ emissions by world region
+
+3.7.2.8. Share of global cumulative CO₂ emissions
+
+3.7.2.9. Carbon dioxide emissions factors
+
+
+
+3.7.3. Local no repositório dos arquivos: \\projeto\\Data\\ourworldindata\\
+
+
+
+3.7.4. Arquivos de dados baixados
+
+3.7.4.1. annual-co2-emissions-per-country.csv
+
+3.7.4.1.1. Documentação dos campos
+
+3.7.4.1.1.1. Entity - País
+
+3.7.4.1.1.2. Code - Sigla do País
+
+3.7.4.1.1.3. Year - Ano
+
+3.7.4.1.1.4. Annual CO2 Emissions - valor anual de emissão de CO2
+
+3.7.4.1.2.5 Observação dos campos
+
+3.7.4.1.2.5.1. Há um país chamado WORLD ou mundo para agregar tudo
+
+3.7.4.1.2.5.2. Os valores de referência estão em toneladas.
+
+
+
+3.7.4.2. annual-co-emissions-by-region.csv
+
+3.7.4.2.1. Documentação dos campos
+
+3.7.4.2.1.1. Entity - País
+
+3.7.4.2.1.2. Code - Sigla do País
+
+3.7.4.2.1.3. Year - Ano
+
+3.7.4.2.1.4. Annual CO2 Emissions - valor anual de emissão de CO2
+
+3.7.4.2.2. Observação dos campos
+
+3.7.4.2.2.1. Há um país chamado WORLD ou mundo para agregar tudo
+
+3.7.4.2.2.2. Os valores de referência estão em toneladas.
+
+3.7.4.2.2.3. Algumas entidades não possuem a sigla do país, isso significa que é uma entidade agrupada, exemplo: North American - América do Norte.
+
+
+
+3.7.4.3. annual-share-of-co2-emissions.csv
+
+3.7.4.3.1. Documentação dos campos
+
+3.7.4.3.1.1. Entity - País
+
+3.7.4.3.1.2. Code - Sigla do País
+
+3.7.4.3.1.3. Year - Ano
+
+3.7.4.3.1.4. Annual CO2 Emissions - valor anual de emissão de CO2
+
+3.7.4.3.2. Observação dos campos
+
+3.7.4.3.2.1. Há um país chamado WORLD ou mundo para agregar tudo
+
+3.7.4.3.2.2. Os valores de referência estão em toneladas.
+
+3.7.4.3.2.3. Algumas entidades não possuem a sigla do país, isso significa que é uma entidade agrupada, exemplo: North American - América do Norte.
+
+
+
+3.7.4.4. carbon-dioxide-emissions-factor.csv
+
+3.7.4.4.1. Documentação dos campos
+
+3.7.4.4.1.1. Entity - Fatores que emitem gás CO2
+
+3.7.4.4.1.2. Code - não há informações neste campo
+
+3.7.4.4.1.3. Year - Ano
+
+3.7.4.4.1.4. CO₂ emission factor - valor da emissão de CO2 do fator
+
+3.7.4.4.2. Observação dos campos
+
+3.7.4.4.2.1. Os valores de referência estão em toneladas.
+
+3.7.4.4.2.2. Todos os anos do arquivo referem-se à 2023
+
+
+
+3.7.4.5. co2-long-term-concentration.csv
+
+3.7.4.5.1. Documentação dos campos
+
+3.7.4.5.1.1. Entity - é apenas 1 valor que é referência para o mundo todo
+
+3.7.4.5.1.2. Code - Sigla do mundo, apenas 1 sigla
+
+3.7.4.5.1.3. Year - Ano - valores negativos
+
+3.7.4.5.1.4. Annual concentration of atmospheric carbon dioxide - quantidade de concentração anual de dióxido de carbono na atmosfera
+
+3.7.4.5.2. Observação dos campos
+
+3.7.4.5.2.1. Há apenas o país chamado WORLD ou mundo para agregar tudo
+
+3.7.4.5.2.2. Os valores de referência estão em toneladas.
+
+3.7.4.5.2.3. Há mais da metade dos registros que estão com o valor de ano em negativo, e um valor bem estranho, exemplo: -803719
+
+
+
+3.7.4.5. co-emissions-per-capita.csv
+
+3.7.4.5.1. Documentação dos campos
+
+3.7.4.5.1.1. Entity - nome do país
+
+3.7.4.5.1.2. Code - sigla do país
+
+3.7.4.5.1.3. Year - Ano
+
+3.7.4.5.1.4. Annual CO₂ emissions (per capita) - quantidade de CO2 emitido per capita
+
+3.7.4.5.2. Observação dos campos
+
+3.7.4.5.2.1. Há um campo chamado WORLD ou mundo para agregar tudo
+
+3.7.4.5.2.2. Os valores de referência estão em toneladas.
+
+3.7.4.3.2.3. Algumas entidades não possuem a sigla do país, isso significa que é uma entidade agrupada, exemplo: North American - América do Norte.
+
+
+
+3.7.4.5. cumulative-co2-emissions.csv
+
+3.7.4.5.1. Documentação dos campos
+
+3.7.4.5.1.1. Entity - nome do país
+
+3.7.4.5.1.2. Code - sigla do país
+
+3.7.4.5.1.3. Year - Ano
+
+3.7.4.5.1.4. Cumulative CO₂ emissions - quantidade acumulada ao longo dos anos de emissão de CO2
+
+3.7.4.5.2. Observação dos campos
+
+3.7.4.5.2.1. Há um campo chamado WORLD ou mundo para agregar tudo
+
+3.7.4.5.2.2. Os valores de referência estão em toneladas.
+
+3.7.4.3.2.3. Algumas entidades não possuem a sigla do país, isso significa que é uma entidade agrupada, exemplo: North American - América do Norte.
+
+
+
+3.7.4.5. share-of-cumulative-co2.csv
+
+3.7.4.5.1. Documentação dos campos
+
+3.7.4.5.1.1. Entity - nome do país
+
+3.7.4.5.1.2. Code - sigla do país
+
+3.7.4.5.1.3. Year - Ano
+
+3.7.4.5.1.4. Share of global cumulative CO₂ emissions - emissão de CO2 acumulada de áreas compartilhadas
+
+3.7.4.5.2. Observação dos campos
+
+3.7.4.5.2.1. Há um campo chamado WORLD ou mundo para agregar tudo
+
+3.7.4.5.2.2. Os valores de referência estão em toneladas.
+
+3.7.4.3.2.3. Algumas entidades não possuem a sigla do país, isso significa que é uma entidade agrupada, exemplo: North American - América do Norte.
+
+
+
+3.7.4.6. owid-co2-data.csv
+
+3.7.4.6.1. Link para download https://github.com/owid/co2-data
+
+3.7.4.6.2. Arquivo de documentação: owid-co2-codebook.csv
+
+3.7.4.6.3. Documentação dos campos
+
+3.7.4.6.3.1. Country - Nome do País
+
+3.7.4.6.3.2. Year - Ano
+
+3.7.4.6.3.3. ISO\_CODE - Sigla do País
+
+3.7.4.6.3.4. Population - População
+
+3.7.4.6.3.5. gdp - Gross domestic product (GDP) - Produção econômica total de um país ou região por ano
+
+3.7.4.6.3.6. cement\_co2 - Annual CO₂ emissions from cement - Emissões anuais de dióxido de carbono (CO₂) provenientes do cimento
+
+3.7.4.6.3.7. cement\_co2\_per\_capita - Annual CO₂ emissions from cement (per capita) - Emissões anuais de dióxido de carbono (CO₂) provenientes do cimento per capita
+
+3.7.4.6.3.8. co2 - Annual CO₂ - Emissão de CO2 anual
+
+3.7.4.6.3.9. co2\_growth\_abs - Annual CO₂ emissions growth (abs) - Crescimento anual das emissões de CO₂ (absoluto)
+
+3.7.4.6.3.10. co2\_growth\_prct - Annual CO₂ emissions growth (%) - Crescimento anual das emissões de CO₂ (%)
+
+3.7.4.6.3.11. co2\_including\_luc - Annual CO₂ emissions including land-use change - Emissões anuais de CO₂, incluindo mudanças no uso da terra.
+
+3.7.4.6.3.12. co2\_including\_luc\_growth\_abs - Growth rate of emissions including land-use change - Taxa de crescimento das emissões, incluindo mudanças no uso da terra
+
+3.7.4.6.3.13. co2\_including\_luc\_growth\_prct - Growth rate of emissions including land-use change (%) - Taxa de crescimento das emissões, incluindo mudanças no uso da terra (%)
+
+3.7.4.6.3.14. co2\_including\_luc\_per\_capita - Annual CO₂ emissions including land-use change per capita - Emissões anuais de CO₂, incluindo mudanças no uso da terra (por pessoa)
+
+3.7.4.6.3.15. co2\_including\_luc\_per\_gdp - Annual CO₂ emissions including land-use change per GDP - Emissões anuais de CO₂, incluindo mudanças no uso da terra (por PIB)
+
+3.7.4.6.3.16. co2\_including\_luc\_per\_unit\_energy - Annual CO₂ emissions including land-use change per unit energy - Emissões anuais de CO₂, incluindo mudanças no uso da terra (por unidade de energia)
+
+3.7.4.6.3.17. co2\_per\_capita - CO₂ emissions per capita - Emissões de CO₂ por pessoa
+
+3.7.4.6.3.18. co2\_per\_gdp - Annual CO₂ emissions per GDP (kg per international-$) - Emissões anuais de CO₂ por PIB (kg por dólar internacional)
+
+3.7.4.6.3.19. co2\_per\_unit\_energy - Annual CO₂ emissions per unit energy (kg per kilowatt-hour) - Emissões anuais de CO₂ por unidade de energia (kg por quilowatt-hora)
+
+3.7.4.6.3.20. coal\_co2 - Annual CO₂ emissions from coal - Emissões anuais de CO₂ do carvão
+
+3.7.4.6.3.21. coal\_co2\_per\_capita - Annual CO₂ emissions from coal (per capita) - Emissões anuais de CO₂ do carvão (por pessoa)
+
+3.7.4.6.3.22. consumption\_co2 - Annual consumption-based CO₂ emissions - Emissões anuais de CO₂ baseadas no consumo
+
+3.7.4.6.3.22. consumption\_co2\_per\_capita - Per capita consumption-based CO₂ emissions - Emissões de CO₂ baseadas no consumo (por pessoa)
+
+3.7.4.6.3.23. consumption\_co2\_per\_gdp - Annual consumption-based CO₂ emissions per GDP (kg per international-$) - Emissões anuais de CO₂ baseadas no consumo (por PIB)
+
+3.7.4.6.3.24. cumulative\_cement\_co2 - Cumulative CO₂ emissions from cement - Emissões acumuladas de CO₂ do cimento
+
+3.7.4.6.3.25. cumulative\_co2 - Cumulative CO₂ emissions - Emissões acumuladas de CO₂
+
+3.7.4.6.3.26. cumulative\_co2\_including\_luc - Cumulative CO₂ emissions including land-use change - Emissões acumuladas de CO₂, incluindo mudanças no uso da terra
+
+3.7.4.6.3.27. cumulative\_coal\_co2 - Cumulative CO₂ emissions from coal - Emissões acumuladas de CO₂ do carvão
+
+3.7.4.6.3.28. cumulative\_flaring\_co2 - Cumulative CO₂ emissions from flaring - Emissões acumuladas de CO₂ da queima de gás
+
+3.7.4.6.3.29. cumulative\_gas\_co2 - Cumulative CO₂ emissions from gas - Emissões acumuladas de CO₂ do gás
+
+3.7.4.6.3.30. cumulative\_luc\_co2 - Cumulative CO₂ emissions from land-use change - Emissões acumuladas de CO₂ da mudança no uso da terra
+
+3.7.4.6.3.31. cumulative\_oil\_co2 - Cumulative CO₂ emissions from oil - Emissões acumuladas de CO₂ do petróleo
+
+3.7.4.6.3.32. cumulative\_other\_co2 - Cumulative CO₂ emissions from other industry - Emissões acumuladas de CO₂ de outras indústrias
+
+3.7.4.6.3.33. energy\_per\_capita - Primary energy consumption per capita - Consumo de energia primária por pessoa
+
+3.7.4.6.3.34. energy\_per\_gdp - Primary energy consumption per GDP - Consumo de energia primária por PIB
+
+3.7.4.6.3.35. flaring\_co2 - Annual CO₂ emissions from flaring - Emissões anuais de CO₂ da queima de gás
+
+3.7.4.6.3.36. flaring\_co2\_per\_capita - Annual CO₂ emissions from flaring (per capita) - Emissões anuais de CO₂ da queima de gás (por pessoa)
+
+3.7.4.6.3.37. gas\_co2 - Annual CO₂ emissions from gas - Emissões anuais de CO₂ do gás
+
+3.7.4.6.3.38. gas\_co2\_per\_capita - Annual CO₂ emissions from gas (per capita) - Emissões anuais de CO₂ do gás (por pessoa)
+
+3.7.4.6.3.39. ghg\_excluding\_lucf\_per\_capita - Per capita greenhouse gas emissions from fossil fuels and industry - Emissões per capita de gases de efeito estufa de combustíveis fósseis e indústria
+
+3.7.4.6.3.40. ghg\_per\_capita - Per capita greenhouse gas emissions including land use - Emissões per capita de gases de efeito estufa, incluindo uso da terra
+
+3.7.4.6.3.41. land\_use\_change\_co2 - Annual CO₂ emissions from land-use change - Emissões anuais de CO₂ da mudança no uso da terra
+
+3.7.4.6.3.42. land\_use\_change\_co2\_per\_capita - Annual CO₂ emissions from land-use change per capita - Emissões anuais de CO₂ da mudança no uso da terra (por pessoa)
+
+3.7.4.6.3.43. methane - Annual methane emissions including land use - Emissões anuais de metano, incluindo uso da terra
+
+3.7.4.6.3.44. methane\_per\_capita - Per capita methane emissions including land use - Emissões per capita de metano, incluindo uso da terra
+
+3.7.4.6.3.45. nitrous\_oxide - Annual nitrous oxide emissions including land use - Emissões anuais de óxido nitroso, incluindo uso da terra
+
+3.7.4.6.3.46. nitrous\_oxide\_per\_capita - Per capita nitrous oxide emissions including land use - Emissões per capita de óxido nitroso, incluindo uso da terra
+
+3.7.4.6.3.47. oil\_co2 - Annual CO₂ emissions from oil - Emissões anuais de CO₂ do petróleo
+
+3.7.4.6.3.48. oil\_co2\_per\_capita - Annual CO₂ emissions from oil (per capita) - Emissões anuais de CO₂ do petróleo (por pessoa)
+
+3.7.4.6.3.49. other\_co2\_per\_capita - Annual CO₂ emissions from other industry (per capita) - Emissões anuais de CO₂ de outras indústrias (por pessoa)
+
+3.7.4.6.3.50. other\_industry\_co2 - Annual CO₂ emissions from other industry - Emissões anuais de CO₂ de outras indústrias
+
+3.7.4.6.3.51. primary\_energy\_consumption - Primary energy consumption - Consumo de energia primária
+
+3.7.4.6.3.52. share\_global\_cement\_co2 - Share of global annual CO₂ emissions from cement - Participação nas emissões globais anuais de CO₂ do cimento
+
+3.7.4.6.3.53. share\_global\_co2 - Share of global annual CO₂ emissions - Participação nas emissões globais anuais de CO₂
+
+3.7.4.6.3.54. share\_global\_co2\_including\_luc - Share of global annual CO₂ emissions including land-use change - Participação nas emissões globais anuais de CO₂, incluindo mudanças no uso da terra
+
+3.7.4.6.3.55. share\_global\_coal\_co2 - Share of global annual CO₂ emissions from coal - Participação nas emissões globais anuais de CO₂ do carvão
+
+3.7.4.6.3.56. share\_global\_cumulative\_cement\_co2 - Share of global cumulative CO₂ emissions from cement - Participação nas emissões globais acumuladas de CO₂ do cimento
+
+3.7.4.6.3.57. share\_global\_cumulative\_co2 - Share of global cumulative CO₂ emissions - Participação nas emissões globais acumuladas de CO₂
+
+3.7.4.6.3.58. share\_global\_cumulative\_co2\_including\_luc - Share of global cumulative CO₂ emissions including land-use change - Participação nas emissões globais acumuladas de CO₂, incluindo mudanças no uso da terra
+
+3.7.4.6.3.59. share\_global\_cumulative\_coal\_co2 - Share of global cumulative CO₂ emissions from coal - Participação nas emissões globais acumuladas de CO₂ do carvão
+
+3.7.4.6.3.60. share\_global\_cumulative\_flaring\_co2 - Share of global cumulative CO₂ emissions from flaring - Participação nas emissões globais acumuladas de CO₂ da queima de gás
+
+3.7.4.6.3.61. share\_global\_cumulative\_gas\_co2 - Share of global cumulative CO₂ emissions from gas - Participação nas emissões globais acumuladas de CO₂ do gás
+
+3.7.4.6.3.62. share\_global\_cumulative\_luc\_co2 - Share of global cumulative CO₂ emissions from land-use change - Participação nas emissões globais acumuladas de CO₂ da mudança no uso da terra
+
+3.7.4.6.3.63. share\_global\_cumulative\_oil\_co2 - Share of global cumulative CO₂ emissions from oil - Participação nas emissões globais acumuladas de CO₂ do petróleo
+
+3.7.4.6.3.64. share\_global\_cumulative\_other\_co2 - Share of global cumulative CO₂ emissions from other industry - Participação nas emissões globais acumuladas de CO₂ de outras indústrias
+
+3.7.4.6.3.65. share\_global\_flaring\_co2 - Share of global annual CO₂ emissions from flaring - Participação nas emissões globais anuais de CO₂ da queima de gás
+
+3.7.4.6.3.66. share\_global\_gas\_co2 - Share of global annual CO₂ emissions from gas - Participação nas emissões globais anuais de CO₂ do gás
+
+3.7.4.6.3.67. share\_global\_luc\_co2 - Share of global annual CO₂ emissions from land-use change - Participação nas emissões globais anuais de CO₂ da mudança no uso da terra
+
+3.7.4.6.3.68. share\_global\_oil\_co2 - Share of global annual CO₂ emissions from oil - Participação nas emissões globais anuais de CO₂ do petróleo
+
+3.7.4.6.3.69. share\_global\_other\_co2 - Share of global annual CO₂ emissions from other industry - Participação nas emissões globais anuais de CO₂ de outras indústrias
+
+3.7.4.6.3.70. share\_of\_temperature\_change\_from\_ghg - Share of contribution to global warming - Participação na contribuição para o aquecimento global
+
+3.7.4.6.3.71. temperature\_change\_from\_ch4 - Change in global mean surface temperature caused by methane emissions - Mudança na temperatura média global causada pelas emissões de metano
+
+3.7.4.6.3.72. temperature\_change\_from\_co2 - Change in global mean surface temperature caused by CO₂ emissions - Mudança na temperatura média global causada pelas emissões de CO₂
+
+3.7.4.6.3.73. temperature\_change\_from\_ghg - Change in global mean surface temperature caused by greenhouse gas emissions - Mudança na temperatura média global causada pelas emissões de gases de efeito estufa
+
+3.7.4.6.3.74. temperature\_change\_from\_n2o - Change in global mean surface temperature caused by nitrous oxide emissions - Mudança na temperatura média global causada pelas emissões de óxido nitroso
+
+3.7.4.6.3.75. total\_ghg - Annual greenhouse gas emissions including land use - Emissões anuais de gases de efeito estufa, incluindo uso da terra
+
+3.7.4.6.3.76. total\_ghg\_excluding\_lucf - Annual greenhouse gas emissions from fossil fuels and industry - Emissões anuais de gases de efeito estufa de combustíveis fósseis e indústria
+
+3.7.4.6.3.77. trade\_co2 - Annual CO₂ emissions embedded in trade - Emissões anuais de CO₂ incorporadas no comércio
+
+3.7.4.6.3.78. trade\_co2\_share - Share of annual CO₂ emissions embedded in trade - Participação nas emissões anuais de CO₂ incorporadas no comércio
+
+
+
+3.7.4.5.4. Observações dos campos
+
+3.7.4.5.4.1. Há um campo chamado WORLD ou mundo para agregar tudo
+
+3.7.4.5.4.2. Os valores de referência estão em toneladas.
+
+3.7.4.3.4.3. Algumas entidades não possuem a sigla do país, isso significa que é uma entidade agrupada, exemplo: North American - América do Norte.
+
+
+
+
+
+3.9. Explicação final dos arquivos e de todos os processamentos
+
+3.9.1. Todos os arquivos estarão dentro de uma pasta com o nome da instituição / organização.
+
+3.9.2. Os arquivos estarão no repositório do github na subpasta Data.
+
+3.9.4. Muitos dados não serão usados até o final do projeto, porém terão alguma explicação para este acontecimento.
+
+3.9.5. Nos links disponibilizados para realizar o download dos arquivos, foi encontrado muitos arquivos com outros formatos, como o XLSX que por si só já possuí um conversor para CSV, entretanto foi encontrado também arquivos com o formato NC, que é um formato de dados de processamento pelo Python, desta forma foi criado um algoritmo em Python para realizar a leitura, conversão e a junção destes arquivos em um único arquivo CSV.
+
+
+
+
+
+4\. Métodos
+
+4.1. Usado o MongoDB para a montagem do
 
 
 

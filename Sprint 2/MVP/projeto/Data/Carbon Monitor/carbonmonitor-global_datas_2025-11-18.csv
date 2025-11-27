@@ -1,4 +1,4 @@
-country,date,sector,value,
+country,date,sector,value
 "Brazil","01/01/2019","Industry","0.337191",
 "Brazil","01/01/2019","Ground Transport","0.21554",
 "Brazil","01/01/2019","International Aviation","0.0200505",

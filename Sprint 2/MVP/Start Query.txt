@@ -1,0 +1,1069 @@
+--DROP TABLE CATALOGO_FONTES_DADOS;
+--DROP TABLE CATALOGO_COLUNA_DADOS;
+--DROP TABLE CATALOGO_COLUNA_DADOS_OBS;
+--DROP TABLE CATALOGO_DADOS_REFERENCIA;
+
+CREATE TABLE IF NOT EXISTS CATALOGO_FONTES_DADOS(
+  ID_FONTE INT NOT NULL,
+  NOME_FONTE STRING,
+  DESCRICAO_FONTE STRING,
+  URL_FONTE STRING,
+  DOCUMENTACAO_DOWNLOAD STRING,
+  DATA_CARGA TIMESTAMP  
+);
+
+ALTER TABLE CATALOGO_FONTES_DADOS ADD CONSTRAINT PK_CATALOGO_FONTES_DADOS PRIMARY KEY (ID_FONTE);
+
+CREATE TABLE IF NOT EXISTS CATALOGO_COLUNA_DADOS(
+  ID_CAMPO INT NOT NULL,
+  ID_FONTE INT NOT NULL,
+  NOME_COLUNA STRING, 
+  DESCRICAO_COLUNA STRING,
+  TIPO_DADO STRING,
+  CATEGORIA STRING,
+  FORMATO_DADO STRING
+);
+
+ALTER TABLE catalogo_coluna_dados ADD CONSTRAINT PK_CATALOGO_COLUNA_DADOS PRIMARY KEY (ID_CAMPO);
+
+ALTER TABLE CATALOGO_COLUNA_DADOS ADD CONSTRAINT FK_CATALOGO_COLUNA_DADOS FOREIGN KEY (ID_FONTE) REFERENCES CATALOGO_FONTES_DADOS(ID_FONTE);
+
+CREATE TABLE IF NOT EXISTS CATALOGO_COLUNA_DADOS_OBS (
+  ID_OBS INTEGER NOT NULL,
+  ID_CAMPO INTEGER NOT NULL,
+  OBSERVACAO STRING
+);
+
+ALTER TABLE catalogo_coluna_dados_obs ADD CONSTRAINT PK_CATALOGO_COLUNA_DADOS_OBS PRIMARY KEY (ID_OBS);
+ALTER TABLE CATALOGO_COLUNA_DADOS_OBS ADD CONSTRAINT FK_CATALOGO_COLUNA_DADOS_OBS FOREIGN KEY (ID_CAMPO) REFERENCES CATALOGO_COLUNA_DADOS(ID_CAMPO);
+ 
+CREATE TABLE IF NOT EXISTS CATALOGO_DADOS_REFERENCIA(
+  ID_REFERENCIA INTEGER NOT NULL,
+  ID_CAMPO INTEGER,
+  NOME_REFERENCIA STRING,
+  DESCRICAO_REFERENCIA_ENGLISH STRING,
+  DESCRICAO_REFERENCIA_PORTUGUESE STRING
+);
+
+ALTER TABLE CATALOGO_DADOS_REFERENCIA ADD CONSTRAINT PK_CATALOGO_DADOS_REFERENCIA PRIMARY KEY (ID_REFERENCIA);
+
+ALTER TABLE CATALOGO_DADOS_REFERENCIA ADD CONSTRAINT FK_CATALOGO_DADOS_REFERENCIA FOREIGN KEY (ID_CAMPO) REFERENCES CATALOG;
+
+--CARBON MONITOR
+INSERT INTO CATALOGO_FONTES_DADOS VALUES 
+(1, 'CARBON_MONITOR', 'Carbon Monitor é um conjunto de dados diários de emissões de CO2 frequentemente atualizado, para monitorizar as variações das emissões de CO2 provenientes da combustão de combustíveis fósseis e da produção de cimento desde 1 de janeiro de 2019 a nível nacional com cobertura quase global.', 'https://datas.carbonmonitor.org/API/downloadFullDataset.php?source=carbon_global', 'A URL disponibilizada já realiza o download automaticamente', current_timestamp());
+ 
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(1, 1, 'Country / País', 'refere-se ao país da informação', 'STRING', 'COUNTRY', '');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(2, 1, 'Date / Data', 'refere-se à data que o dado foi coletado', 'DATE', 'DATE', 'DD/MM/YYYY');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(3, 1, 'Sector / Setor', 'refere-se ao setor da informação', 'STRING', 'SECTOR', '');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(4, 1, 'Value / Valor', 'refere-se ao valor de CO2 emitidos por dia em metros', 'NUMBER', 'VALUE', 'ZZZ.ZZZ.ZZ9,999');
+
+INSERT INTO CATALOGO_COLUNA_DADOS_OBS VALUES 
+(1, 1, 'Há um país no final de cada dia que chama-se WORLD que irá servir para se referir à quantidade de emissão de CO2 no mundo inteiro para o respectivo dia');
+
+
+--CLIMATE WATCH - AGRICULTURE AREA
+INSERT INTO CATALOGO_FONTES_DADOS VALUES 
+(2, 'CW_AGRICULTURE_AREA', 'O Climate Watch oferece dados abertos - Estas são informações de áreas de agricultura como: plantio, areamento e áreas compartilhadas', 'https://www.climatewatchdata.org/data-explorer/historical-emissions?historical-emissions-data-sources=climate-watch&historical-emissions-gases=all-ghg&historical-emissions-regions=All%20Selected&historical-emissions-sectors=total-including-lulucf&page=1', '1. Clique em Download Bulk Data
+2. Baixe dois arquivos, sendo eles: Agriculture Profile e GHG Emissions
+3. Ao clicar nos links das fontes de dados será direcionado para um cadastro de newslatter, bem simples, basta preencher o cadastro e o download será iniciado.
+4. Ainda na tela de historical emissions, faça os seguintes filtros para realizar o donwload de todo o histórico de emissões de gás de dióxido de carbono:
+4.1. Data Sources - All Selected
+4.2. Parties and Regions - All Selected
+4.3. Sectors - All Selected
+4.4. Gases - CO2
+4.5. Start Year - 1950
+4.6. End Year - 2023
+4.7. Bem abaixo do gráfico há um botão chamado: Download Historical Data, clique para realizar o download.
+', current_timestamp());
+
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(5, 2, 'Area', 'Sigla do país', 'STRING', 'COUNTRY', '');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(6, 2, 'Short Name', 'nome curto do tipo dado ou sigla do campo nas referências, com referência de valor de: 1000 ha (hectares)', 'STRING', 'SHORT_NAME', '');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(7, 2, 'Years / Anos', 'estará os valores de anos no restantes das colunas com os dados da quantidade de hectares dividido por 1000 ha', 'NUMBER', 'VALUE', 'ZZZ.ZZZ.ZZ9,999');
+
+INSERT INTO CATALOGO_COLUNA_DADOS_OBS VALUES 
+(2, 7, 'As colunas são os anos, por isso o campo Years não tem valor');
+INSERT INTO CATALOGO_COLUNA_DADOS_OBS VALUES 
+(3, 6, 'Short name ou nome curto, é uma referência à um nome de campo que possuí alguma descrição completa na tabela de referências.');
+
+INSERT INTO catalogo_dados_referencia VALUES
+(1, 6, 'share_in_agricultural_area_1', 'Arable land', 'Terra arável');
+INSERT INTO catalogo_dados_referencia VALUES
+(2, 6, 'share_in_agricultural_area_2', 'Permanent cropland', 'Terras agrícolas permanentes');
+INSERT INTO catalogo_dados_referencia VALUES
+(3, 6, 'share_in_agricultural_area_3', 'Permanent meadows and pastures', 'prados e pastagens permanentes');
+INSERT INTO catalogo_dados_referencia VALUES
+(4, 6, 'share_in_land_area_1', ' Total Land Area', 'área total do terreno');
+INSERT INTO catalogo_dados_referencia VALUES
+(5, 6, 'share_in_land_area_2', 'Share in Land Area', 'área agrícola do terreno compartilhada');
+INSERT INTO catalogo_dados_referencia VALUES
+(6, 6, 'share_in_land_area_3', 'Share in Land Area, Other Land', 'outras áreas do terreno compartilhada');
+INSERT INTO catalogo_dados_referencia VALUES
+(7, 6, 'share_in_land_area_4', 'Share in Land Area, Forest', 'áreas do terreno compartilhada com florestas'); 
+
+
+--CLIMATE WATCH - AGRICULTURE EMISSIONS
+INSERT INTO CATALOGO_FONTES_DADOS VALUES(
+3, 'CW_AGRICULTURE_EMISSIONS', 'O Climate Watch oferece dados abertos - intensidade de emissões agrícolas e a referências de valores de: kg CO2eq/kg de produto', 'https://www.climatewatchdata.org/data-explorer/historical-emissions?historical-emissions-data-sources=climate-watch&historical-emissions-gases=all-ghg&historical-emissions-regions=All%20Selected&historical-emissions-sectors=total-including-lulucf&page=1', '1. Clique em Download Bulk Data
+2. Baixe dois arquivos, sendo eles: Agriculture Profile e GHG Emissions
+3. Ao clicar nos links das fontes de dados será direcionado para um cadastro de newslatter, bem simples, basta preencher o cadastro e o download será iniciado.
+4. Ainda na tela de historical emissions, faça os seguintes filtros para realizar o donwload de todo o histórico de emissões de gás de dióxido de carbono:
+4.1. Data Sources - All Selected
+4.2. Parties and Regions - All Selected
+4.3. Sectors - All Selected
+4.4. Gases - CO2
+4.5. Start Year - 1950
+4.6. End Year - 2023
+4.7. Bem abaixo do gráfico há um botão chamado: Download Historical Data, clique para realizar o download.', current_timestamp()
+);
+
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(8, 3, 'Area', 'Sigla do país', 'STRING', 'COUNTRY', '');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(9, 3, 'Short Name', 'nome curto do tipo dado ou sigla do campo nas referências, aqui é para a intensidade de emissões agrícolas e a referências de valores de: kg CO2eq/kg de produto', 'STRING', 'SHORT_NAME', '');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(10, 3, 'Years / Anos', 'estará os valores de anos no restantes das colunas com os dados da quantidade de kg CO2eq/kg de produto', 'NUMBER', 'VALUE', 'ZZZ.ZZZ.ZZ9,999');
+
+INSERT INTO CATALOGO_COLUNA_DADOS_OBS VALUES 
+(4, 10, 'As colunas são os anos, por isso o campo Years não tem valor');
+INSERT INTO CATALOGO_COLUNA_DADOS_OBS VALUES 
+(5, 9, 'Short name ou nome curto, é uma referência à um nome de campo que possuí alguma descrição completa na tabela de referências.');
+
+INSERT INTO catalogo_dados_referencia VALUES
+(8, 9, 'emission_intensity_cereals', 'Cereals excluding rice', 'Cereais (excluindo arroz)');
+INSERT INTO catalogo_dados_referencia VALUES
+(9, 9, 'emission_intensity_rice', 'Rice paddy', 'arrozal');
+INSERT INTO catalogo_dados_referencia VALUES
+(10, 9, 'emission_intensity_meat_cattle', 'Meat cattle', 'Carne de Gado');
+INSERT INTO catalogo_dados_referencia VALUES
+(11, 9, 'emission_intensity_meat_goat', ' Meat goat', 'Carne de cabra');
+INSERT INTO catalogo_dados_referencia VALUES
+(12, 9, 'emission_intensity_meat_chicken', 'Meat chicken', 'Carne de frango');
+INSERT INTO catalogo_dados_referencia VALUES
+(13, 9, 'emission_intensity_meat_pig', 'Meat pig', 'Carne de porcoCarne de porco');
+INSERT INTO catalogo_dados_referencia VALUES
+(14, 9, 'emission_intensity_meat_buffalo', 'Meat Buffalo', 'Carne de búfalo'); 
+INSERT INTO catalogo_dados_referencia VALUES
+(14, 9, 'emission_intensity_meat_sheep', 'Meat Sheep', 'Carne de ovelha');
+INSERT INTO catalogo_dados_referencia VALUES
+(15, 9, 'emission_intensity_milk_cow', 'Milk Cow', 'Leite de vaca');
+INSERT INTO catalogo_dados_referencia VALUES
+(16, 9, 'emission_intensity_milk_goat', 'Milk Goat', 'Leite de cabra');
+INSERT INTO catalogo_dados_referencia VALUES
+(17, 9, 'emission_intensity_milk_buffalo', ' Milk Buffalo', 'Leite de búfalo');
+INSERT INTO catalogo_dados_referencia VALUES
+(18, 9, 'emission_intensity_milk_sheep', 'Milk Sheep', 'Leite de ovelha');
+INSERT INTO catalogo_dados_referencia VALUES
+(19, 9, 'emission_intensity_milk_camel', 'Milk Camel', 'Leite de camelo');
+INSERT INTO catalogo_dados_referencia VALUES
+(20, 9, 'emission_intensity_eggs', 'Eggs', 'Ovos'); 
+
+
+--CLIMATE WATCH - AGRICULTURE EMPLOYEMENT
+INSERT INTO CATALOGO_FONTES_DADOS VALUES 
+(4, 'CW_AGRICULTURE_EMPLOYMENT', 'O Climate Watch oferece dados abertos - para empregados/funcionários/colaboradores nas áreas agrícolas com os valores de referência em percentual', 'https://www.climatewatchdata.org/data-explorer/historical-emissions?historical-emissions-data-sources=climate-watch&historical-emissions-gases=all-ghg&historical-emissions-regions=All%20Selected&historical-emissions-sectors=total-including-lulucf&page=1', '1. Clique em Download Bulk Data
+2. Baixe dois arquivos, sendo eles: Agriculture Profile e GHG Emissions
+3. Ao clicar nos links das fontes de dados será direcionado para um cadastro de newslatter, bem simples, basta preencher o cadastro e o download será iniciado.
+4. Ainda na tela de historical emissions, faça os seguintes filtros para realizar o donwload de todo o histórico de emissões de gás de dióxido de carbono:
+4.1. Data Sources - All Selected
+4.2. Parties and Regions - All Selected
+4.3. Sectors - All Selected
+4.4. Gases - CO2
+4.5. Start Year - 1950
+4.6. End Year - 2023
+4.7. Bem abaixo do gráfico há um botão chamado: Download Historical Data, clique para realizar o download.
+', current_timestamp());
+
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(11, 4, 'Area', 'Sigla do país', 'STRING', 'COUNTRY', '');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(12, 4, 'Short Name', 'nome curto do tipo dado para empregados/funcionários/colaboradores nas áreas agrícolas com os valores de referência em percentual', 'STRING', 'SHORT_NAME', '');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(13, 4, 'Years / Anos', 'estará os valores de anos no restantes das colunas com os dados percentuais', 'NUMBER', 'VALUE', 'ZZZ.ZZZ.ZZ9,999');
+
+INSERT INTO CATALOGO_COLUNA_DADOS_OBS VALUES 
+(7, 12, 'Short name ou nome curto, é uma referência à um nome de campo que possuí alguma descrição completa na tabela de referências.');
+INSERT INTO CATALOGO_COLUNA_DADOS_OBS VALUES 
+(6, 13, 'As colunas são os anos, por isso o campo Years não tem valor');
+
+INSERT INTO catalogo_dados_referencia VALUES
+(11, 12, 'employment_agri_female', '% of female employment', 'porcentagem de mulheres trabalhando na área agrícola');
+INSERT INTO catalogo_dados_referencia VALUES
+(12, 12, 'employment_agri_male', '% of male employment', 'porcentagem de homens trabalhando na área agrícola');
+INSERT INTO catalogo_dados_referencia VALUES
+(13, 12, 'employment_agri_total', '% of total employment', 'porcentagem de total trabalhando na área agrícola');
+
+
+
+--CLIMATE WATCH - MEAT CONSUMPTION
+INSERT INTO CATALOGO_FONTES_DADOS VALUES 
+(5, 'CW_AGRICULTURE_MEAT_CONSUMPTION', 'O Climate Watch oferece dados abertos - consumo de carne com os valores de referência em: 1000 t (toneladas) ou quilogramas per capita', 'https://www.climatewatchdata.org/data-explorer/historical-emissions?historical-emissions-data-sources=climate-watch&historical-emissions-gases=all-ghg&historical-emissions-regions=All%20Selected&historical-emissions-sectors=total-including-lulucf&page=1', '1. Clique em Download Bulk Data
+2. Baixe dois arquivos, sendo eles: Agriculture Profile e GHG Emissions
+3. Ao clicar nos links das fontes de dados será direcionado para um cadastro de newslatter, bem simples, basta preencher o cadastro e o download será iniciado.
+4. Ainda na tela de historical emissions, faça os seguintes filtros para realizar o donwload de todo o histórico de emissões de gás de dióxido de carbono:
+4.1. Data Sources - All Selected
+4.2. Parties and Regions - All Selected
+4.3. Sectors - All Selected
+4.4. Gases - CO2
+4.5. Start Year - 1950
+4.6. End Year - 2023
+4.7. Bem abaixo do gráfico há um botão chamado: Download Historical Data, clique para realizar o download.
+', current_timestamp());
+
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(14, 5, 'Area', 'Sigla do país', 'STRING', 'COUNTRY', '');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(15, 5, 'Short Name', 'nome curto do tipo dado para de consumo de carne com os valores de referência em: 1000 t (toneladas) ou quilogramas per capita', 'STRING', 'SHORT_NAME', '');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(16, 5, 'Years / Anos', 'estará os valores de anos no restantes das colunas com os dados percentuais', 'NUMBER', 'VALUE', 'ZZZ.ZZZ.ZZ9,999');
+
+INSERT INTO CATALOGO_COLUNA_DADOS_OBS VALUES 
+(8, 15, 'Short name ou nome curto, é uma referência à um nome de campo que possuí alguma descrição completa na tabela de referências.');
+INSERT INTO CATALOGO_COLUNA_DADOS_OBS VALUES 
+(9, 16, 'As colunas são os anos, por isso o campo Years não tem valor');
+
+INSERT INTO catalogo_dados_referencia VALUES
+(14, 15, 'meat_consumption_1', 'Beef', 'carne de gado');
+INSERT INTO catalogo_dados_referencia VALUES
+(15, 15, 'meat_consumption_2', 'Pork', 'carne de porco');
+INSERT INTO catalogo_dados_referencia VALUES
+(16, 15, 'meat_consumption_3', 'Poultry', 'carne de aves');
+INSERT INTO catalogo_dados_referencia VALUES
+(17, 15, 'meat_consumption_4', 'Sheep', 'carne de ovelha');
+INSERT INTO catalogo_dados_referencia VALUES
+(18, 15, 'meat_consumption_per_capita_1', 'Beef', 'carne de gado');
+INSERT INTO catalogo_dados_referencia VALUES
+(19, 15, 'meat_consumption_per_capita_2', 'Pork', 'carne de porco');
+INSERT INTO catalogo_dados_referencia VALUES
+(20, 15, 'meat_consumption_per_capita_3', 'Poultry', 'carne de aves');
+INSERT INTO catalogo_dados_referencia VALUES
+(21, 15, 'meat_consumption_per_capita_4', 'Sheep', 'carne de ovelha');
+
+
+--CLIMATE WATCH - PESTICIDES FERTILIZERS
+INSERT INTO CATALOGO_FONTES_DADOS VALUES 
+(6, 'CW_AGRICULTURE_PESTICIDES_FERTILIZERS', 'O Climate Watch oferece dados abertos - tipo de fertilizante, herbicida, pesticida e outros agrotóxicos que podem influenciar nos alimentostipo de fertilizante, herbicida, pesticida e outros agrotóxicos que podem influenciar nos alimentos', 'https://www.climatewatchdata.org/data-explorer/historical-emissions?historical-emissions-data-sources=climate-watch&historical-emissions-gases=all-ghg&historical-emissions-regions=All%20Selected&historical-emissions-sectors=total-including-lulucf&page=1', '1. Clique em Download Bulk Data
+2. Baixe dois arquivos, sendo eles: Agriculture Profile e GHG Emissions
+3. Ao clicar nos links das fontes de dados será direcionado para um cadastro de newslatter, bem simples, basta preencher o cadastro e o download será iniciado.
+4. Ainda na tela de historical emissions, faça os seguintes filtros para realizar o donwload de todo o histórico de emissões de gás de dióxido de carbono:
+4.1. Data Sources - All Selected
+4.2. Parties and Regions - All Selected
+4.3. Sectors - All Selected
+4.4. Gases - CO2
+4.5. Start Year - 1950
+4.6. End Year - 2023
+4.7. Bem abaixo do gráfico há um botão chamado: Download Historical Data, clique para realizar o download.
+', current_timestamp());
+
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(17, 6, 'Area', 'Sigla do país', 'STRING', 'COUNTRY', '');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(18, 6, 'Short Name', 'Código do FAOSTAT, que condiz o tipo de fertilizante, herbicida, pesticida e outros agrotóxicos que podem influenciar nos alimentos, conforme a Organização Mundial de Alimentos e Agricultura das Nações Unidas (fonte: https://www.fao.org/home/en)', 'STRING', 'SHORT_NAME', '');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(19, 6, 'Years / Anos', 'estará os valores de anos no restantes das colunas com os dados em toneladas', 'NUMBER', 'VALUE', 'ZZZ.ZZZ.ZZ9,999');
+
+INSERT INTO CATALOGO_COLUNA_DADOS_OBS VALUES 
+(10, 18, 'Short name ou nome curto, é uma referência à um nome de campo que possuí alguma descrição completa na tabela de referências.');
+INSERT INTO CATALOGO_COLUNA_DADOS_OBS VALUES 
+(11, 19, 'As colunas são os anos, por isso o campo Years não tem valor');
+
+INSERT INTO catalogo_dados_referencia VALUES
+(22, 15, 'total_fertilizers', 'Total Fertilizers', 'Uso total de fertilizantes na agricultura (N, P2O5, K2O)');
+INSERT INTO catalogo_dados_referencia VALUES
+(23, 15, 'total_pesticides_use', 'Total pesticides', 'Uso total de pesticidas');
+
+
+--CLIMATE WATCH - PRODUCTION TRADE
+INSERT INTO CATALOGO_FONTES_DADOS VALUES 
+(7, 'CW_AGRICULTURE_PRODUCTION_TRADE', 'O Climate Watch oferece dados abertos - comércio e produção de produtos agrícolas, importação e exportação', 'https://www.climatewatchdata.org/data-explorer/historical-emissions?historical-emissions-data-sources=climate-watch&historical-emissions-gases=all-ghg&historical-emissions-regions=All%20Selected&historical-emissions-sectors=total-including-lulucf&page=1', '1. Clique em Download Bulk Data
+2. Baixe dois arquivos, sendo eles: Agriculture Profile e GHG Emissions
+3. Ao clicar nos links das fontes de dados será direcionado para um cadastro de newslatter, bem simples, basta preencher o cadastro e o download será iniciado.
+4. Ainda na tela de historical emissions, faça os seguintes filtros para realizar o donwload de todo o histórico de emissões de gás de dióxido de carbono:
+4.1. Data Sources - All Selected
+4.2. Parties and Regions - All Selected
+4.3. Sectors - All Selected
+4.4. Gases - CO2
+4.5. Start Year - 1950
+4.6. End Year - 2023
+4.7. Bem abaixo do gráfico há um botão chamado: Download Historical Data, clique para realizar o download.
+', current_timestamp());
+
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(20, 7, 'Area', 'Sigla do país', 'STRING', 'COUNTRY', '');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(21, 7, 'Short Name', 'Código do FAOSTAT, que condiz o tipo de fertilizante, herbicida, pesticida e outros agrotóxicos que podem influenciar nos alimentos, conforme a Organização Mundial de Alimentos e Agricultura das Nações Unidas (fonte: https://www.fao.org/home/en)', 'STRING', 'SHORT_NAME', '');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(22, 7, 'Years / Anos', 'estará os valores de anos no restantes das colunas com os dados em toneladas', 'NUMBER', 'VALUE', 'ZZZ.ZZZ.ZZ9,999');
+
+INSERT INTO CATALOGO_COLUNA_DADOS_OBS VALUES 
+(12, 21, 'Short name ou nome curto, é uma referência à um nome de campo que possuí alguma descrição completa na tabela de referências.');
+INSERT INTO CATALOGO_COLUNA_DADOS_OBS VALUES 
+(13, 22, 'As colunas são os anos, por isso o campo Years não tem valor');
+
+INSERT INTO catalogo_dados_referencia VALUES
+(24, 21, 'production_Agr_1', 'Agriculture Prouction - Maize', 'produção agrícola de milho');
+INSERT INTO catalogo_dados_referencia VALUES
+(25, 21, 'production_Agr_2', 'Agriculture Prouction - Rice', 'produção agrícola de arroz');
+INSERT INTO catalogo_dados_referencia VALUES
+(26, 21, 'production_Agr_3', 'Agriculture Prouction - Soy', 'produção agrícola de soja');
+INSERT INTO catalogo_dados_referencia VALUES
+(27, 21, 'production_Agr_4', 'Agriculture Prouction - Wheat', 'produção agrícola de trigo');
+INSERT INTO catalogo_dados_referencia VALUES
+(28, 21, 'production_Agr_5', 'Agriculture Prouction - Cattle', 'produção agrícola de gado');
+INSERT INTO catalogo_dados_referencia VALUES
+(29, 21, 'production_Agr_6', 'Agriculture Prouction - Pig', 'produção agrícola de porco');
+INSERT INTO catalogo_dados_referencia VALUES
+(30, 21, 'production_Agr_7', 'Agriculture Prouction - Chicken', 'produção agrícola de frango');
+INSERT INTO catalogo_dados_referencia VALUES
+(31, 21, 'production_Agr_8', 'Agriculture Prouction - Goat', 'produção agrícola de ovelha');
+INSERT INTO catalogo_dados_referencia VALUES
+(32, 21, 'production_Agr_9', 'Agriculture Prouction - Milk Cow', 'produção agrícola de leite de vaca');
+INSERT INTO catalogo_dados_referencia VALUES
+(33, 21, 'production_Agr_10', 'Agriculture Prouction - Milk Goat', 'produção agrícola de leite de cabra');
+INSERT INTO catalogo_dados_referencia VALUES
+(34, 21, 'trade_export_1', 'Trade of agriculture commodities - Export - Rice', 'Comércio de produtos agrícolas exportação de arroz');
+INSERT INTO catalogo_dados_referencia VALUES
+(35, 21, 'trade_export_2', 'Trade of agriculture commodities - Export - Wheat', 'Comércio de produtos agrícolas exportação de trigo');
+INSERT INTO catalogo_dados_referencia VALUES
+(36, 21, 'trade_export_3', 'Trade of agriculture commodities - Export - Soybeans', 'Comércio de produtos agrícolas exportação de soja');
+INSERT INTO catalogo_dados_referencia VALUES
+(37, 21, 'trade_export_4', 'Trade of agriculture commodities - Export - Maize', 'Comércio de produtos agrícolas exportação de milho');
+INSERT INTO catalogo_dados_referencia VALUES
+(38, 21, 'trade_export_5', 'Trade of agriculture commodities - Export - Milk Cow', 'Comércio de produtos agrícolas exportação de leite de vaca');
+INSERT INTO catalogo_dados_referencia VALUES
+(39, 21, 'trade_export_6', 'Trade of agriculture commodities - Export - Chicken', 'Comércio de produtos agrícolas exportação de frango');
+INSERT INTO catalogo_dados_referencia VALUES
+(40, 21, 'trade_export_7', 'Trade of agriculture commodities - Export - Goat', 'Comércio de produtos agrícolas exportação de cabra');
+INSERT INTO catalogo_dados_referencia VALUES
+(41, 21, 'trade_export_8', 'Trade of agriculture commodities - Export - Pig', 'Comércio de produtos agrícolas exportação de porco');
+INSERT INTO catalogo_dados_referencia VALUES
+(42, 21, 'trade_import_1', 'Trade of agriculture commodities - Import - Rice', 'Comércio de produtos agrícolas importação de arroz');
+INSERT INTO catalogo_dados_referencia VALUES
+(43, 21, 'trade_import_2', 'Trade of agriculture commodities - Import - Wheat', 'Comércio de produtos agrícolas importação de trigo');
+INSERT INTO catalogo_dados_referencia VALUES
+(44, 21, 'trade_import_3', 'Trade of agriculture commodities - Import - Soybeans', 'Comércio de produtos agrícolas importação de soja');
+INSERT INTO catalogo_dados_referencia VALUES
+(45, 21, 'trade_import_4', 'Trade of agriculture commodities - Import - Maize', 'Comércio de produtos agrícolas importação de milho');
+INSERT INTO catalogo_dados_referencia VALUES
+(46, 21, 'trade_import_5', 'Trade of agriculture commodities - Import - Milk Cow', 'Comércio de produtos agrícolas importação de leite de vaca');
+INSERT INTO catalogo_dados_referencia VALUES
+(47, 21, 'trade_import_6', 'Trade of agriculture commodities - Import - Chicken', 'Comércio de produtos agrícolas importação de frango');
+INSERT INTO catalogo_dados_referencia VALUES
+(48, 21, 'trade_import_7', 'Trade of agriculture commodities - Import - Goat', 'Comércio de produtos agrícolas importação de cabra');
+INSERT INTO catalogo_dados_referencia VALUES
+(49, 21, 'trade_import_8', 'Trade of agriculture commodities - Import - Pig', 'Comércio de produtos agrícolas importação de porco');
+
+
+--CLIMATE WATCH - AGRICULTURE VALUE ADDED
+INSERT INTO CATALOGO_FONTES_DADOS VALUES 
+(8, 'CW_AGRICULTURE_VALUE_ADDED', 'O Climate Watch oferece dados abertos - valor adicionado (agricultura) em porcentagem do PIB', 'https://www.climatewatchdata.org/data-explorer/historical-emissions?historical-emissions-data-sources=climate-watch&historical-emissions-gases=all-ghg&historical-emissions-regions=All%20Selected&historical-emissions-sectors=total-including-lulucf&page=1', '1. Clique em Download Bulk Data
+2. Baixe dois arquivos, sendo eles: Agriculture Profile e GHG Emissions
+3. Ao clicar nos links das fontes de dados será direcionado para um cadastro de newslatter, bem simples, basta preencher o cadastro e o download será iniciado.
+4. Ainda na tela de historical emissions, faça os seguintes filtros para realizar o donwload de todo o histórico de emissões de gás de dióxido de carbono:
+4.1. Data Sources - All Selected
+4.2. Parties and Regions - All Selected
+4.3. Sectors - All Selected
+4.4. Gases - CO2
+4.5. Start Year - 1950
+4.6. End Year - 2023
+4.7. Bem abaixo do gráfico há um botão chamado: Download Historical Data, clique para realizar o download.
+', current_timestamp());
+
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(23, 8, 'Area', 'Sigla do país', 'STRING', 'COUNTRY', '');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(24, 8, 'Short Name', 'nome curto do tipo do dado para o valor adicionado (agricultura) em porcentagem do PIB', 'STRING', 'SHORT_NAME', '');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(25, 8, 'Years / Anos', 'estará os valores de anos no restantes das colunas com os dados percentuais', 'NUMBER', 'VALUE', 'ZZZ.ZZZ.ZZ9,999');
+
+INSERT INTO CATALOGO_COLUNA_DADOS_OBS VALUES 
+(14, 23, 'Short name ou nome curto, é uma referência à um nome de campo que possuí alguma descrição completa na tabela de referências.');
+INSERT INTO CATALOGO_COLUNA_DADOS_OBS VALUES 
+(15, 24, 'As colunas são os anos, por isso o campo Years não tem valor');
+
+INSERT INTO catalogo_dados_referencia VALUES
+(50, 24, 'value_added_Agr', 'Aggregate value', 'valor agregado do PIB em porcentagem');
+
+
+--CLIMATE WATCH - AGRICULTURE WATER
+INSERT INTO CATALOGO_FONTES_DADOS VALUES 
+(9, 'CW_AGRICULTURE_VALUE_ADDED', 'O Climate Watch oferece dados abertos - retirada de água total para áreas agrícolas', 
+'https://www.climatewatchdata.org/data-explorer/historical-emissions?historical-emissions-data-sources=climate-watch&historical-emissions-gases=all-ghg&historical-emissions-regions=All%20Selected&historical-emissions-sectors=total-including-lulucf&page=1',
+'1. Clique em Download Bulk Data
+2. Baixe dois arquivos, sendo eles: Agriculture Profile e GHG Emissions
+3. Ao clicar nos links das fontes de dados será direcionado para um cadastro de newslatter, bem simples, basta preencher o cadastro e o download será iniciado.
+4. Ainda na tela de historical emissions, faça os seguintes filtros para realizar o donwload de todo o histórico de emissões de gás de dióxido de carbono:
+4.1. Data Sources - All Selected
+4.2. Parties and Regions - All Selected
+4.3. Sectors - All Selected
+4.4. Gases - CO2
+4.5. Start Year - 1950
+4.6. End Year - 2023
+4.7. Bem abaixo do gráfico há um botão chamado: Download Historical Data, clique para realizar o download.
+', current_timestamp());
+
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(23, 9, 'Area', 'Sigla do país', 'STRING', 'COUNTRY', '');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(24, 9, 'Short Name', 'nome curto do tipo do dado para o percentual de retirada de água total para áreas agrícolas', 'STRING', 'SHORT_NAME', '');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(25, 9, 'Years / Anos', 'estará os valores de anos no restantes das colunas com os dados em percentuais', 'NUMBER', 'VALUE', 'ZZZ.ZZZ.ZZ9,999');
+
+INSERT INTO CATALOGO_COLUNA_DADOS_OBS VALUES 
+(14, 26, 'Short name ou nome curto, é uma referência à um nome de campo que possuí alguma descrição completa na tabela de referências.');
+INSERT INTO CATALOGO_COLUNA_DADOS_OBS VALUES 
+(15, 27, 'As colunas são os anos, por isso o campo Years não tem valor');
+
+INSERT INTO catalogo_dados_referencia VALUES
+(50, 24, 'water_withdrawal', 'Agricultural water withdrawal as % of total water withdrawal', 'Retirada de água para agricultura como % da retirada total de água');
+
+
+
+--CLIMATE WATCH - Historical Emissions
+INSERT INTO CATALOGO_FONTES_DADOS VALUES 
+(10, 'CW_HISTORICAL_EMISSIONS', 'O Climate Watch oferece dados abertos - histórico quantidade de emissão de dióxido de carbono', 'https://www.climatewatchdata.org/data-explorer/historical-emissions?historical-emissions-data-sources=climate-watch&historical-emissions-gases=all-ghg&historical-emissions-regions=All%20Selected&historical-emissions-sectors=total-including-lulucf&page=1', '1. Clique em Download Bulk Data
+2. Baixe dois arquivos, sendo eles: Agriculture Profile e GHG Emissions
+3. Ao clicar nos links das fontes de dados será direcionado para um cadastro de newslatter, bem simples, basta preencher o cadastro e o download será iniciado.
+4. Ainda na tela de historical emissions, faça os seguintes filtros para realizar o donwload de todo o histórico de emissões de gás de dióxido de carbono:
+4.1. Data Sources - All Selected
+4.2. Parties and Regions - All Selected
+4.3. Sectors - All Selected
+4.4. Gases - CO2
+4.5. Start Year - 1950
+4.6. End Year - 2023
+4.7. Bem abaixo do gráfico há um botão chamado: Download Historical Data, clique para realizar o download.
+', current_timestamp());
+ 
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(26, 10, 'country', 'Sigla do país', 'STRING', 'COUNTRY', '');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(27, 10, 'source', 'fonte para o dado obtido tecnologia que realizou a coleta de dados, nesse arquivo terá duas, sendo elas: UNFCCC_AI (por inteligência artificial) e UNFCCC_NAI (Refere-se aos países que não estão listados no Anexo I da Convenção-Quadro das Nações Unidas)', 'STRING', 'SOURCE', '');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(28, 10, 'sector', 'Setor da emissão do gás que o dado está sendo verificado', 'STRING', 'SECTOR', '');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(29, 10, 'Gas', 'tipo do gás que está sendo verificado no dado', 'STRING', 'GAS', '');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(30, 10, 'Years / Anos', 'estará os valores de anos no restantes das colunas com os dados dos valores em MtCO₂e (milhões de toneladas de dióxido de carbono equivalente).', 'FLOAT', 'VALUE', 
+'ZZZ,ZZZ,ZZ9.999');
+
+INSERT INTO CATALOGO_COLUNA_DADOS_OBS VALUES 
+(16, 26, 'Há dados com os valores de country (países) com a seguinte informação: ANNEXI, talvez seja o valor do arquivo para o planeta, pois não há essa Contry no arquivo, ao contrário dos demais arquivos, entretanto também não há evidências suficiente para afirmar isso, então, esses campos serão descartados.');
+INSERT INTO CATALOGO_COLUNA_DADOS_OBS VALUES 
+(17, 27, 'Os valores do source também serão descartados, afinal não é interessante para essa pesquisa.');
+INSERT INTO CATALOGO_COLUNA_DADOS_OBS VALUES 
+(18, 28, 'Há alguns setores que possuem valores agregados para vários tipos de gases, e outros de tipos de pesquisas que estão juntos, como o objetivo deste projeto é apenas de dióxido de carbono, estes valores serão descartados.');
+
+
+--International Energy Agency (IEA) - gases emissions
+INSERT INTO CATALOGO_FONTES_DADOS VALUES 
+(11, 'IEA_GAS_EMISSIONS', 'International Energy Agency (IEA) - histórico de emissão de dióxido de carbono por tipos de gases', 'https://www.iea.org/data-and-statistics/data-product/global-energy-review-co2-emissions-in-2021#', 'Link para download direto, onde será um arquivo XLSX e terá que fazer um cadastro gratuito no site para conseguir realizar o download da fonte de dados', current_timestamp());
+
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(31, 11, 'Type emission', 'Tipo de emissão', 'STRING', 'SECTOR', '');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(32, 11, 'CO2 emissions', 'origem de emissão de CO2', 'STRING', 'ORIGIN', '');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(33, 11, 'Unit', 'unidade de medida da emissão de CO2', 'STRING', 'UNIT', '');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(34, 11, 'Year', 'ano da emissão de CO2 conforme a unidade de medida', 'STRING', 'VALUE', 'ZZZ.ZZZ.ZZ9,999');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(35, 11, 'Grow rate % Year', 'taxa de variação em porcentagem entre os anos 1 e 2, 2 e 3', 'FLOAT', 'VALUE', 'ZZZ.ZZZ.ZZ9,999');
+ 
+INSERT INTO CATALOGO_COLUNA_DADOS_OBS VALUES 
+(19, 34, 'As colunas são os anos, por isso o campo Years não tem valor');
+INSERT INTO CATALOGO_COLUNA_DADOS_OBS VALUES 
+(20, 35, 'As colunas são os anos, por isso o campo Years não tem valor');
+
+
+--International Energy Agency (IEA) - coutries
+INSERT INTO CATALOGO_FONTES_DADOS VALUES 
+(12, 'IEA_EMISSIONS', 'International Energy Agency (IEA) - histórico de emissão de dióxido de carbono por países', 
+'https://www.iea.org/data-and-statistics/data-product/global-energy-review-co2-emissions-in-2021#', 
+'Link para download direto, onde será um arquivo XLSX e terá que fazer um cadastro gratuito no site para conseguir realizar o download da fonte de dados', 
+current_timestamp()); 
+
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(36, 12, 'Type emission', 'Tipo de emissão', 'STRING', 'SECTOR', '');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(37, 12, 'country', 'país de emissão de CO2', 'STRING', 'COUNTRY', '');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(38, 12, 'Unit', 'unidade de medida da emissão de CO2', 'STRING', 'UNIT', '');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(39, 12, 'Year', 'ano da emissão de CO2 conforme a unidade de medida', 'STRING', 'VALUE', 'ZZZ.ZZZ.ZZ9,999');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(40, 12, 'Grow rate % Year', 'taxa de variação em porcentagem entre os anos 1 e 2, 2 e 3', 'FLOAT', 'VALUE', 'ZZZ.ZZZ.ZZ9,999');
+ 
+INSERT INTO CATALOGO_COLUNA_DADOS_OBS VALUES 
+(21, 39, 'As colunas são os anos, por isso o campo Years não tem valor');
+INSERT INTO CATALOGO_COLUNA_DADOS_OBS VALUES 
+(22, 40, 'As colunas são os anos, por isso o campo Years não tem valor');
+
+
+--Food And Agriculture Organization of the United Nations
+INSERT INTO CATALOGO_FONTES_DADOS VALUES 
+(13, 'FAOSTAT_EMISSIONS_TOTALS', 'Food And Agriculture Organization of the United Nations - Organização de comida e agricultura das nações unidas
+- Informações sobre tipos de alimentos, ano e tipos de gases emitidos', 'https://www.iea.org/data-and-statistics/data-product/global-energy-review-co2-emissions-in-2021#', 'Link para download direto, onde será um arquivo XLSX e terá que fazer um cadastro gratuito no site para conseguir realizar o download da fonte de dados', current_timestamp());
+
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(41, 13, 'Area Code', 'código da área', 'STRING', 'COUNTRY', '');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(42, 13, 'Area code M49', 'código da área conforme a tabela M49', 'STRING', 'COUNTRY', '');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(43, 13, 'Area', 'Nome do país ou da área do registro', 'STRING', 'COUNTRY', ''); 
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(44, 13, 'Item Code', 'código dos itens', 'STRING', 'ITEM', '');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(45, 13, 'Item', 'Nome do item', 'STRING', 'ITEM', '');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(46, 13, 'Element Code', 'Código do elemento do registro e/ou da emissão', 'STRING', 'ELEMENT', '');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(47, 13, 'Element', 'nome do elemento do registro', 'STRING', 'ELEMENT', '');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(48, 13, 'Source Code', 'código da fonte de dados', 'STRING', 'SOURCE', '');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(49, 13, 'Source', 'fonte dos dados', 'STRING', 'SOURCE', '');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(50, 13, 'unit', 'unidade de medida do elemento', 'STRING', 'UNIT', '');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(51, 13, 'Years', 'campos com os Anos', 'FLOAT', 'VALUE', 'ZZZ.ZZZ.ZZ9,999');
+
+INSERT INTO CATALOGO_COLUNA_DADOS_OBS VALUES 
+(23, 41, 'Coluna descartada por se tratar de um código que não está totalmente tratado no arquivo de origem');
+INSERT INTO CATALOGO_COLUNA_DADOS_OBS VALUES 
+(24, 42, 'Coluna descartada por se tratar de um código que não está totalmente tratado no arquivo de origem');
+INSERT INTO CATALOGO_COLUNA_DADOS_OBS VALUES 
+(25, 44, 'Coluna descartada por se tratar de um código que não está totalmente tratado no arquivo de origem');
+INSERT INTO CATALOGO_COLUNA_DADOS_OBS VALUES 
+(26, 46, 'Coluna descartada por se tratar de um código que não está totalmente tratado no arquivo de origem');
+INSERT INTO CATALOGO_COLUNA_DADOS_OBS VALUES 
+(27, 48, 'Coluna descartada por se tratar de um código que não está totalmente tratado no arquivo de origem');
+INSERT INTO CATALOGO_COLUNA_DADOS_OBS VALUES 
+(28, 49, 'Coluna descartada por se tratar de um código que não está totalmente tratado no arquivo de origem');
+INSERT INTO CATALOGO_COLUNA_DADOS_OBS VALUES 
+(29, 51, 'arquivo com flags: Y - representando o ano, o número do ano no formato YYYY - X - Letra da Flag, ficando da seguinte forma: Y2025X');
+INSERT INTO CATALOGO_COLUNA_DADOS_OBS VALUES 
+(30, 51, 'no arquivo que possuí as flags, há anos que possuem a flag: N, entretanto não há informações sobre esta flag no arquivo e flags, então por este motivo foi optado por usar o arquivo NOFLAG');
+INSERT INTO CATALOGO_COLUNA_DADOS_OBS VALUES 
+(31, 52, 'o arquivo NOFLAG possuí apenas o Y seguido do ano em 4 dígitos (Ex.: Y2025)');
+
+
+
+--NASA
+INSERT INTO CATALOGO_FONTES_DADOS VALUES 
+(14, 'NASA_CMS_FLUX_TOTAL', 'National Aeronautics and Space Administration (NASA) - Mostra os dados de fluxo de carbono total em uma área por latitude e longitude.', 'https://acdisc.gsfc.nasa.gov/data/CMS/CMSFluxTotal.3', '1. Os passos para download são:
+1. Clique em Once Registered, you can click here.
+2. Caso não tenha um cadastro, crie um.
+3. Depois realize o login
+4. Volte na página do link direto para download
+5. Clique no arquivo CMSFluxTotal201001_202212_v3.nc
+6. Baixe o arquivo.
+7. Execute o comando em Python para converter arquivos NC para CSV.
+', current_timestamp()
+);
+
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(52, 14, 'Time', 'Data e hora da coleta dos dados, no formato: YYYY-MM-DD HH:MM:SS', 'STRING', 'YEAR', '');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(53, 14, 'latitude', 'é os graus de latitude do registro', 'STRING', 'LOCAL', '');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(54, 14, 'longitude', 'é os graus de longitude do registro', 'STRING', 'LOCAL', ''); 
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(55, 14, 'total_post', 'quantidade de CO2 emitido na área em g/m^2/day (gramas por metro quadrado por dia)', 'FLOAT', 'VALUE', 'ZZZ,ZZZ,ZZ9.999');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(56, 14, 'area', 'é a área em m2 (metros quadrados)', 'FLOAT', 'AREA', 'ZZZ,ZZZ,ZZ9.999');
+
+INSERT INTO CATALOGO_COLUNA_DADOS_OBS VALUES 
+(32, 52, 'Agrupada o tempo em ano');
+INSERT INTO CATALOGO_COLUNA_DADOS_OBS VALUES 
+(33, 53, 'Agrupada junto com longitude e separado por "," (Vírgula)');
+INSERT INTO CATALOGO_COLUNA_DADOS_OBS VALUES 
+(34, 54, 'Agrupada junto com latitude e separado por "," (Vírgula)');
+
+
+
+--ONU - NAÇÕES UNIDAS --EMISSIONS REMOVALS
+INSERT INTO CATALOGO_FONTES_DADOS VALUES 
+(15, 'ONU_ANNUAL_EMISSIONS_REMOVALS', 'Organização das Nações Unidas (ONU) - CO2 total with LULUCF (Uso da Terra, Mudança no Uso da Terra e Florestas).
+', 'https://di.unfccc.int/time_series', '1. São vários datasets e conforme vai navegando poderá ir baixando os dados, exemplo, se clicar em Flexible Queries > Preencher todas as informações relacionadas à carbbono (em inglês Carbon) ou CO² mostrará então um relatório em tabela para exportar para CSV, ou em Time Series - Annex I, poderá ir filtrando as informações relacionadas com estas palavras-chaves e então modificando o resultado da consulta da tabela, e com isso exportar para XLSX e posteriormente converter para CSV.
+', current_timestamp());
+ 
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(57, 15, 'Category', 'Categoria do setor de emissão', 'STRING', 'SECTOR', '');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(58, 15, 'Base year', 'ano base', 'FLOAT', 'VALUE', 'ZZZ,ZZZ,ZZ9.999');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(59, 15, 'Campos de anos', 'Campos de anos', 'STRING', 'YEAR', ''); 
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(60, 15, 'Last inventory Year (2021)', 'ano de 2021 que foi a última coleta', 'FLOAT', 'VALUE', 'ZZZ,ZZZ,ZZ9.999');
+
+
+--ONU - NAÇÕES UNIDAS -- GREENHOUSE GAS
+INSERT INTO CATALOGO_FONTES_DADOS VALUES 
+(16, 'ONU_ANNUAL_GREENHOUSE_GAS', 'Organização das Nações Unidas (ONU) - Emissões de gases do efeito estufa anuais.', 
+'https://di.unfccc.int/detailed_data_by_party', 
+'1. São vários datasets e conforme vai navegando poderá ir baixando os dados, exemplo, se clicar em Flexible Queries > Preencher todas as informações relacionadas à carbbono (em inglês Carbon) ou CO² mostrará então um relatório em tabela para exportar para CSV, ou em Time Series - Annex I, poderá ir filtrando as informações relacionadas com estas palavras-chaves e então modificando o resultado da consulta da tabela, e com isso exportar para XLSX e posteriormente converter para CSV.
+2. Select Party - Annex I
+3. Select Base Year - All Years
+4. Select Totals - Total GHG emissions with LULUCF
+5. Select Aggregate GHGs - CO2
+6. Select kt - kt
+', current_timestamp()
+);
+
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(61, 16, 'Category', 'Categoria do setor de emissão', 'STRING', 'SECTOR', '');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(62, 16, 'Base year', 'ano base', 'FLOAT', 'VALUE', 'ZZZ,ZZZ,ZZ9.999');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(63, 16, 'Campos de anos', 'Campos de anos', 'STRING', 'YEAR', ''); 
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(64, 16, 'Last inventory Year (2021)', 'ano de 2021 que foi a última coleta', 'FLOAT', 'VALUE', 'ZZZ,ZZZ,ZZ9.999');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(65, 16, 'Change from base yar to latest reported year', 'comparativo entre a última coleta e a coleta base', 'FLOAT', 'AREA', 'ZZZ,ZZZ,ZZ9.999');
+
+
+--ONU - NaÇÕES UNIDAS -- EMISSÕES TOTAIS DE CO2 POR ANO
+INSERT INTO CATALOGO_FONTES_DADOS VALUES 
+(17, 'ONU_TIME_SERIES_CO_2_TOTAL', 'Organização das Nações Unidas (ONU) - Emissões totais de CO2 por ano', 
+'https://di.unfccc.int/flex_annex1', 
+'1. São vários datasets e conforme vai navegando poderá ir baixando os dados, exemplo, se clicar em Flexible Queries > Preencher todas as informações relacionadas à carbbono (em inglês Carbon) ou CO² mostrará então um relatório em tabela para exportar para CSV, ou em Time Series - Annex I, poderá ir filtrando as informações relacionadas com estas palavras-chaves e então modificando o resultado da consulta da tabela, e com isso exportar para XLSX e posteriormente converter para CSV.
+2. Select Party - Annex I
+3. Select Base Year - All Years
+4. Select Totals - Total GHG emissions with LULUCF
+5. Select Total for category
+6. Select Type of valye: Net emiissions/removals
+7. Select kt - kt
+', current_timestamp()
+);
+
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(66, 17, 'Category', 'Categoria do setor de emissão', 'STRING', 'SECTOR', '');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(67, 17, 'Base year', 'ano base', 'FLOAT', 'VALUE', 'ZZZ,ZZZ,ZZ9.999');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(68, 17, 'Campos de anos', 'Campos de anos', 'STRING', 'YEAR', ''); 
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(69, 17, 'Last inventory Year (2021)', 'ano de 2021 que foi a última coleta', 'FLOAT', 'VALUE', 'ZZZ,ZZZ,ZZ9.999');
+
+
+
+--OUR WORLD IN DATA - EMISSÕES TOTAIS DE CO2 POR PAÍSES
+INSERT INTO CATALOGO_FONTES_DADOS VALUES 
+(18, 'OWD_ANNUAL_CO_2_EMISSIONS_PER_COUNTRY', 'Our World in Data - Emissões totais de CO2 por país', 'https://ourworldindata.org/search?q=co2', '3.7.2. Pesquisar por CO2 irá ser mostrada as seguintes informações, realizar download das informações abaixo
+1. CO2 emissions per capita
+2. Annual CO2 emissions
+3. Annual concentration of atmospheric carbon dioxide
+4. Annual CO2 emissions by world region
+5. Share of global CO2 emissions
+6. Cumulative CO2 emissions
+7. Cumulative CO2 emissions by world region
+8. Share of global cumulative CO₂ emissions
+9. Carbon dioxide emissions factors
+', current_timestamp()
+);
+
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(70, 18, 'Entity', 'País', 'STRING', 'COUNTRY', '');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(71, 18, 'Code', 'Sigla do País', 'STRING', 'COUNTRY', '');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(72, 18, 'Year', 'Campos de anos', 'STRING', 'YEAR', ''); 
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(73, 18, 'Annual CO2 Emissions', 'valor anual de emissão de CO2', 'FLOAT', 'VALUE', 'ZZZ,ZZZ,ZZ9.999');
+
+INSERT INTO CATALOGO_COLUNA_DADOS_OBS VALUES 
+(35, 70, 'Há um país chamado WORLD ou mundo para agregar tudo');
+INSERT INTO CATALOGO_COLUNA_DADOS_OBS VALUES 
+(36, 73, 'Os valores de referência estão em toneladas.'); 
+
+ 
+--OUR WORLD IN DATA - Emissões totais de CO2 de áreas compartilhadas
+INSERT INTO CATALOGO_FONTES_DADOS VALUES 
+(19, 'OWD_ANNUAL_SHARE_OF_CO_2_EMISSIONS', 'Our World in Data - Emissões totais de CO2 de áreas compartilhadas', 'https://ourworldindata.org/search?q=co2', '3.7.2. Pesquisar por CO2 irá ser mostrada as seguintes informações, realizar download das informações abaixo
+1. CO2 emissions per capita
+2. Annual CO2 emissions
+3. Annual concentration of atmospheric carbon dioxide
+4. Annual CO2 emissions by world region
+5. Share of global CO2 emissions
+6. Cumulative CO2 emissions
+7. Cumulative CO2 emissions by world region
+8. Share of global cumulative CO₂ emissions
+9. Carbon dioxide emissions factors
+', current_timestamp()
+);
+
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(74, 19, 'Entity', 'País', 'STRING', 'COUNTRY', '');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(75, 19, 'Code', 'Sigla do País', 'STRING', 'COUNTRY', '');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(76, 19, 'Year', 'Campos de anos', 'STRING', 'YEAR', ''); 
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(77, 19, 'Annual CO2 Emissions', 'valor anual de emissão de CO2', 'FLOAT', 'VALUE', 'ZZZ,ZZZ,ZZ9.999');
+
+INSERT INTO CATALOGO_COLUNA_DADOS_OBS VALUES 
+(37, 74, 'Há um país chamado WORLD ou mundo para agregar tudo');
+INSERT INTO CATALOGO_COLUNA_DADOS_OBS VALUES 
+(38, 77, 'Os valores de referência estão em toneladas.'); 
+INSERT INTO CATALOGO_COLUNA_DADOS_OBS VALUES 
+(39, 74, 'Algumas entidades não possuem a sigla do país, isso significa que é uma entidade agrupada, exemplo: North American - América do Norte.');
+
+ 
+
+--OUR WORLD IN DATA - Fatores de emissão de carbono
+INSERT INTO CATALOGO_FONTES_DADOS VALUES 
+(20, 'OWD_CARBON_DIOXIDE_EMISSIONS_FACTOR', 'Our World in Data - Fatores de emissão de carbono', 'https://ourworldindata.org/search?q=co2', '3.7.2. Pesquisar por CO2 irá ser mostrada as seguintes informações, realizar download das informações abaixo
+1. CO2 emissions per capita
+2. Annual CO2 emissions
+3. Annual concentration of atmospheric carbon dioxide
+4. Annual CO2 emissions by world region
+5. Share of global CO₂ emissions
+6. Cumulative CO2 emissions
+7. Cumulative CO2 emissions by world region
+8. Share of global cumulative CO₂ emissions
+9. Carbon dioxide emissions factors
+', current_timestamp()
+);
+
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(78, 20, 'Entity', 'País', 'STRING', 'COUNTRY', '');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(79, 20, 'Code', 'Sigla do País', 'STRING', 'COUNTRY', '');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(80, 20, 'Year', 'Campos de anos', 'STRING', 'YEAR', ''); 
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(81, 20, 'Annual CO2 Emissions', 'CO2 emission factor - valor da emissão de CO2 do fator', 'FLOAT', 'VALUE', 'ZZZ,ZZZ,ZZ9.999');
+
+INSERT INTO CATALOGO_COLUNA_DADOS_OBS VALUES 
+(40, 78, 'Há um país chamado WORLD ou mundo para agregar tudo');
+INSERT INTO CATALOGO_COLUNA_DADOS_OBS VALUES 
+(41, 80, 'Os valores de referência estão em toneladas.'); 
+INSERT INTO CATALOGO_COLUNA_DADOS_OBS VALUES 
+(42, 78, 'Algumas entidades não possuem a sigla do país, isso significa que é uma entidade agrupada, exemplo: North American - América do Norte.');
+
+ 
+
+ 
+--OUR WORLD IN DATA - Concentração longo prazo de CO2
+INSERT INTO CATALOGO_FONTES_DADOS VALUES 
+(21, 'OWD_CO_2_LONG_TERM_CONCENTRATION', 'Our World in Data - Concentração longo prazo de CO2', 'https://ourworldindata.org/search?q=co2', '3.7.2. Pesquisar por CO2 irá ser mostrada as seguintes informações, realizar download das informações abaixo
+1. CO2 emissions per capita
+2. Annual CO2 emissions
+3. Annual concentration of atmospheric carbon dioxide
+4. Annual CO2 emissions by world region
+5. Share of global CO2 emissions
+6. Cumulative CO2 emissions
+7. Cumulative CO2 emissions by world region
+8. Share of global cumulative CO₂ emissions
+9. Carbon dioxide emissions factors
+', current_timestamp()
+);
+
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(82, 21, 'Entity', 'País', 'STRING', 'COUNTRY', '');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(83, 21, 'Code', 'Sigla do País', 'STRING', 'COUNTRY', '');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(84, 21, 'Year', 'quantidade de concentração anual de dióxido de carbono na atmosfera', 'STRING', 'YEAR', ''); 
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(85, 21, 'Annual CO2 Emissions', 'CO2 emission factor - valor da emissão de CO2 do fator', 'FLOAT', 'VALUE', 'ZZZ,ZZZ,ZZ9.999');
+
+INSERT INTO CATALOGO_COLUNA_DADOS_OBS VALUES 
+(43, 82, 'Há apenas o país chamado WORLD ou mundo para agregar tudo');
+INSERT INTO CATALOGO_COLUNA_DADOS_OBS VALUES 
+(44, 85, 'Os valores de referência estão em toneladas.'); 
+INSERT INTO CATALOGO_COLUNA_DADOS_OBS VALUES 
+(46, 85, 'Há mais da metade dos registros que estão com o valor de ano em negativo, e um valor bem estranho, exemplo: -803719');
+
+ 
+
+
+--OUR WORLD IN DATA - Emissões totais de CO2 por capita
+INSERT INTO CATALOGO_FONTES_DADOS VALUES 
+(22, 'OWD_CO_EMISSIONS_PER_CAPITA', 'Our World in Data - Emissões totais de CO2 por capita', 'https://ourworldindata.org/search?q=co2', '3.7.2. Pesquisar por CO2 irá ser mostrada as seguintes informações, realizar download das informações abaixo
+1. CO2 emissions per capita
+2. Annual CO2 emissions
+3. Annual concentration of atmospheric carbon dioxide
+4. Annual CO2 emissions by world region
+5. Share of global CO2 emissions
+6. Cumulative Co2 emissions
+7. Cumulative CO2 emissions by world region
+8. Share of global cumulative CO₂ emissions
+9. Carbon dioxide emissions factors
+', current_timestamp());
+
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(86, 22, 'Entity', 'País', 'STRING', 'COUNTRY', '');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(87, 22, 'Code', 'Sigla do País', 'STRING', 'COUNTRY', '');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(88, 22, 'Year', 'quantidade de CO2 emitido per capita', 'STRING', 'YEAR', ''); 
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(89, 22, 'Annual CO2 Emissions (per_capita)', 'quantidade de CO2 emitido per capita', 'FLOAT', 'VALUE', 'ZZZ,ZZZ,ZZ9.999');
+
+INSERT INTO CATALOGO_COLUNA_DADOS_OBS VALUES 
+(47, 86, 'Há apenas o país chamado WORLD ou mundo para agregar tudo');
+INSERT INTO CATALOGO_COLUNA_DADOS_OBS VALUES 
+(48, 89, 'Os valores de referência estão em toneladas.'); 
+INSERT INTO CATALOGO_COLUNA_DADOS_OBS VALUES 
+(49, 86, 'Algumas entidades não possuem a sigla do país, isso significa que é uma entidade agrupada, exemplo: North American - América do Norte.');
+
+ 
+
+
+--OUR WORLD IN DATA - Emissões totais acumuladas de CO2
+INSERT INTO CATALOGO_FONTES_DADOS VALUES 
+(23, 'OWD_CUMULATIVE_CO_EMISSIONS', 'Our World in Data - Emissões totais acumuladas de CO2', 'https://ourworldindata.org/search?q=co2', '3.7.2. Pesquisar por CO2 irá ser mostrada as seguintes informações, realizar download das informações abaixo
+1. CO2 emissions per capita
+2. Annual CO2 emissions
+3. Annual concentration of atmospheric carbon dioxide
+4. Annual CO2 emissions by world region
+5. Share of global CO2 emissions
+6. Cumulative CO2 emissions
+7. Cumulative CO2 emissions by world region
+8. Share of global cumulative CO₂ emissions
+9. Carbon dioxide emissions factors
+', current_timestamp()
+);
+
+
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(90, 23, 'Entity', 'País', 'STRING', 'COUNTRY', '');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(90, 23, 'Code', 'Sigla do País', 'STRING', 'COUNTRY', '');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(91, 23, 'Year', 'quantidade de CO2 emitido per capita', 'STRING', 'YEAR', ''); 
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(92, 23, 'Cumulative CO2 emissions', 'quantidade acumulada ao longo dos anos de emissão de CO2', 'FLOAT', 'VALUE', 'ZZZ,ZZZ,ZZ9.999');
+
+INSERT INTO CATALOGO_COLUNA_DADOS_OBS VALUES 
+(50, 90, 'Há apenas o país chamado WORLD ou mundo para agregar tudo');
+INSERT INTO CATALOGO_COLUNA_DADOS_OBS VALUES 
+(51, 92, 'Os valores de referência estão em toneladas.'); 
+INSERT INTO CATALOGO_COLUNA_DADOS_OBS VALUES 
+(52, 90, 'Algumas entidades não possuem a sigla do país, isso significa que é uma entidade agrupada, exemplo: North American - América do Norte.');
+
+ 
+
+
+--OUR WORLD IN DATA - Acumulado de emissões de CO2 em áreas compartilhadas
+INSERT INTO CATALOGO_FONTES_DADOS VALUES 
+(24, 'OWD_SHARE_OF_CUMULATIVE_CO_2', 'Our World in Data - Acumulado de emissões de CO2 em áreas compartilhadas', 'https://ourworldindata.org/search?q=co2', '3.7.2. Pesquisar por CO2 irá ser mostrada as seguintes informações, realizar download das informações abaixo
+1. CO2 emissions per capita
+2. Annual CO2 emissions
+3. Annual concentration of atmospheric carbon dioxide
+4. Annual CO2 emissions by world region
+5. Share of global CO2 emissions
+6. Cumulative CO2 emissions
+7. Cumulative CO2 emissions by world region
+8. Share of global cumulative CO₂ emissions
+9. Carbon dioxide emissions factors
+', current_timestamp()
+);
+
+
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(91, 24, 'Entity', 'País', 'STRING', 'COUNTRY', '');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(92, 24, 'Code', 'Sigla do País', 'STRING', 'COUNTRY', '');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(93, 24, 'Year', 'quantidade de CO2 emitido per capita', 'STRING', 'YEAR', ''); 
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(94, 24, 'Share of global cumulative CO2 emissions ', 'emissão de CO2 acumulada de áreas compartilhadas', 'FLOAT', 'VALUE', 'ZZZ,ZZZ,ZZ9.999');
+
+INSERT INTO CATALOGO_COLUNA_DADOS_OBS VALUES 
+(53, 91, 'Há apenas o país chamado WORLD ou mundo para agregar tudo');
+INSERT INTO CATALOGO_COLUNA_DADOS_OBS VALUES 
+(54, 94, 'Os valores de referência estão em toneladas.'); 
+INSERT INTO CATALOGO_COLUNA_DADOS_OBS VALUES 
+(55, 91, 'Algumas entidades não possuem a sigla do país, isso significa que é uma entidade agrupada, exemplo: North American - América do Norte.');
+
+ 
+
+--OUR WORLD IN DATA - Dados gerais de emisisões de dióxido de carbono
+INSERT INTO CATALOGO_FONTES_DADOS VALUES 
+(25, 'OWID_CO_2_DATA', 'Our World in Data - Dados gerais de emisisões de dióxido de carbono', 'https://ourworldindata.org/search?q=co2', '3.7.2. Pesquisar por CO2 irá ser mostrada as seguintes informações, realizar download das informações abaixo
+1. CO2 emissions per capita
+2. Annual CO2 emissions
+3. Annual concentration of atmospheric carbon dioxide
+4. Annual CO2 emissions by world region
+5. Share of global CO2 emissions
+6. Cumulative CO2 emissions
+7. Cumulative CO2 emissions by world region
+8. Share of global cumulative CO2 emissions
+9. Carbon dioxide emissions factors
+', current_timestamp()
+);
+
+
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(95, 25, 'Country', 'País', 'STRING', 'COUNTRY', '');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(96, 25, 'Year', 'Ano', 'STRING', 'Year', '');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(97, 25, 'ISO_CODE', 'Sigla do País', 'STRING', 'COUNTRY', ''); 
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(98, 25, 'Population', 'População', 'FLOAT', 'VALUE', 'ZZZ,ZZZ,ZZ9.999');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(99, 25, 'gdp', 'Gross domestic product (GDP) - Produção econômica total de um país ou região por ano', 'FLOAT', 'VALUE', 'ZZZ,ZZZ,ZZ9.999');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(100, 25, 'cement_co2', ' Annual CO2 emissions from cement - Emissões anuais de dióxido de carbono (CO2) provenientes do cimento', 'FLOAT', 'VALUE', 'ZZZ,ZZZ,ZZ9.999');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(101, 25, 'cement_co2_per_capita', 'Annual CO2 emissions from cement (per capita) - Emissões anuais de dióxido de carbono (CO2) provenientes do cimento per capita', 'FLOAT', 'VALUE', 'ZZZ,ZZZ,ZZ9.999');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(102, 25, 'co2', 'Annual CO2 - Emissão de CO2 anual', 'FLOAT', 'VALUE', 'ZZZ,ZZZ,ZZ9.999');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(103, 25, 'co2_growth_abs', 'Annual CO2 emissions growth (abs) - Crescimento anual das emissões de CO2 (absoluto)', 'FLOAT', 'VALUE', 'ZZZ,ZZZ,ZZ9.999'); 
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(104, 25, 'co2_growth_prct', 'Annual CO2 emissions growth (%) - Crescimento anual das emissões de CO2 (%)', 'FLOAT', 'VALUE', 'ZZZ,ZZZ,ZZ9.999');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(105, 25, 'co2_including_luc', 'Annual CO2 emissions including land-use change - Emissões anuais de CO2, incluindo mudanças no uso da terra.', 'FLOAT', 'VALUE', 'ZZZ,ZZZ,ZZ9.999');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(106, 25, 'co2_including_luc_growth_abs', 'Growth rate of emissions including land-use change - Taxa de crescimento das emissões, incluindo mudanças no uso da terra', 'FLOAT', 'VALUE', 'ZZZ,ZZZ,ZZ9.999');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(107, 25, 'co2_including_luc_growth_prct', 'Growth rate of emissions including land-use change (%) - Taxa de crescimento das emissões, incluindo mudanças no uso da terra (%)', 'FLOAT', 'VALUE', 'ZZZ,ZZZ,ZZ9.999');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(108, 25, 'co2_including_luc_per_capita', 'Annual CO2 emissions including land-use change per capita - Emissões anuais de CO2, incluindo mudanças no uso da terra (por pessoa)', 'FLOAT', 'VALUE', 'ZZZ,ZZZ,ZZ9.999');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(109, 25, 'co2_including_luc_per_gdp', 'Annual CO2 emissions including land-use change per GDP - Emissões anuais de CO2, incluindo mudanças no uso da terra (por PIB)', 'FLOAT', 'VALUE', 'ZZZ,ZZZ,ZZ9.999');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(110, 25, 'co2_including_luc_per_unit_energy', 'Annual CO2 emissions including land-use change per unit energy - Emissões anuais de CO2, incluindo mudanças no uso da terra (por unidade de energia)', 'FLOAT', 'VALUE', 'ZZZ,ZZZ,ZZ9.999');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(111, 25, 'co2_per_capita', 'CO2 emissions per capita - Emissões de CO2 por pessoa', 'FLOAT', 'VALUE', 'ZZZ,ZZZ,ZZ9.999');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(112, 25, 'co2_per_gdp', 'Annual CO2 emissions per GDP (kg per international-$) - Emissões anuais de CO2 por PIB (kg por dólar internacional)', 'FLOAT', 'VALUE', 'ZZZ,ZZZ,ZZ9.999');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(113, 25, 'co2_per_unit_energy', 'Annual CO2 emissions per unit energy (kg per kilowatt-hour) - Emissões anuais de CO2 por unidade de energia (kg por quilowatt-hora)', 'FLOAT', 'VALUE', 'ZZZ,ZZZ,ZZ9.999');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(114, 25, 'coal_co2', 'Annual CO2 emissions from coal - Emissões anuais de CO2 do carvão', 'FLOAT', 'VALUE', 'ZZZ,ZZZ,ZZ9.999');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(115, 25, 'coal_co2_per_capita', 'Annual CO2 emissions from coal (per capita) - Emissões anuais de CO2 do carvão (por pessoa)', 'FLOAT', 'VALUE', 'ZZZ,ZZZ,ZZ9.999');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(116, 25, 'consumption_co2', 'Annual consumption-based CO2 emissions - Emissões anuais de CO2 baseadas no consumo', 'FLOAT', 'VALUE', 'ZZZ,ZZZ,ZZ9.999');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(117, 25, 'consumption_co2_per_capita', 'Per capita consumption-based CO2 emissions - Emissões de CO2 baseadas no consumo (por pessoa)', 'FLOAT', 'VALUE', 'ZZZ,ZZZ,ZZ9.999');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(118, 25, 'consumption_co2_per_gdp', 'Annual consumption-based CO2 emissions per GDP (kg per international-$) - Emissões anuais de CO2 baseadas no consumo (por PIB)', 'FLOAT', 'VALUE', 'ZZZ,ZZZ,ZZ9.999');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(119, 25, 'cumulative_cement_co2', 'Cumulative CO2 emissions from cement - Emissões acumuladas de CO2 do cimento', 'FLOAT', 'VALUE', 'ZZZ,ZZZ,ZZ9.999');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(120, 25, 'cumulative_co2', 'Cumulative CO2 emissions - Emissões acumuladas de CO2', 'FLOAT', 'VALUE', 'ZZZ,ZZZ,ZZ9.999');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(121, 25, 'cumulative_co2_including_luc', 'Cumulative CO2 emissions including land-use change - Emissões acumuladas de CO2, incluindo mudanças no uso da terra', 'FLOAT', 'VALUE', 'ZZZ,ZZZ,ZZ9.999'); 
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(122, 25, 'cumulative_coal_co2', 'Cumulative CO2 emissions from coal - Emissões acumuladas de CO2 do carvão', 'FLOAT', 'VALUE', 'ZZZ,ZZZ,ZZ9.999');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(123, 25, 'cumulative_flaring_co2', 'Cumulative CO2 emissions from flaring - Emissões acumuladas de CO2 da queima de gás', 'FLOAT', 'VALUE', 'ZZZ,ZZZ,ZZ9.999');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(124, 25, 'cumulative_gas_co2', 'Cumulative CO2 emissions from gas - Emissões acumuladas de CO2 do gás', 'FLOAT', 'VALUE', 'ZZZ,ZZZ,ZZ9.999');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(125, 25, 'cumulative_luc_co2', 'Cumulative CO2 emissions from land-use change - Emissões acumuladas de CO2 da mudança no uso da terra', 'FLOAT', 'VALUE', 'ZZZ,ZZZ,ZZ9.999');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(126, 25, 'cumulative_oil_co2', 'Cumulative CO2 emissions from oil - Emissões acumuladas de CO2 do petróleo', 'FLOAT', 'VALUE', 'ZZZ,ZZZ,ZZ9.999');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(127, 25, 'cumulative_other_co2', 'Cumulative CO2 emissions from other industry - Emissões acumuladas de CO2 de outras indústrias', 'FLOAT', 'VALUE', 'ZZZ,ZZZ,ZZ9.999');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(128, 25, 'energy_per_capita', 'Primary energy consumption per capita - Consumo de energia primária por pessoa', 'FLOAT', 'VALUE', 'ZZZ,ZZZ,ZZ9.999');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(129, 25, 'energy_per_gdp', 'Primary energy consumption per GDP - Consumo de energia primária por PIB', 'FLOAT', 'VALUE', 'ZZZ,ZZZ,ZZ9.999');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(130, 25, 'flaring_co2', 'Annual CO2 emissions from flaring - Emissões anuais de CO2 da queima de gás', 'FLOAT', 'VALUE', 'ZZZ,ZZZ,ZZ9.999');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(131, 25, 'flaring_co2_per_capita', 'Annual CO2 emissions from flaring (per capita) - Emissões anuais de CO2 da queima de gás (por pessoa)', 'FLOAT', 'VALUE', 'ZZZ,ZZZ,ZZ9.999');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(132, 25, 'gas_co2', 'Annual CO2 emissions from gas - Emissões anuais de CO2 do gás', 'FLOAT', 'VALUE', 'ZZZ,ZZZ,ZZ9.999');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(133, 25, 'gas_co2_per_capita', 'Annual CO2 emissions from gas (per capita) - Emissões anuais de CO2 do gás (por pessoa)', 'FLOAT', 'VALUE', 'ZZZ,ZZZ,ZZ9.999');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(134, 25, 'ghg_excluding_lucf_per_capita', 'Per capita greenhouse gas emissions from fossil fuels and industry - Emissões per capita de gases de efeito estufa de combustíveis fósseis e indústria', 'FLOAT', 'VALUE', 'ZZZ,ZZZ,ZZ9.999');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(135, 25, 'ghg_per_capita', 'Per capita greenhouse gas emissions including land use - Emissões per capita de gases de efeito estufa, incluindo uso da terra', 'FLOAT', 'VALUE', 'ZZZ,ZZZ,ZZ9.999');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(136, 25, 'land_use_change_co2', 'Annual CO2 emissions from land-use change - Emissões anuais de CO2 da mudança no uso da terra', 'FLOAT', 'VALUE', 'ZZZ,ZZZ,ZZ9.999');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(137, 25, 'land_use_change_co2_per_capita', 'Annual CO2 emissions from land-use change per capita - Emissões anuais de CO2 da mudança no uso da terra (por pessoa)', 'FLOAT', 'VALUE', 'ZZZ,ZZZ,ZZ9.999');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(138, 25, 'methane', 'Annual methane emissions including land use - Emissões anuais de metano, incluindo uso da terra', 'FLOAT', 'VALUE', 'ZZZ,ZZZ,ZZ9.999');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(139, 25, 'methane_per_capita', 'Per capita methane emissions including land use - Emissões per capita de metano, incluindo uso da terra', 'FLOAT', 'VALUE', 'ZZZ,ZZZ,ZZ9.999');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(140, 25, 'nitrous_oxide', 'Annual nitrous oxide emissions including land use - Emissões anuais de óxido nitroso, incluindo uso da terra', 'FLOAT', 'VALUE', 'ZZZ,ZZZ,ZZ9.999');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(141, 25, 'nitrous_oxide_per_capita', 'Per capita nitrous oxide emissions including land use - Emissões per capita de óxido nitroso, incluindo uso da terra', 'FLOAT', 'VALUE', 'ZZZ,ZZZ,ZZ9.999');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(142, 25, 'oil_co2', 'Annual CO2 emissions from oil - Emissões anuais de CO2 do petróleo', 'FLOAT', 'VALUE', 'ZZZ,ZZZ,ZZ9.999');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(143, 25, 'oil_co2_per_capita', 'Annual CO2 emissions from oil (per capita) - Emissões anuais de CO2 do petróleo (por pessoa)', 'FLOAT', 'VALUE', 'ZZZ,ZZZ,ZZ9.999');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(144, 25, 'other_co2_per_capita', 'Annual CO2 emissions from other industry (per capita) - Emissões anuais de CO2 de outras indústrias (por pessoa)', 'FLOAT', 'VALUE', 'ZZZ,ZZZ,ZZ9.999');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(145, 25, 'other_industry_co2', 'Annual CO2 emissions from other industry - Emissões anuais de CO2 de outras indústrias', 'FLOAT', 'VALUE', 'ZZZ,ZZZ,ZZ9.999');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(146, 25, 'primary_energy_consumption', 'Primary energy consumption - Consumo de energia primária', 'FLOAT', 'VALUE', 'ZZZ,ZZZ,ZZ9.999');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(147, 25, 'share_global_cement_co2', 'Share of global annual CO2 emissions from cement - Participação nas emissões globais anuais de CO2 do cimento', 'FLOAT', 'VALUE', 'ZZZ,ZZZ,ZZ9.999');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(148, 25, 'share_global_co2', 'Share of global annual CO2 emissions - Participação nas emissões globais anuais de CO2', 'FLOAT', 'VALUE', 'ZZZ,ZZZ,ZZ9.999');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(149, 25, 'share_global_co2_including_luc', 'Share of global annual CO2 emissions including land-use change - Participação nas emissões globais anuais de CO2, incluindo mudanças no uso da terra', 'FLOAT', 'VALUE', 'ZZZ,ZZZ,ZZ9.999');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(150, 25, 'share_global_coal_co2', 'Share of global annual CO2 emissions from coal - Participação nas emissões globais anuais de CO2 do carvão', 'FLOAT', 'VALUE', 'ZZZ,ZZZ,ZZ9.999');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(151, 25, 'share_global_cumulative_cement_co2', 'Share of global cumulative CO2 emissions from cement - Participação nas emissões globais acumuladas de CO2 do cimento', 'FLOAT', 'VALUE', 'ZZZ,ZZZ,ZZ9.999');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(152, 25, 'share_global_cumulative_co2', 'Share of global cumulative CO2 emissions - Participação nas emissões globais acumuladas de CO2', 'FLOAT', 'VALUE', 'ZZZ,ZZZ,ZZ9.999');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(153, 25, 'share_global_cumulative_co2_including_luc', 'Share of global cumulative CO2 emissions including land-use change - Participação nas emissões globais acumuladas de CO2, incluindo mudanças no uso da terra', 'FLOAT', 'VALUE', 'ZZZ,ZZZ,ZZ9.999');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(154, 25, 'share_global_cumulative_coal_co2', 'Share of global cumulative CO2 emissions from coal - Participação nas emissões globais acumuladas de CO2 do carvão', 'FLOAT', 'VALUE', 'ZZZ,ZZZ,ZZ9.999');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(155, 25, 'share_global_cumulative_flaring_co2', 'quantidade de CO2 emitido per capita', 'FLOAT', 'VALUE', 'ZZZ,ZZZ,ZZ9.999');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(156, 25, 'share_global_cumulative_gas_co2', 'Share of global cumulative CO2 emissions from flaring - Participação nas emissões globais acumuladas de CO2 da queima de gás', 'FLOAT', 'VALUE', 'ZZZ,ZZZ,ZZ9.999');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(157, 25, 'share_global_cumulative_luc_co2', 'Share of global cumulative CO2 emissions from land-use change - Participação nas emissões globais acumuladas de CO2 da mudança no uso da terra', 'FLOAT', 'VALUE', 'ZZZ,ZZZ,ZZ9.999');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(158, 25, 'share_global_cumulative_oil_co2', 'Share of global cumulative CO2 emissions from oil - Participação nas emissões globais acumuladas de CO2 do petróleo', 'FLOAT', 'VALUE', 'ZZZ,ZZZ,ZZ9.999');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(159, 25, 'share_global_cumulative_other_co2', 'Share of global cumulative CO2 emissions from other industry - Participação nas emissões globais acumuladas de CO2 de outras indústrias', 'FLOAT', 'VALUE', 'ZZZ,ZZZ,ZZ9.999');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(160, 25, 'share_global_flaring_co2', 'Share of global annual CO2 emissions from flaring - Participação nas emissões globais anuais de CO2 da queima de gás', 'FLOAT', 'VALUE', 'ZZZ,ZZZ,ZZ9.999');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(161, 25, 'share_global_gas_co2', 'Share of global annual CO2 emissions from gas - Participação nas emissões globais anuais de CO2 do gás', 'FLOAT', 'VALUE', 'ZZZ,ZZZ,ZZ9.999');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(162, 25, 'share_global_luc_co2', 'Share of global annual CO2 emissions from land-use change - Participação nas emissões globais anuais de CO2 da mudança no uso da terra', 'FLOAT', 'VALUE', 'ZZZ,ZZZ,ZZ9.999');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(163, 25, 'share_global_oil_co2', 'Share of global annual CO2 emissions from oil - Participação nas emissões globais anuais de CO2 do petróleo', 'FLOAT', 'VALUE', 'ZZZ,ZZZ,ZZ9.999');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(164, 25, 'share_global_other_co2', 'Share of global annual CO2 emissions from other industry - Participação nas emissões globais anuais de CO2 de outras indústrias', 'FLOAT', 'VALUE', 'ZZZ,ZZZ,ZZ9.999');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(165, 25, 'share_of_temperature_change_from_ghg', 'Share of contribution to global warming - Participação na contribuição para o aquecimento global', 'FLOAT', 'VALUE', 'ZZZ,ZZZ,ZZ9.999');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(166, 25, 'temperature_change_from_ch4', 'Change in global mean surface temperature caused by methane emissions - Mudança na temperatura média global causada pelas emissões de metano', 'FLOAT', 'VALUE', 'ZZZ,ZZZ,ZZ9.999');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(167, 25, 'temperature_change_from_co2', 'Change in global mean surface temperature caused by CO2 emissions - Mudança na temperatura média global causada pelas emissões de CO2', 'FLOAT', 'VALUE', 'ZZZ,ZZZ,ZZ9.999');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(168, 25, 'temperature_change_from_ghg', 'Change in global mean surface temperature caused by greenhouse gas emissions - Mudança na temperatura média global causada pelas emissões de gases de efeito estufa', 'FLOAT', 'VALUE', 'ZZZ,ZZZ,ZZ9.999');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(169, 25, 'temperature_change_from_n2o', 'Change in global mean surface temperature caused by nitrous oxide emissions - Mudança na temperatura média global causada pelas emissões de óxido nitroso', 'FLOAT', 'VALUE', 'ZZZ,ZZZ,ZZ9.999');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(170, 25, 'total_ghg', 'Annual greenhouse gas emissions including land use - Emissões anuais de gases de efeito estufa, incluindo uso da terra', 'FLOAT', 'VALUE', 'ZZZ,ZZZ,ZZ9.999');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(171, 25, 'total_ghg_excluding_lucf', 'Annual greenhouse gas emissions from fossil fuels and industry - Emissões anuais de gases de efeito estufa de combustíveis fósseis e indústria', 'FLOAT', 'VALUE', 'ZZZ,ZZZ,ZZ9.999');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(172, 25, 'trade_co2', 'Annual CO2 emissions embedded in trade - Emissões anuais de CO2 incorporadas no comércio', 'FLOAT', 'VALUE', 'ZZZ,ZZZ,ZZ9.999');
+INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
+(173, 25, 'trade_co2_share', 'Share of annual CO2 emissions embedded in trade - Participação nas emissões anuais de CO2 incorporadas no comércio', 'FLOAT', 'VALUE', 'ZZZ,ZZZ,ZZ9.999');
+
+
+INSERT INTO CATALOGO_COLUNA_DADOS_OBS VALUES 
+(56, 95, 'Há apenas o país chamado WORLD ou mundo para agregar tudo');
+INSERT INTO CATALOGO_COLUNA_DADOS_OBS VALUES 
+(58, 95, 'Algumas entidades não possuem a sigla do país, isso significa que é uma entidade agrupada, exemplo: North American - América do Norte.');
