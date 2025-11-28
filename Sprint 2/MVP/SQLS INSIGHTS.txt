@@ -1,0 +1,397 @@
+-- SQL CARBON_MONITOR - HISTORICAL EMISSIONS
+SELECT COUNTRY PAIS, 
+       CAST(substr(DATE, 7, 10) AS NUMERIC) ANO,
+       SECTOR SETOR,
+       SUM(VALUE) VALOR --CO2 emitidos por ano em metros 
+FROM CARBON_MONITOR
+GROUP BY 
+       COUNTRY, 
+       CAST(substr(DATE, 7, 10) AS NUMERIC),
+       SECTOR
+       ; 
+
+--SQL CLIMATE WATCH AGRICULTURE EMISSION 
+WITH EMISSIONS AS (
+       SELECT 
+              AREA PAIS, 
+              YEAR ANO, 
+              `short names` PRODUTO,
+              EMISSIONS VALOR --CO2  kg CO2eq/kg de produto 
+       FROM cw_agriculture_emissions
+       UNPIVOT (
+       EMISSIONS FOR YEAR IN (
+              `1961`, `1962`, `1963`, `1964`, `1965`, `1966`, `1967`, `1968`, `1969`, `1970`,
+              `1971`, `1972`, `1973`, `1974`, `1975`, `1976`, `1977`, `1978`, `1979`, `1980`,
+              `1981`, `1982`, `1983`, `1984`, `1985`, `1986`, `1987`, `1988`, `1989`, `1990`,
+              `1991`, `1992`, `1993`, `1994`, `1995`, `1996`, `1997`, `1998`, `1999`, `2000`,
+              `2001`, `2002`, `2003`, `2004`, `2005`, `2006`, `2007`, `2008`, `2009`, `2010`,
+              `2011`, `2012`, `2013`, `2014`, `2015`, `2016`, `2017`, `2018`, `2019`, `2020`,
+              `2021`
+       )
+       ) AS unpivoted_data
+)
+SELECT B.*
+  FROM EMISSIONS B;
+
+--SQL CLIMATE WATCH - HISTORICAL EMISSIONS
+WITH EMISSIONS AS (
+       SELECT 
+              ISO PAIS, 
+              YEAR ANO, 
+              SECTOR SETOR,
+              EMISSIONS VALOR --CO2  MtCO₂e
+       FROM cw_historical_emissions
+       UNPIVOT (
+       EMISSIONS FOR YEAR IN (
+              `1961`, `1962`, `1963`, `1964`, `1965`, `1966`, `1967`, `1968`, `1969`, `1970`,
+              `1971`, `1972`, `1973`, `1974`, `1975`, `1976`, `1977`, `1978`, `1979`, `1980`,
+              `1981`, `1982`, `1983`, `1984`, `1985`, `1986`, `1987`, `1988`, `1989`, `1990`,
+              `1991`, `1992`, `1993`, `1994`, `1995`, `1996`, `1997`, `1998`, `1999`, `2000`,
+              `2001`, `2002`, `2003`, `2004`, `2005`, `2006`, `2007`, `2008`, `2009`, `2010`,
+              `2011`, `2012`, `2013`, `2014`, `2015`, `2016`, `2017`, `2018`, `2019`, `2020`,
+              `2021`, `2022`, `2023`
+       )
+       ) AS unpivoted_data
+)
+SELECT B.*
+  FROM EMISSIONS B;
+
+--FAOSTAT - HISTORICAL EMISSIONS TOTALS
+WITH EMISSIONS AS (
+       SELECT 
+              AREA PAIS, 
+              substr(YEAR, 2, 4) ANO, 
+              ITEM PRODUTO,
+              ELEMENT GAS,
+              EMISSIONS VALOR --CO2  KT (kt)
+       FROM faostat_emissions_totals
+       UNPIVOT (
+       EMISSIONS FOR YEAR IN (
+              `Y1961`, `Y1962`, `Y1963`, `Y1964`, `Y1965`, `Y1966`, `Y1967`, `Y1968`, `Y1969`, `Y1970`,
+              `Y1971`, `Y1972`, `Y1973`, `Y1974`, `Y1975`, `Y1976`, `Y1977`, `Y1978`, `Y1979`, `Y1980`,
+              `Y1981`, `Y1982`, `Y1983`, `Y1984`, `Y1985`, `Y1986`, `Y1987`, `Y1988`, `Y1989`, `Y1990`,
+              `Y1991`, `Y1992`, `Y1993`, `Y1994`, `Y1995`, `Y1996`, `Y1997`, `Y1998`, `Y1999`, `Y2000`,
+              `Y2001`, `Y2002`, `Y2003`, `Y2004`, `Y2005`, `Y2006`, `Y2007`, `Y2008`, `Y2009`, `Y2010`,
+              `Y2011`, `Y2012`, `Y2013`, `Y2014`, `Y2015`, `Y2016`, `Y2017`, `Y2018`, `Y2019`, `Y2020`,
+              `Y2021`, `Y2022`, `Y2023`, `Y2030`, `Y2050` 
+       )
+       ) AS unpivoted_data
+       WHERE `Element Code` IN ('724313','723113','724413','7273','717815')
+)
+SELECT B.*
+  FROM EMISSIONS B;
+
+
+--IEA - EMISSIONS PER COUNTRIES 
+WITH EMISSIONS AS (
+       SELECT 
+              Country PAIS, 
+              YEAR ANO,  
+              `Type emission` GAS,
+              EMISSIONS VALOR, --CO2  Mt CO2
+              `Grow rate % 2019-20` COMPARATIVO_2019_20_PERC,
+              `Grow rate % 2020-21` COMPARATIVO_2020_21_PERC
+       FROM iea_emissions
+       UNPIVOT (
+       EMISSIONS FOR YEAR IN (
+              `2019`, `2020`, `2021`
+       )
+       ) AS unpivoted_data
+)
+SELECT B.*
+  FROM EMISSIONS B;
+
+  
+--IEA - EMISSIONS PER  GASES EMISSIONS
+WITH EMISSIONS AS (
+       SELECT 
+              YEAR ANO,  
+              `Type emission` GAS,
+              `CO2 emissions` PRODUTO,
+              EMISSIONS VALOR, --CO2  Mt CO2
+              `Grow rate % 2019-20` COMPARATIVO_2019_20_PERC,
+              `Grow rate % 2020-21` COMPARATIVO_2020_21_PERC
+       FROM iea_gas_emissions
+       UNPIVOT (
+       EMISSIONS FOR YEAR IN (
+              `2019`, `2020`, `2021`
+       )
+       ) AS unpivoted_data
+)
+SELECT B.*
+  FROM EMISSIONS B;
+
+
+--NASA - CO2 FLUX TOTAL  
+SELECT ANO,
+       LATITUDE_LONGITUDE,
+       SUM(VALOR) VALOR,
+       qtd_area_m2
+FROM (
+       SELECT DISTINCT 
+              CAST(substr(CAST(TRUNC(TIME, 'YEAR') AS STRING), 1, 4) AS NUMERIC) ANO,
+              latitude || ',' || longitude LATITUDE_LONGITUDE,
+              total_post VALOR, --g/m^2/day
+              area qtd_area_m2
+       FROM nasa_cms_flux_total
+)
+GROUP BY ANO,
+       LATITUDE_LONGITUDE,
+       qtd_area_m2
+ORDER BY 1, 2;
+
+
+--ONU - HISTORICAL EMISSIONS
+WITH EMISSIONS AS (
+       SELECT 
+              PARTY PAIS,
+              YEAR ANO,  
+              EMISSIONS VALOR, --KT
+              `Base Year` VALOR_ANO_BASE, --kt
+              `Change from base year to latest reported year` COMPARATIVO_ANO_BASE_ULTIMO_ANO, --%
+              `Last Inventory Year 2021` ANO_ULTIMO_INVENTARIO --%      
+       FROM onu_time_series_co_2_total
+       UNPIVOT (
+       EMISSIONS FOR YEAR IN (
+              `1990`, `1991`, `1992`, `1993`, `1994`, `1995`, `1996`, `1997`, `1998`, `1999`, `2000`, `2001`, `2002`, `2003`, `2004`, `2005`, `2006`, `2007`, `2008`, `2009`, `2010`, `2011`, `2012`, `2013`, `2014`, `2015`, `2016`, `2017`, `2018`, `2019`, `2020`
+       )
+       ) AS unpivoted_data
+)
+SELECT B.*
+  FROM EMISSIONS B;
+
+  --ONU - CO2 REMOVIDOS
+WITH EMISSIONS AS (
+       SELECT 
+              PARTY PAIS,
+              YEAR ANO,  
+              EMISSIONS VALOR, --KT
+              `Base Year` VALOR_ANO_BASE, --kt
+              `Last Inventory Year (2021)` ANO_ULTIMO_INVENTARIO --%      
+       FROM onu_annual_emissions_removals
+       UNPIVOT (
+       EMISSIONS FOR YEAR IN (
+              `1990`, `1991`, `1992`, `1993`, `1994`, `1995`, `1996`, `1997`, `1998`, `1999`, `2000`, `2001`, `2002`, `2003`, `2004`, `2005`, `2006`, `2007`, `2008`, `2009`, `2010`, `2011`, `2012`, `2013`, `2014`, `2015`, `2016`, `2017`, `2018`, `2019`, `2020`
+       )
+       ) AS unpivoted_data
+)
+SELECT B.*
+  FROM EMISSIONS B;
+
+  --ONU - GREENHOUSE GAS
+WITH EMISSIONS AS (
+       SELECT 
+              Category SECTOR,
+              YEAR ANO,  
+              EMISSIONS VALOR, --KT
+              `Base year` VALOR_ANO_BASE,
+              `Last Inventory Year 2021` ANO_ULTIMO_INVENTARIO
+       FROM onu_annual_greenhouse_gas
+       UNPIVOT (
+       EMISSIONS FOR YEAR IN (
+              `1990`, `1991`, `1992`, `1993`, `1994`, `1995`, `1996`, `1997`, `1998`, `1999`, `2000`, `2001`, `2002`, `2003`, `2004`, `2005`, `2006`, `2007`, `2008`, `2009`, `2010`, `2011`, `2012`, `2013`, `2014`, `2015`, `2016`, `2017`, `2018`, `2019`, `2020`
+       )
+       ) AS unpivoted_data
+)
+SELECT B.*
+  FROM EMISSIONS B;
+
+  -- SQL CARBON_MONITOR - HISTORICAL EMISSIONS
+SELECT COUNTRY PAIS, 
+       CAST(substr(DATE, 7, 10) AS NUMERIC) ANO,
+       SECTOR SETOR,
+       SUM(VALUE) VALOR --CO2 emitidos por ano em metros 
+FROM CARBON_MONITOR
+GROUP BY 
+       COUNTRY, 
+       CAST(substr(DATE, 7, 10) AS NUMERIC),
+       SECTOR
+       ; 
+
+--SQL CLIMATE WATCH AGRICULTURE EMISSION 
+WITH EMISSIONS AS (
+       SELECT 
+              AREA PAIS, 
+              YEAR ANO, 
+              `short names` PRODUTO,
+              EMISSIONS VALOR --CO2  kg CO2eq/kg de produto 
+       FROM cw_agriculture_emissions
+       UNPIVOT (
+       EMISSIONS FOR YEAR IN (
+              `1961`, `1962`, `1963`, `1964`, `1965`, `1966`, `1967`, `1968`, `1969`, `1970`,
+              `1971`, `1972`, `1973`, `1974`, `1975`, `1976`, `1977`, `1978`, `1979`, `1980`,
+              `1981`, `1982`, `1983`, `1984`, `1985`, `1986`, `1987`, `1988`, `1989`, `1990`,
+              `1991`, `1992`, `1993`, `1994`, `1995`, `1996`, `1997`, `1998`, `1999`, `2000`,
+              `2001`, `2002`, `2003`, `2004`, `2005`, `2006`, `2007`, `2008`, `2009`, `2010`,
+              `2011`, `2012`, `2013`, `2014`, `2015`, `2016`, `2017`, `2018`, `2019`, `2020`,
+              `2021`
+       )
+       ) AS unpivoted_data
+)
+SELECT B.*
+  FROM EMISSIONS B;
+
+--SQL CLIMATE WATCH - HISTORICAL EMISSIONS
+WITH EMISSIONS AS (
+       SELECT 
+              ISO PAIS, 
+              YEAR ANO, 
+              SECTOR SETOR,
+              EMISSIONS VALOR --CO2  MtCO₂e
+       FROM cw_historical_emissions
+       UNPIVOT (
+       EMISSIONS FOR YEAR IN (
+              `1961`, `1962`, `1963`, `1964`, `1965`, `1966`, `1967`, `1968`, `1969`, `1970`,
+              `1971`, `1972`, `1973`, `1974`, `1975`, `1976`, `1977`, `1978`, `1979`, `1980`,
+              `1981`, `1982`, `1983`, `1984`, `1985`, `1986`, `1987`, `1988`, `1989`, `1990`,
+              `1991`, `1992`, `1993`, `1994`, `1995`, `1996`, `1997`, `1998`, `1999`, `2000`,
+              `2001`, `2002`, `2003`, `2004`, `2005`, `2006`, `2007`, `2008`, `2009`, `2010`,
+              `2011`, `2012`, `2013`, `2014`, `2015`, `2016`, `2017`, `2018`, `2019`, `2020`,
+              `2021`, `2022`, `2023`
+       )
+       ) AS unpivoted_data
+)
+SELECT B.*
+  FROM EMISSIONS B;
+
+--FAOSTAT - HISTORICAL EMISSIONS TOTALS
+WITH EMISSIONS AS (
+       SELECT 
+              AREA PAIS, 
+              substr(YEAR, 2, 4) ANO, 
+              ITEM PRODUTO,
+              ELEMENT GAS,
+              EMISSIONS VALOR --CO2  KT (kt)
+       FROM faostat_emissions_totals
+       UNPIVOT (
+       EMISSIONS FOR YEAR IN (
+              `Y1961`, `Y1962`, `Y1963`, `Y1964`, `Y1965`, `Y1966`, `Y1967`, `Y1968`, `Y1969`, `Y1970`,
+              `Y1971`, `Y1972`, `Y1973`, `Y1974`, `Y1975`, `Y1976`, `Y1977`, `Y1978`, `Y1979`, `Y1980`,
+              `Y1981`, `Y1982`, `Y1983`, `Y1984`, `Y1985`, `Y1986`, `Y1987`, `Y1988`, `Y1989`, `Y1990`,
+              `Y1991`, `Y1992`, `Y1993`, `Y1994`, `Y1995`, `Y1996`, `Y1997`, `Y1998`, `Y1999`, `Y2000`,
+              `Y2001`, `Y2002`, `Y2003`, `Y2004`, `Y2005`, `Y2006`, `Y2007`, `Y2008`, `Y2009`, `Y2010`,
+              `Y2011`, `Y2012`, `Y2013`, `Y2014`, `Y2015`, `Y2016`, `Y2017`, `Y2018`, `Y2019`, `Y2020`,
+              `Y2021`, `Y2022`, `Y2023`, `Y2030`, `Y2050` 
+       )
+       ) AS unpivoted_data
+       WHERE `Element Code` IN ('724313','723113','724413','7273','717815')
+)
+SELECT B.*
+  FROM EMISSIONS B;
+
+
+--IEA - EMISSIONS PER COUNTRIES 
+WITH EMISSIONS AS (
+       SELECT 
+              Country PAIS, 
+              YEAR ANO,  
+              `Type emission` GAS,
+              EMISSIONS VALOR, --CO2  Mt CO2
+              `Grow rate % 2019-20` COMPARATIVO_2019_20_PERC,
+              `Grow rate % 2020-21` COMPARATIVO_2020_21_PERC
+       FROM iea_emissions
+       UNPIVOT (
+       EMISSIONS FOR YEAR IN (
+              `2019`, `2020`, `2021`
+       )
+       ) AS unpivoted_data
+)
+SELECT B.*
+  FROM EMISSIONS B;
+
+  
+--IEA - EMISSIONS PER  GASES EMISSIONS
+WITH EMISSIONS AS (
+       SELECT 
+              YEAR ANO,  
+              `Type emission` GAS,
+              `CO2 emissions` PRODUTO,
+              EMISSIONS VALOR, --CO2  Mt CO2
+              `Grow rate % 2019-20` COMPARATIVO_2019_20_PERC,
+              `Grow rate % 2020-21` COMPARATIVO_2020_21_PERC
+       FROM iea_gas_emissions
+       UNPIVOT (
+       EMISSIONS FOR YEAR IN (
+              `2019`, `2020`, `2021`
+       )
+       ) AS unpivoted_data
+)
+SELECT B.*
+  FROM EMISSIONS B;
+
+
+--NASA - CO2 FLUX TOTAL  
+SELECT ANO,
+       LATITUDE_LONGITUDE,
+       SUM(VALOR) VALOR,
+       qtd_area_m2
+FROM (
+       SELECT DISTINCT 
+              CAST(substr(CAST(TRUNC(TIME, 'YEAR') AS STRING), 1, 4) AS NUMERIC) ANO,
+              latitude || ',' || longitude LATITUDE_LONGITUDE,
+              total_post VALOR, --g/m^2/day
+              area qtd_area_m2
+       FROM nasa_cms_flux_total
+)
+GROUP BY ANO,
+       LATITUDE_LONGITUDE,
+       qtd_area_m2
+ORDER BY 1, 2;
+
+
+--ONU - HISTORICAL EMISSIONS
+WITH EMISSIONS AS (
+       SELECT 
+              PARTY PAIS,
+              YEAR ANO,  
+              EMISSIONS VALOR, --KT
+              `Base Year` VALOR_ANO_BASE, --kt
+              `Change from base year to latest reported year` COMPARATIVO_ANO_BASE_ULTIMO_ANO, --%
+              `Last Inventory Year 2021` ANO_ULTIMO_INVENTARIO --%      
+       FROM onu_time_series_co_2_total
+       UNPIVOT (
+       EMISSIONS FOR YEAR IN (
+              `1990`, `1991`, `1992`, `1993`, `1994`, `1995`, `1996`, `1997`, `1998`, `1999`, `2000`, `2001`, `2002`, `2003`, `2004`, `2005`, `2006`, `2007`, `2008`, `2009`, `2010`, `2011`, `2012`, `2013`, `2014`, `2015`, `2016`, `2017`, `2018`, `2019`, `2020`
+       )
+       ) AS unpivoted_data
+)
+SELECT B.*
+  FROM EMISSIONS B;
+
+  --ONU - CO2 REMOVIDOS
+WITH EMISSIONS AS (
+       SELECT 
+              PARTY PAIS,
+              YEAR ANO,  
+              EMISSIONS VALOR, --KT
+              `Base Year` VALOR_ANO_BASE, --kt
+              `Last Inventory Year (2021)` ANO_ULTIMO_INVENTARIO --%      
+       FROM onu_annual_emissions_removals
+       UNPIVOT (
+       EMISSIONS FOR YEAR IN (
+              `1990`, `1991`, `1992`, `1993`, `1994`, `1995`, `1996`, `1997`, `1998`, `1999`, `2000`, `2001`, `2002`, `2003`, `2004`, `2005`, `2006`, `2007`, `2008`, `2009`, `2010`, `2011`, `2012`, `2013`, `2014`, `2015`, `2016`, `2017`, `2018`, `2019`, `2020`
+       )
+       ) AS unpivoted_data
+)
+SELECT B.*
+  FROM EMISSIONS B;
+
+  --ONU - GREENHOUSE GAS
+WITH EMISSIONS AS (
+       SELECT 
+              Category SECTOR,
+              YEAR ANO,  
+              EMISSIONS VALOR, --KT
+              `Base year` VALOR_ANO_BASE,
+              `Last Inventory Year 2021` ANO_ULTIMO_INVENTARIO
+       FROM onu_annual_greenhouse_gas
+       UNPIVOT (
+       EMISSIONS FOR YEAR IN (
+              `1990`, `1991`, `1992`, `1993`, `1994`, `1995`, `1996`, `1997`, `1998`, `1999`, `2000`, `2001`, `2002`, `2003`, `2004`, `2005`, `2006`, `2007`, `2008`, `2009`, `2010`, `2011`, `2012`, `2013`, `2014`, `2015`, `2016`, `2017`, `2018`, `2019`, `2020`
+       )
+       ) AS unpivoted_data
+)
+SELECT B.*
+  FROM EMISSIONS B;
+
+  

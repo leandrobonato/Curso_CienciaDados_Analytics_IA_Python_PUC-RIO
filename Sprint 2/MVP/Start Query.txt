@@ -3,10 +3,20 @@
 --DROP TABLE CATALOGO_COLUNA_DADOS_OBS;
 --DROP TABLE CATALOGO_DADOS_REFERENCIA;
 
+CREATE TABLE IF NOT EXISTS CATALOGO_PAISES (
+  NOME_COMUM STRING,
+  NOME_OFICIAL STRING,
+  COD_ISO_2 STRING,
+  COD_ISO_3 STRING,
+  POPULATION NUMERIC,
+  REGIAO STRING,
+  SUB_REGIAO STRING
+);
+
 CREATE TABLE IF NOT EXISTS CATALOGO_FONTES_DADOS(
   ID_FONTE INT NOT NULL,
   NOME_FONTE STRING,
-  DESCRICAO_FONTE STRING,
+  DESCRICAO_FONTE STRING, 
   URL_FONTE STRING,
   DOCUMENTACAO_DOWNLOAD STRING,
   DATA_CARGA TIMESTAMP  
@@ -54,13 +64,13 @@ INSERT INTO CATALOGO_FONTES_DADOS VALUES
 (1, 'CARBON_MONITOR', 'Carbon Monitor é um conjunto de dados diários de emissões de CO2 frequentemente atualizado, para monitorizar as variações das emissões de CO2 provenientes da combustão de combustíveis fósseis e da produção de cimento desde 1 de janeiro de 2019 a nível nacional com cobertura quase global.', 'https://datas.carbonmonitor.org/API/downloadFullDataset.php?source=carbon_global', 'A URL disponibilizada já realiza o download automaticamente', current_timestamp());
  
 INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
-(1, 1, 'Country / País', 'refere-se ao país da informação', 'STRING', 'COUNTRY', '');
+(1, 1, 'Country', 'refere-se ao país da informação', 'STRING', 'COUNTRY', '');
 INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
-(2, 1, 'Date / Data', 'refere-se à data que o dado foi coletado', 'DATE', 'DATE', 'DD/MM/YYYY');
+(2, 1, 'Date', 'refere-se à data que o dado foi coletado', 'DATE', 'DATE', 'DD/MM/YYYY');
 INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
-(3, 1, 'Sector / Setor', 'refere-se ao setor da informação', 'STRING', 'SECTOR', '');
+(3, 1, 'Sector', 'refere-se ao setor da informação', 'STRING', 'SECTOR', '');
 INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
-(4, 1, 'Value / Valor', 'refere-se ao valor de CO2 emitidos por dia em metros', 'NUMBER', 'VALUE', 'ZZZ.ZZZ.ZZ9,999');
+(4, 1, 'Value', 'refere-se ao valor de CO2 emitidos por dia em metros', 'NUMBER', 'VALUE', 'ZZZ,ZZZ,ZZ9.999');
 
 INSERT INTO CATALOGO_COLUNA_DADOS_OBS VALUES 
 (1, 1, 'Há um país no final de cada dia que chama-se WORLD que irá servir para se referir à quantidade de emissão de CO2 no mundo inteiro para o respectivo dia');
@@ -129,7 +139,7 @@ INSERT INTO CATALOGO_COLUNA_DADOS VALUES
 INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
 (9, 3, 'Short Name', 'nome curto do tipo dado ou sigla do campo nas referências, aqui é para a intensidade de emissões agrícolas e a referências de valores de: kg CO2eq/kg de produto', 'STRING', 'SHORT_NAME', '');
 INSERT INTO CATALOGO_COLUNA_DADOS VALUES 
-(10, 3, 'Years / Anos', 'estará os valores de anos no restantes das colunas com os dados da quantidade de kg CO2eq/kg de produto', 'NUMBER', 'VALUE', 'ZZZ.ZZZ.ZZ9,999');
+(10, 3, 'Years / Anos', 'estará os valores de anos no restantes das colunas com os dados da quantidade de kg CO2eq/kg de produto', 'NUMBER', 'VALUE', 'ZZZ,ZZZ,ZZ9.999');
 
 INSERT INTO CATALOGO_COLUNA_DADOS_OBS VALUES 
 (4, 10, 'As colunas são os anos, por isso o campo Years não tem valor');
