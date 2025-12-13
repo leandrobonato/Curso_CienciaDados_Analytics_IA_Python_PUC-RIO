@@ -1,0 +1,936 @@
+SELECT * FROM PAIS;
+
+DELETE FROM PAIS WHERE id_pais IN (292,283,291,278,277,272,256,237,206,184,183,181,172,170,162,160,159,156,154,151,144,141,125,109,103,97,84,76,
+75,74,58,42,32,27);
+DELETE FROM PAIS WHERE id_pais IN (82,111,112,212,222,223,228,236,242);
+
+UPDATE PAIS SET ID_REGIAO = 4 WHERE ID_PAIS IN (2,29,35,61,67,78,126,145,201,254,275);
+
+SELECT * FROM PAIS;
+
+
+INSERT INTO WORKSPACE.PUCRIO.REGIAO (SIGLA_REGIAO, NOME_REGIAO) VALUES ('WOR', 'WORLD / MUNDO');
+
+INSERT INTO WORKSPACE.PUCRIO.PAIS (sigla_pais, nome_pais, populacao_pais, pib_pais, id_regiao) VALUES
+('WOR', 'World', 8004000000, 116000000000000, 12);
+
+INSERT INTO workspace.pucrio.setor (sigla_setor, nome_setor, descricao_setor) VALUES 
+('GROUND_TRANS', 'Ground Transport', 'Transporte terrestre'),
+('DOMESTIC_AVI', 'Domestic Aviation', 'Aviação doméstica ou dentro do país e viagens de aviões curtas');
+
+
+DROP TABLE workspace.pucrio.emissao_co2_anual ;
+DROP TABLE workspace.pucrio.emissao_co2_per_capita ;
+DROP TABLE workspace.pucrio.emissao_co2_pib ;
+DROP TABLE workspace.pucrio.emissao_co2_setor ;
+DROP TABLE workspace.pucrio.emissao_co2_anual_produto ;
+DROP TABLE workspace.pucrio.emissao_co2_pais_setor ;
+DROP TABLE workspace.pucrio.emissao_co2_anual_setor ;
+DROP TABLE workspace.pucrio.emissao_co2_anual_pais ;
+
+DROP TABLE workspace.pucrio.emissao_co2_anual_pib ;
+DROP TABLE workspace.pucrio.emissao_co2_anual_regiao ; 
+DROP TABLE workspace.pucrio.emissao_co2_pais_produto ;
+DROP TABLE workspace.pucrio.emissao_co2_regiao_produto ; 
+
+
+
+ALTER TABLE workspace.pucrio.emissao_co2_anual ADD COLUMN id_fonte_dados BIGINT NOT NULL; 
+ALTER TABLE workspace.pucrio.emissao_co2_anual ADD CONSTRAINT fk_emissao_anual_fonte_dados FOREIGN KEY (id_fonte_dados) REFERENCES workspace.pucrio.fonte_dados(id_fonte_dados);
+
+ALTER TABLE workspace.pucrio.emissao_co2_per_capita ADD COLUMN id_fonte_dados BIGINT NOT NULL;
+ALTER TABLE workspace.pucrio.emissao_co2_per_capita ADD CONSTRAINT fk_emissao_per_capita_fonte_dados FOREIGN KEY (id_fonte_dados) REFERENCES workspace.pucrio.fonte_dados(id_fonte_dados);
+
+ALTER TABLE workspace.pucrio.emissao_co2_pib ADD COLUMN id_fonte_dados BIGINT NOT NULL;
+ALTER TABLE workspace.pucrio.emissao_co2_pib ADD CONSTRAINT fk_emissao_pib_fonte_dados FOREIGN KEY (id_fonte_dados) REFERENCES workspace.pucrio.fonte_dados(id_fonte_dados);
+
+ALTER TABLE workspace.pucrio.emissao_co2_setor ADD COLUMN id_fonte_dados BIGINT NOT NULL;
+ALTER TABLE workspace.pucrio.emissao_co2_setor ADD CONSTRAINT fk_emissao_setor_fonte_dados FOREIGN KEY (id_fonte_dados) REFERENCES workspace.pucrio.fonte_dados(id_fonte_dados); 
+
+ALTER TABLE workspace.pucrio.emissao_co2_produto ADD COLUMN id_fonte_dados BIGINT NOT NULL;
+ALTER TABLE workspace.pucrio.emissao_co2_produto ADD CONSTRAINT fk_emissao_produto_fonte_dados FOREIGN KEY (id_fonte_dados) REFERENCES workspace.pucrio.fonte_dados(id_fonte_dados);  
+
+ALTER TABLE workspace.pucrio.emissao_co2_anual_pais ADD COLUMN id_fonte_dados BIGINT NOT NULL;
+ALTER TABLE workspace.pucrio.emissao_co2_anual_pais ADD CONSTRAINT fk_emissao_anual_pais_fonte_dados FOREIGN KEY (id_fonte_dados) REFERENCES workspace.pucrio.fonte_dados(id_fonte_dados);   
+
+ALTER TABLE workspace.pucrio.emissao_co2_anual_setor ADD COLUMN id_fonte_dados BIGINT NOT NULL;
+ALTER TABLE workspace.pucrio.emissao_co2_anual_setor ADD CONSTRAINT fk_emissao_anual_setor_fonte_dados FOREIGN KEY (id_fonte_dados) REFERENCES workspace.pucrio.fonte_dados(id_fonte_dados);    
+
+ALTER TABLE workspace.pucrio.emissao_co2_anual_produto ADD COLUMN id_fonte_dados BIGINT NOT NULL;
+ALTER TABLE workspace.pucrio.emissao_co2_anual_produto ADD CONSTRAINT fk_emissao_anual_produto_fonte_dados FOREIGN KEY (id_fonte_dados) REFERENCES workspace.pucrio.fonte_dados(id_fonte_dados);    
+
+ALTER TABLE workspace.pucrio.emissao_co2_pais_setor ADD COLUMN id_fonte_dados BIGINT NOT NULL;
+ALTER TABLE workspace.pucrio.emissao_co2_pais_setor ADD CONSTRAINT fk_emissao_pais_setor_fonte_dados FOREIGN KEY (id_fonte_dados) REFERENCES workspace.pucrio.fonte_dados(id_fonte_dados);   
+
+ALTER TABLE workspace.pucrio.emissao_co2_pais_produto ADD COLUMN id_fonte_dados BIGINT NOT NULL;
+ALTER TABLE workspace.pucrio.emissao_co2_pais_produto ADD CONSTRAINT fk_emissao_pais_produto_fonte_dados FOREIGN KEY (id_fonte_dados) REFERENCES workspace.pucrio.fonte_dados(id_fonte_dados);    
+
+ALTER TABLE workspace.pucrio.emissao_co2_regiao_setor ADD COLUMN id_fonte_dados BIGINT NOT NULL;
+ALTER TABLE workspace.pucrio.emissao_co2_regiao_setor ADD CONSTRAINT fk_emissao_regiao_setor_fonte_dados FOREIGN KEY (id_fonte_dados) REFERENCES workspace.pucrio.fonte_dados(id_fonte_dados);     
+
+ALTER TABLE workspace.pucrio.emissao_co2_regiao_produto ADD COLUMN id_fonte_dados BIGINT NOT NULL;
+ALTER TABLE workspace.pucrio.emissao_co2_regiao_produto ADD CONSTRAINT fk_emissao_regiao_produto_fonte_dados FOREIGN KEY (id_fonte_dados) REFERENCES workspace.pucrio.fonte_dados(id_fonte_dados);       
+
+ALTER TABLE workspace.pucrio.emissao_co2_anual_pais ADD COLUMN id_fonte_dados BIGINT NOT NULL;
+ALTER TABLE workspace.pucrio.emissao_co2_anual_pais ADD CONSTRAINT fk_emissao_anual_pais_fonte_dados FOREIGN KEY (id_fonte_dados) REFERENCES workspace.pucrio.fonte_dados(id_fonte_dados);      
+
+ALTER TABLE workspace.pucrio.emissao_co2_anual_regiao ADD COLUMN id_fonte_dados BIGINT NOT NULL;
+ALTER TABLE workspace.pucrio.emissao_co2_anual_regiao ADD CONSTRAINT fk_emissao_anual_regiao_fonte_dados FOREIGN KEY (id_fonte_dados) REFERENCES workspace.pucrio.fonte_dados(id_fonte_dados);          
+
+ALTER TABLE workspace.pucrio.emissao_co2_anual_pib ADD COLUMN id_fonte_dados BIGINT NOT NULL;
+ALTER TABLE workspace.pucrio.emissao_co2_anual_pib ADD CONSTRAINT fk_emissao_anual_pib_fonte_dados FOREIGN KEY (id_fonte_dados) REFERENCES workspace.pucrio.fonte_dados(id_fonte_dados);     
+
+DELETE FROM emissao_co2_anual;
+DELETE FROM emissao_co2_anual_pais;
+DELETE FROM emissao_co2_anual_setor;
+DELETE FROM emissao_co2_pais_setor;
+DELETE FROM emissao_co2_setor;
+
+
+ALTER TABLE workspace.pucrio.pais ADD CONSTRAINT PK_PAIS PRIMARY KEY (id_pais);
+
+CREATE TABLE IF NOT EXISTS workspace.pucrio.PIB_PAIS (
+  ID_PIB_PAIS     BIGINT GENERATED ALWAYS AS IDENTITY,
+  id_pais         BIGINT,
+  ID_ANO          BIGINT,
+  pib_pais        DOUBLE,                   -- PIB nominal (USD)
+  CONSTRAINT pk_PIB_PAIS PRIMARY KEY (ID_PIB_PAIS),
+  CONSTRAINT fk_PIB_PAIS_PAIS FOREIGN KEY (id_pais) REFERENCES workspace.pucrio.PAIS(id_pais),
+  CONSTRAINT fk_PIB_PAIS_ANO FOREIGN KEY (ID_ANO) REFERENCES workspace.pucrio.ANO(id_ano)
+)
+USING DELTA;
+
+CREATE TABLE IF NOT EXISTS workspace.pucrio.POPULACAO_PAIS (
+  ID_POPULACAO_PAIS BIGINT GENERATED ALWAYS AS IDENTITY,
+  id_pais         BIGINT,
+  ID_ANO          BIGINT,
+  POPULACAO_PAIS DOUBLE,                   -- População
+  CONSTRAINT pk_ID_POPULACAO_PAIS_ PRIMARY KEY (ID_POPULACAO_PAIS),
+  CONSTRAINT fk_populacao_PAIS_PAIS_ FOREIGN KEY (id_pais) REFERENCES workspace.pucrio.PAIS(id_pais),
+  CONSTRAINT fk_populacao_PAIS_ANO_ FOREIGN KEY (ID_ANO) REFERENCES workspace.pucrio.ANO(id_ano)
+)
+USING DELTA;
+
+ALTER TABLE workspace.pucrio.pais SET TBLPROPERTIES ('delta.columnMapping.mode' = 'pib_pais');
+
+%sql
+
+--TABELA REGIAO
+INSERT INTO WORKSPACE.PUCRIO.REGIAO (SIGLA_REGIAO, NOME_REGIAO) VALUES ('ANT', 'ANTÁRTIDA'); 
+INSERT INTO WORKSPACE.PUCRIO.REGIAO (SIGLA_REGIAO, NOME_REGIAO) VALUES ('ART', 'ARTICO');
+INSERT INTO WORKSPACE.PUCRIO.REGIAO (SIGLA_REGIAO, NOME_REGIAO) VALUES ('SEA', 'OCEANO/MAR');
+INSERT INTO WORKSPACE.PUCRIO.REGIAO (SIGLA_REGIAO, NOME_REGIAO) VALUES ('AMS', 'AMÉRICA DO SUL');
+INSERT INTO WORKSPACE.PUCRIO.REGIAO (SIGLA_REGIAO, NOME_REGIAO) VALUES ('AMC', 'AMÉRICA CENTRAL');
+INSERT INTO WORKSPACE.PUCRIO.REGIAO (SIGLA_REGIAO, NOME_REGIAO) VALUES ('AMN', 'AMÉRICA DO NORTE');
+INSERT INTO WORKSPACE.PUCRIO.REGIAO (SIGLA_REGIAO, NOME_REGIAO) VALUES ('EUR', 'EUROPA');
+INSERT INTO WORKSPACE.PUCRIO.REGIAO (SIGLA_REGIAO, NOME_REGIAO) VALUES ('AFR', 'ÁFRICA');
+INSERT INTO WORKSPACE.PUCRIO.REGIAO (SIGLA_REGIAO, NOME_REGIAO) VALUES ('ASI', 'ÁSIA');
+INSERT INTO WORKSPACE.PUCRIO.REGIAO (SIGLA_REGIAO, NOME_REGIAO) VALUES ('OCE', 'OCEANIA');
+INSERT INTO WORKSPACE.PUCRIO.REGIAO (SIGLA_REGIAO, NOME_REGIAO) VALUES ('WOR', 'WORLD / MUNDO');
+
+--TABELA ANOS
+INSERT INTO workspace.pucrio.ANO (ANO) VALUES (2025);
+INSERT INTO workspace.pucrio.ANO (ANO) VALUES (2024);
+INSERT INTO workspace.pucrio.ANO (ANO) VALUES (2023);
+INSERT INTO workspace.pucrio.ANO (ANO) VALUES (2022);
+INSERT INTO workspace.pucrio.ANO (ANO) VALUES (2021);
+INSERT INTO workspace.pucrio.ANO (ANO) VALUES (2020);
+INSERT INTO workspace.pucrio.ANO (ANO) VALUES (2019);
+INSERT INTO workspace.pucrio.ANO (ANO) VALUES (2018);
+INSERT INTO workspace.pucrio.ANO (ANO) VALUES (2017);
+INSERT INTO workspace.pucrio.ANO (ANO) VALUES (2016);
+INSERT INTO workspace.pucrio.ANO (ANO) VALUES (2015);
+INSERT INTO workspace.pucrio.ANO (ANO) VALUES (2014);
+INSERT INTO workspace.pucrio.ANO (ANO) VALUES (2013);
+INSERT INTO workspace.pucrio.ANO (ANO) VALUES (2012);
+INSERT INTO workspace.pucrio.ANO (ANO) VALUES (2011);
+INSERT INTO workspace.pucrio.ANO (ANO) VALUES (2010);
+INSERT INTO workspace.pucrio.ANO (ANO) VALUES (2009);
+INSERT INTO workspace.pucrio.ANO (ANO) VALUES (2008);
+INSERT INTO workspace.pucrio.ANO (ANO) VALUES (2007);
+INSERT INTO workspace.pucrio.ANO (ANO) VALUES (2006);
+INSERT INTO workspace.pucrio.ANO (ANO) VALUES (2005);
+INSERT INTO workspace.pucrio.ANO (ANO) VALUES (2004);
+INSERT INTO workspace.pucrio.ANO (ANO) VALUES (2003);
+INSERT INTO workspace.pucrio.ANO (ANO) VALUES (2002);
+INSERT INTO workspace.pucrio.ANO (ANO) VALUES (2001);
+INSERT INTO workspace.pucrio.ANO (ANO) VALUES (2000);
+INSERT INTO workspace.pucrio.ANO (ANO) VALUES (1999);
+INSERT INTO workspace.pucrio.ANO (ANO) VALUES (1998);
+INSERT INTO workspace.pucrio.ANO (ANO) VALUES (1997);
+INSERT INTO workspace.pucrio.ANO (ANO) VALUES (1996);
+INSERT INTO workspace.pucrio.ANO (ANO) VALUES (1995);
+INSERT INTO workspace.pucrio.ANO (ANO) VALUES (1994);
+INSERT INTO workspace.pucrio.ANO (ANO) VALUES (1993);
+INSERT INTO workspace.pucrio.ANO (ANO) VALUES (1992);
+INSERT INTO workspace.pucrio.ANO (ANO) VALUES (1991);
+INSERT INTO workspace.pucrio.ANO (ANO) VALUES (1990);
+INSERT INTO workspace.pucrio.ANO (ANO) VALUES (1989);
+INSERT INTO workspace.pucrio.ANO (ANO) VALUES (1988);
+INSERT INTO workspace.pucrio.ANO (ANO) VALUES (1987);
+INSERT INTO workspace.pucrio.ANO (ANO) VALUES (1986);
+INSERT INTO workspace.pucrio.ANO (ANO) VALUES (1985);
+INSERT INTO workspace.pucrio.ANO (ANO) VALUES (1984);
+INSERT INTO workspace.pucrio.ANO (ANO) VALUES (1983);
+INSERT INTO workspace.pucrio.ANO (ANO) VALUES (1982);
+INSERT INTO workspace.pucrio.ANO (ANO) VALUES (1981);
+INSERT INTO workspace.pucrio.ANO (ANO) VALUES (1980);
+INSERT INTO workspace.pucrio.ANO (ANO) VALUES (1979);
+INSERT INTO workspace.pucrio.ANO (ANO) VALUES (1978);
+INSERT INTO workspace.pucrio.ANO (ANO) VALUES (1977);
+INSERT INTO workspace.pucrio.ANO (ANO) VALUES (1976);
+INSERT INTO workspace.pucrio.ANO (ANO) VALUES (1975);
+INSERT INTO workspace.pucrio.ANO (ANO) VALUES (1974);
+INSERT INTO workspace.pucrio.ANO (ANO) VALUES (1973);
+INSERT INTO workspace.pucrio.ANO (ANO) VALUES (1972);
+INSERT INTO workspace.pucrio.ANO (ANO) VALUES (1971);
+INSERT INTO workspace.pucrio.ANO (ANO) VALUES (1970);
+INSERT INTO workspace.pucrio.ANO (ANO) VALUES (1969);
+INSERT INTO workspace.pucrio.ANO (ANO) VALUES (1968);
+INSERT INTO workspace.pucrio.ANO (ANO) VALUES (1967);
+INSERT INTO workspace.pucrio.ANO (ANO) VALUES (1966);
+INSERT INTO workspace.pucrio.ANO (ANO) VALUES (1965);
+INSERT INTO workspace.pucrio.ANO (ANO) VALUES (1964);
+INSERT INTO workspace.pucrio.ANO (ANO) VALUES (1963);
+INSERT INTO workspace.pucrio.ANO (ANO) VALUES (1962);
+INSERT INTO workspace.pucrio.ANO (ANO) VALUES (1961);
+INSERT INTO workspace.pucrio.ANO (ANO) VALUES (1960);
+INSERT INTO workspace.pucrio.ANO (ANO) VALUES (1959);
+INSERT INTO workspace.pucrio.ANO (ANO) VALUES (1958);
+INSERT INTO workspace.pucrio.ANO (ANO) VALUES (1957);
+INSERT INTO workspace.pucrio.ANO (ANO) VALUES (1956);
+INSERT INTO workspace.pucrio.ANO (ANO) VALUES (1955);
+INSERT INTO workspace.pucrio.ANO (ANO) VALUES (1954);
+INSERT INTO workspace.pucrio.ANO (ANO) VALUES (1953);
+INSERT INTO workspace.pucrio.ANO (ANO) VALUES (1952);
+INSERT INTO workspace.pucrio.ANO (ANO) VALUES (1951);
+INSERT INTO workspace.pucrio.ANO (ANO) VALUES (1950);
+
+--FORMATO_VALORES
+INSERT INTO workspace.pucrio.formato_valores (sigla_formato, nome_formato, fator_conversao)
+VALUES
+  ('MT', 'Megatoneladas CO₂e', 1e6),
+  ('TON', 'Toneladas CO₂', 1.0),
+  ('KG', 'Quilogramas CO₂', 1e-3),
+  ('G', 'Gramas CO₂', 1e-6); 
+
+
+--SETORES
+INSERT INTO workspace.pucrio.setor (sigla_setor, nome_setor, descricao_setor)
+VALUES
+  ('ENERGY', 'Energy', 'Emissões do setor energético: geração de eletricidade, calor, combustão estacionária.'),
+  ('IND_PROCESS', 'Industrial Processes and Product Use', 'Processos industriais não energéticos (ex: cimento, química, metalurgia).'),
+  ('AGRICULTURE', 'Agriculture', 'Emissões de atividades agrícolas (solo, arroz, gado, fertilizantes).'),
+  ('LULUCF', 'Land Use, Land-Use Change and Forestry', 'Mudança no uso da terra e florestas (sumidouros ou fontes).'),
+  ('WASTE', 'Waste', 'Tratamento de resíduos sólidos e efluentes.'),
+  ('OTHER', 'Other', 'Emissões residuais não atribuíveis diretamente aos demais setores.'),
+  ('POWER', 'Power', 'Geração de energia elétrica (sub-setor de Energy, comum no Carbon Monitor).'),
+  ('INDUSTRY', 'Industry', 'Combustão industrial + processos (sub-agregado de IND_PROCESS + parte de ENERGY).'),
+  ('TRANSPORT', 'Transport', 'Rodoviário, aéreo, marítimo e ferroviário.'),
+  ('RESIDENTIAL', 'Residential', 'Consumo energético em residências (aquecimento, cozinha, etc.).'),
+  ('COMMERCIAL', 'Commercial and Institutional', 'Edifícios comerciais, públicos e serviços.'),
+  ('FLARING', 'Flaring', 'Queima de gás associado à extração de petróleo/gás.'),
+  ('CARRIER', 'Fugitive Emissions', 'Emissões fugitivas de produção e distribuição de combustíveis fósseis.'),
+  ('AVIATION_INT', 'International Aviation', 'Emissões de voos internacionais (ICAO).'),
+  ('SHIPPING_INT', 'International Shipping', 'Emissões marítimas internacionais (IMO).'),
+  ('GROUND_TRANS', 'Ground Transport', 'Transporte terrestre'),
+  ('DOMESTIC_AVI', 'Domestic Aviation', 'Aviação doméstica ou dentro do país e viagens de aviões curtas');
+
+
+--PRODUTOS
+INSERT INTO workspace.pucrio.produto 
+(sigla_produto, nome_produto, descricao_produto, id_formato_valores)
+VALUES
+-- === Intensidades de emissão (kg CO₂eq/kg produto) → KG (id_formato = 1) ===
+('CEREALS', 'Cereais (excl. arroz)', 'kg CO₂eq por kg de cereais (excluindo arroz)', 1),
+('EGGS', 'Ovos', 'kg CO₂eq por kg de ovos', 1),
+('MEAT_CATTLE', 'Carne de gado bovino', 'kg CO₂eq por kg de carne bovina', 1),
+('MEAT_BUFFALO', 'Carne de búfalo', 'kg CO₂eq por kg de carne de búfalo', 1),
+('MEAT_PIG', 'Carne de porco', 'kg CO₂eq por kg de carne suína', 1),
+('MEAT_CHICKEN', 'Carne de frango', 'kg CO₂eq por kg de carne de frango', 1),
+('MEAT_GOAT', 'Carne de cabra', 'kg CO₂eq por kg de carne de cabra', 1),
+('MEAT_SHEEP', 'Carne de ovelha', 'kg CO₂eq por kg de carne de ovelha', 1),
+('RICE', 'Arroz (paddy)', 'kg CO₂eq por kg de arroz em casca', 1),
+('MILK_COW', 'Leite de vaca', 'kg CO₂eq por kg de leite de vaca', 1),
+('MILK_BUFFALO', 'Leite de búfalo', 'kg CO₂eq por kg de leite de búfalo', 1),
+('MILK_GOAT', 'Leite de cabra', 'kg CO₂eq por kg de leite de cabra', 1),
+('MILK_SHEEP', 'Leite de ovelha', 'kg CO₂eq por kg de leite de ovelha', 1),
+('MILK_CAMEL', 'Leite de camelo', 'kg CO₂eq por kg de leite de camelo', 1),
+
+-- === Emissões totais por item agrícola (toneladas) → TON (id_formato = 2) ===
+('AGR_1', 'Produção agrícola total', 'Emissões totais do setor agrícola (toneladas CO₂e)', 2),
+('AGR_2', 'Cultivo de arroz', 'Emissões do cultivo de arroz irrigado (toneladas CO₂e)', 2),
+('AGR_3', 'Enteric fermentation', 'Fermentação entérica em ruminantes (toneladas CO₂e)', 2),
+('AGR_4', 'Manejo de dejetos', 'Manejo de dejetos animais (toneladas CO₂e)', 2),
+('AGR_5', 'Queima de resíduos agrícolas', 'Queima de resíduos no campo (toneladas CO₂e)', 2),
+('AGR_6', 'Cultivo de solo', 'Emissões diretas do solo (N₂O) por fertilizantes (toneladas CO₂e)', 2),
+('AGR_7', 'Queima de biomassa', 'Queima de biomassa para limpeza de área (toneladas CO₂e)', 2),
+('AGR_9', 'Produção de arroz irrigado (CH₄)', 'Metano do arroz irrigado (toneladas CO₂e)', 2),
+('AGR_18', 'Outros processos agrícolas', 'Outras fontes menores do setor agrícola (toneladas CO₂e)', 2),
+
+-- === Produtos de produção/comércio (toneladas) → TON (id_formato = 2) ===
+('PROD_MAIZE', 'Milho', 'Produção de milho (toneladas)', 2),
+('PROD_RICE', 'Arroz', 'Produção de arroz (toneladas)', 2),
+('PROD_WHEAT', 'Trigo', 'Produção de trigo (toneladas)', 2),
+('PROD_SOY', 'Soja', 'Produção de soja (toneladas)', 2),
+('PROD_CATTLE', 'Gado', 'Produção de gado (cabeças/toneladas equivalente)', 2),
+('PROD_PIG', 'Porco', 'Produção de suínos (toneladas)', 2),
+('PROD_CHICKEN', 'Frango', 'Produção de frango (toneladas)', 2),
+('PROD_GOAT', 'Cabra', 'Produção de caprinos (toneladas)', 2),
+
+-- === Comércio (toneladas) → TON (id_formato = 2) ===
+('IMP_RICE', 'Importação de arroz', 'Importação de arroz (toneladas)', 2),
+('IMP_WHEAT', 'Importação de trigo', 'Importação de trigo (toneladas)', 2),
+('IMP_MAIZE', 'Importação de milho', 'Importação de milho (toneladas)', 2),
+('IMP_SOY', 'Importação de soja', 'Importação de soja (toneladas)', 2),
+('EXP_RICE', 'Exportação de arroz', 'Exportação de arroz (toneladas)', 2),
+('EXP_WHEAT', 'Exportação de trigo', 'Exportação de trigo (toneladas)', 2),
+('EXP_MAIZE', 'Exportação de milho', 'Exportação de milho (toneladas)', 2),
+('EXP_SOY', 'Exportação de soja', 'Exportação de soja (toneladas)', 2);
+ 
+-- PAÍS
+INSERT INTO workspace.pucrio.pais
+(sigla_pais, nome_pais, id_regiao)
+VALUES
+-- AMÉRICA DO SUL (id_regiao = 4)
+('ARG', 'Argentina', 4),
+('BOL', 'Bolivia', 4),
+('BRA', 'Brazil', 4),
+('CHL', 'Chile', 4),
+('COL', 'Colombia', 4),
+('ECU', 'Ecuador', 4),
+('GUF', 'French Guiana', 4),
+('GUY', 'Guyana', 4),
+('PRY', 'Paraguay', 4),
+('PER', 'Peru', 4),
+('SUR', 'Suriname', 4),
+('URY', 'Uruguay', 4),
+('VEN', 'Venezuela', 4),
+
+-- AMÉRICA CENTRAL (id_regiao = 5)
+('BLZ', 'Belize', 5),
+('CRI', 'Costa Rica', 5),
+('SLV', 'El Salvador', 5),
+('GTM', 'Guatemala', 5),
+('HND', 'Honduras', 5),
+('MEX', 'Mexico', 5),  -- MIGRADO PARA AMC (critério ONU: América Central inclui México)
+('NIC', 'Nicaragua', 5),
+('PAN', 'Panama', 5),
+
+-- CARIBE (id_regiao = 5)
+('ATG', 'Antigua and Barbuda', 5),
+('BHS', 'Bahamas', 5),
+('BRB', 'Barbados', 5),
+('CUB', 'Cuba', 5),
+('DMA', 'Dominica', 5),
+('DOM', 'Dominican Republic', 5),
+('GRD', 'Grenada', 5),
+('HTI', 'Haiti', 5),
+('JAM', 'Jamaica', 5),
+('KNA', 'Saint Kitts and Nevis', 5),
+('LCA', 'Saint Lucia', 5),
+('VCT', 'Saint Vincent and the Grenadines', 5),
+('TTO', 'Trinidad and Tobago', 5),
+
+-- AMÉRICA DO NORTE (id_regiao = 6)
+('CAN', 'Canada', 6),
+('USA', 'United States', 6),
+
+-- EUROPA (id_regiao = 7)
+('ALB',2854191, 22000000000, 7),
+('AND', 'Andorra', 7),
+('AUT', 'Austria', 7),
+('BLR', 'Belarus', 7),
+('BEL', 'Belgium', 7),
+('BIH', 'Bosnia and Herzegovina', 7),
+('BGR', 'Bulgaria', 7),
+('HRV', 'Croatia', 7),
+('CYP', 'Cyprus', 7),
+('CZE', 'Czechia', 7),
+('DNK', 'Denmark', 7),
+('EST', 'Estonia', 7),
+('FIN', 'Finland', 7),
+('FRA', 'France', 7),
+('DEU', 'Germany', 7),
+('GRC', 'Greece', 7),
+('HUN', 'Hungary', 7),
+('ISL', 'Iceland', 7),
+('IRL', 'Ireland', 7),
+('ITA', 'Italy', 7),
+('LVA', 'Latvia', 7),
+('LIE', 'Liechtenstein', 7),
+('LTU', 'Lithuania', 7),
+('LUX', 'Luxembourg', 7),
+('MLT', 'Malta', 7),
+('MDA', 'Moldova', 7),
+('MCO', 'Monaco', 7),
+('MNE', 'Montenegro', 7),
+('NLD', 'Netherlands', 7),
+('MKD', 'North Macedonia', 7),
+('NOR', 'Norway', 7),
+('POL', 'Poland', 7),
+('PRT', 'Portugal', 7),
+('ROU', 'Romania', 7),
+('RUS', 'Russian Federation', 7),
+('SMR', 'San Marino', 7),
+('SRB', 'Serbia', 7),
+('SVK', 'Slovakia', 7),
+('SVN', 'Slovenia', 7),
+('ESP', 'Spain', 7),
+('SWE', 'Sweden', 7),
+('CHE', 'Switzerland', 7),
+('UKR', 'Ukraine', 7),
+('GBR', 'United Kingdom', 7),
+('VAT', 'Vatican City', 7),
+
+-- ÁFRICA (id_regiao = 8)
+('DZA', 'Algeria', 8),
+('AGO', 'Angola', 8),
+('BEN', 'Benin', 8),
+('BWA', 'Botswana', 8),
+('BFA', 'Burkina Faso', 8),
+('BDI', 'Burundi', 8),
+('CPV', 'Cabo Verde', 8),
+('CMR', 'Cameroon', 8),
+('CAF', 'Central African Republic', 8),
+('TCD', 'Chad', 8),
+('COM', 'Comoros', 8),
+('COD', 'Congo (DRC)', 8),
+('COG', 'Congo (Republic)', 8),
+('CIV', 'Côte d’Ivoire', 8),
+('DJI', 'Djibouti', 8),
+('EGY', 'Egypt', 8),
+('GNQ', 'Equatorial Guinea', 8),
+('ERI', 'Eritrea', 8),
+('ETH', 'Ethiopia', 8),
+('GAB', 'Gabon', 8),
+('GMB', 'Gambia', 8),
+('GHA', 'Ghana', 8),
+('GIN', 'Guinea', 8),
+('GNB', 'Guinea-Bissau', 8),
+('KEN', 'Kenya', 8),
+('LSO', 'Lesotho', 8),
+('LBR', 'Liberia', 8),
+('LBY', 'Libya', 8),
+('MDG', 'Madagascar', 8),
+('MWI', 'Malawi', 8),
+('MLI', 'Mali', 8),
+('MRT', 'Mauritania', 8),
+('MUS', 'Mauritius', 8),
+('MAR', 'Morocco', 8),
+('MOZ', 'Mozambique', 8),
+('NAM', 'Namibia', 8),
+('NER', 'Niger', 8),
+('NGA', 'Nigeria', 8),
+('RWA', 'Rwanda', 8),
+('STP', 'Sao Tome and Principe', 8),
+('SEN', 'Senegal', 8),
+('SYC', 'Seychelles', 8),
+('SLE', 'Sierra Leone', 8),
+('SOM', 'Somalia', 8),
+('ZAF', 'South Africa', 8),
+('SSD', 'South Sudan', 8),
+('SDN', 'Sudan', 8),
+('SWZ', 'Eswatini', 8),
+('TZA', 'Tanzania', 8),
+('TGO', 'Togo', 8),
+('TUN', 'Tunisia', 8),
+('UGA', 'Uganda', 8),
+('ZMB', 'Zambia', 8),
+('ZWE', 'Zimbabwe', 8),
+
+-- ÁSIA (id_regiao = 9)
+('AFG', 'Afghanistan', 9),
+('ARM', 'Armenia', 9),
+('AZE', 'Azerbaijan', 9),
+('BHR', 'Bahrain', 9),
+('BGD', 'Bangladesh', 9),
+('BTN', 'Bhutan', 9),
+('BRN', 'Brunei', 9),
+('KHM', 'Cambodia', 9),
+('CHN', 'China', 9),
+('CYP', 'Cyprus', 9),  -- repete (mas comum em ambas regiões)
+('PRK', 'North Korea', 9),
+('KOR', 'South Korea', 9),
+('GEO', 'Georgia', 9),
+('HKG', 'Hong Kong SAR', 9),
+('IND', 'India', 9),
+('IDN', 'Indonesia', 9),
+('IRN', 'Iran', 9),
+('IRQ', 'Iraq', 9),
+('ISR', 'Israel', 9),
+('JPN', 'Japan', 9),
+('JOR', 'Jordan', 9),
+('KAZ', 'Kazakhstan', 9),
+('KWT', 'Kuwait', 9),
+('KGZ', 'Kyrgyzstan', 9),
+('LAO', 'Laos', 9),
+('LBN', 'Lebanon', 9),
+('MAC', 'Macao SAR', 9),
+('MYS', 'Malaysia', 9),
+('MDV', 'Maldives', 9),
+('MNG', 'Mongolia', 9),
+('MMR', 'Myanmar', 9),
+('NPL', 'Nepal', 9),
+('OMN', 'Oman', 9),
+('PAK', 'Pakistan', 9),
+('PSE', 'Palestine', 9),
+('PHL', 'Philippines', 9),
+('QAT', 'Qatar', 9),
+('SAU', 'Saudi Arabia', 9),
+('SGP', 'Singapore', 9),
+('LKA', 'Sri Lanka', 9),
+('SYR', 'Syria', 9),
+('TWN', 'Taiwan', 9),
+('TJK', 'Tajikistan', 9),
+('THA', 'Thailand', 9),
+('TLS', 'Timor-Leste', 9),
+('TUR', 'Türkiye', 9),
+('TKM', 'Turkmenistan', 9),
+('ARE', 'United Arab Emirates', 9),
+('UZB', 'Uzbekistan', 9),
+('VNM', 'Vietnam', 9),
+('YEM', 'Yemen', 9),
+
+-- OCEÂNIA (id_regiao = 10)
+('ASM', 'American Samoa', 10),
+('AUS', 'Australia', 10),
+('COK', 'Cook Islands', 10),
+('FJI', 'Fiji', 10),
+('PYF', 'French Polynesia', 10),
+('GUM', 'Guam', 10),
+('KIR', 'Kiribati', 10),
+('MHL', 'Marshall Islands', 10),
+('FSM', 'Micronesia', 10),
+('NRU', 'Nauru', 10),
+('NCL', 'New Caledonia', 10),
+('NZL', 'New Zealand', 10),
+('NIU', 'Niue', 10),
+('NFK', 'Norfolk Island', 10),
+('MNP', 'Northern Mariana Islands', 10),
+('PLW', 'Palau', 10),
+('PNG', 'Papua New Guinea', 10),
+('WSM', 'Samoa', 10),
+('SLB', 'Solomon Islands', 10),
+('TKL', 'Tokelau', 10),
+('TON', 'Tonga', 10),
+('TUV', 'Tuvalu', 10),
+('VUT', 'Vanuatu', 10),
+('WLF', 'Wallis and Futuna', 10),
+
+-- ANTÁRTIDA (id_regiao = 1)
+('ATA', 'Antarctica', 1),
+
+-- TERRITÓRIOS ÁRTICOS / MARÍTIMOS (id_regiao = 2 ou 3 — aqui atribuído a ANT/SEA por simplicidade)
+('ATA', 'Heard Island and McDonald Islands', 1),
+('ATA', 'South Georgia and the South Sandwich Islands', 1),
+('FRO', 'Faroe Islands', 7),  -- Dinamarca → Europa
+('WOR', 'World', 12);
+
+--PIB POR PAÍS E POR ANO
+INSERT INTO workspace.pucrio.pib_pais (id_pais, ID_ANO, pib_pais)
+SELECT PAIS.id_pais, 
+       ANO.ID_ANO,
+       pib_populacao_anual.pib_usd
+  FROM WORKSPACE.pucrio.pib_populacao_anual
+ INNER JOIN workspace.pucrio.pais
+    ON UPPER(PAIS.nome_pais) = UPPER(pib_populacao_anual.nome_pais)
+ INNER JOIN WORKSPACE.PUCRIO.ANO
+    ON ANO.ano = pib_populacao_anual.ano;
+
+
+--POPULAÇÃO POR PAÍS E POR ANO 
+INSERT INTO workspace.pucrio.populacao_pais (ID_PAIS, ID_ANO, POPULACAO_PAIS)
+SELECT PAIS.id_pais, 
+       ANO.ID_ANO,
+       pib_populacao_anual.populacao
+  FROM WORKSPACE.pucrio.pib_populacao_anual
+ INNER JOIN workspace.pucrio.pais
+    ON UPPER(PAIS.nome_pais) = UPPER(pib_populacao_anual.nome_pais)
+ INNER JOIN WORKSPACE.PUCRIO.ANO
+    ON ANO.ano = pib_populacao_anual.ano;
+
+SELECT ANO.ID_ANO,    
+       PAIS.ID_PAIS,
+       1,   
+       (((SUM(carbon_monitor.VALUE) * formato_valores.fator_conversao)) * 1e6) / PAIS.pib_pais valor_t_por_milhao_USD 
+  FROM workspace.pucrio.CARBON_MONITOR 
+ INNER JOIN workspace.pucrio.formato_valores 
+    ON formato_valores.ID_FORMATO = 1
+ INNER JOIN workspace.pucrio.ANO 
+    ON ANO.ANO = CAST(substr(carbon_monitor.DATE, 7, 10) AS NUMERIC)  
+ INNER JOIN workspace.pucrio.pais
+    ON UPPER(CASE WHEN carbon_monitor.COUNTRY = 'EU27 & UK' THEN 'Europe' ELSE CARBON_MONITOR.COUNTRY END) = UPPER(PAIS.nome_pais)
+ INNER JOIN workspace.pucrio.pib_pais
+    ON PAIS.ID_PAIS = pib_pais.ID_PAIS
+   AND ANO.ID_ANO = pib_pais.ID_ANO 
+  WHERE PAIS.sigla_pais = 'BRA' AND ano.ano = 2024
+GROUP BY  
+      ANO.ID_ANO,  
+      formato_valores.fator_conversao,  
+      PAIS.ID_PAIS,
+      PAIS.pib_pais    ; 
+
+delete from emissao_co2_anual_pib where id_ano = 2 and id_pais = 294      ;
+
+
+select * from emissao_co2_per_capita;
+
+ALTER TABLE emissao_co2_per_capita ADD COLUMN ID_PAIS BIGINT;
+
+ALTER TABLE emissao_co2_per_capita ADD CONSTRAINT FK_emissao_co2_per_capita_PAIS FOREIGN KEY (ID_PAIS) REFERENCES WORKSPACE.PUCRIO.PAIS (id_pais);
+
+
+ALTER TABLE emissao_co2_pib ADD COLUMN ID_PAIS BIGINT;
+
+ALTER TABLE emissao_co2_pib ADD CONSTRAINT FK_emissao_co2_PIB_PAIS FOREIGN KEY (ID_PAIS) REFERENCES WORKSPACE.PUCRIO.PAIS (id_pais);
+
+
+SELECT * FROM WORKSPACE.PUCRIO.populacao_pais;
+
+SELECT ANO.ID_ANO,    
+       PAIS.ID_PAIS,
+       1,    
+      ((SUM(carbon_monitor.VALUE) * formato_valores.fator_conversao)) / populacao_pais.POPULACAO_PAIS AS valor_t_por_habitante 
+  FROM workspace.pucrio.CARBON_MONITOR 
+ INNER JOIN workspace.pucrio.formato_valores        
+    ON formato_valores.ID_FORMATO = 1
+ INNER JOIN workspace.pucrio.ANO 
+    ON ANO.ANO = CAST(substr(carbon_monitor.DATE, 7, 10) AS NUMERIC)  
+ INNER JOIN workspace.pucrio.pais
+    ON UPPER(CASE WHEN carbon_monitor.COUNTRY = 'EU27 & UK' THEN 'Europe' ELSE CARBON_MONITOR.COUNTRY END) = UPPER(PAIS.nome_pais)
+ INNER JOIN workspace.pucrio.populacao_pais
+    ON PAIS.ID_PAIS = populacao_pais.ID_PAIS
+   AND ANO.id_ano = populacao_pais.id_ano
+   WHERE ANO.id_ano = 2 
+   AND pais.sigla_pais = 'BRA'
+ GROUP BY  
+      ANO.ID_ANO,    
+      PAIS.ID_PAIS,
+      formato_valores.fator_conversao,
+      populacao_pais.POPULACAO_PAIS 
+      ; 
+
+
+INSERT INTO workspace.pucrio.produto (id_formato_valores, sigla_produto, nome_produto, descricao_produto) VALUES 
+(3, 'LAND_1', 'Total Emissões na área', 'Terreno florestal'),
+(3, 'LAND_2', 'Total Emissões na área', 'Conversão líquida de florestas'),
+(3, 'LAND_3', 'Total Emissões na área', 'Incêndios florestais'),
+(3, 'LAND_4', 'Total Emissões na área', 'Incêndios em solos orgânicosIncêndios em solos orgânicos');
+
+
+
+INSERT INTO workspace.pucrio.produto (id_formato_valores, sigla_produto, nome_produto, descricao_produto) VALUES 
+(3, 'AGR_10', 'Total Emissões na agricultura', 'Incêndios na savana'),
+(3, 'AGR_11', 'Total Emissões na agricultura', 'Fonte de energia utilizada - Carvão'),
+(3, 'AGR_12', 'Total Emissões na agriculturav', 'Fonte de energia utilizada - Eletricidade'),
+(3, 'AGR_14', 'Total Emissões na agriculturav', 'Fonte de energia utilizada - Produtos de petróleo'),
+(3, 'AGR_17', 'Total Emissões na agricultura', 'Fonte de energia utilizada - Gás natural (incluindo GNL)');
+
+
+SELECT * FROM catalogo_dados_referencia
+WHERE NOME_REFERENCIA = 'total_emissions_land_1';
+
+      SELECT DISTINCT produto.*
+      FROM workspace.pucrio.produto
+      INNER JOIN workspace.pucrio.Cw_agriculture_emissions 
+      ON  UPPER(cw_agriculture_emissions.`short names`) like '%' || UPPER(produto.sigla_produto);
+
+ALTER TABLE WORKSPACE.PUCRIO.emissao_co2_produto DROP COLUMN ID_FONTE_DADOS;
+ALTER TABLE WORKSPACE.PUCRIO.emissao_co2_produto ADD COLUMN ID_FONTE_DADOS INT;
+
+ALTER TABLE workspace.pucrio.emissao_co2_produto ADD CONSTRAINT FK_EMISSAO_PRODUTO_FONTE_DADOS 
+FOREIGN KEY (ID_FONTE_DADOS) REFERENCES WORKSPACE.PUCRIO.CATALOGO_FONTES_DADOS (id_fonte);
+
+      
+
+
+SELECT ANO, 
+       SUM(CAST(VALOR AS NUMERIC)) VALOR
+   FROM (
+      SELECT YEAR ANO,  
+             GAS,
+             SECTOR,
+             ISO SIGLA_PAIS, 
+             EMISSIONS VALOR --CO2  MtCO₂e
+       FROM workspace.pucrio.cw_historical_emissions   
+       UNPIVOT (
+       EMISSIONS FOR YEAR IN (
+              `1961`, `1962`, `1963`, `1964`, `1965`, `1966`, `1967`, `1968`, `1969`, `1970`,
+              `1971`, `1972`, `1973`, `1974`, `1975`, `1976`, `1977`, `1978`, `1979`, `1980`,
+              `1981`, `1982`, `1983`, `1984`, `1985`, `1986`, `1987`, `1988`, `1989`, `1990`,
+              `1991`, `1992`, `1993`, `1994`, `1995`, `1996`, `1997`, `1998`, `1999`, `2000`,
+              `2001`, `2002`, `2003`, `2004`, `2005`, `2006`, `2007`, `2008`, `2009`, `2010`,
+              `2011`, `2012`, `2013`, `2014`, `2015`, `2016`, `2017`, `2018`, `2019`, `2020`,
+              `2021`, `2022`, `2023`
+       )
+       ) AS unpivoted_data  
+   )   
+   WHERE UPPER(GAS) LIKE '%CO2%' 
+     AND UPPER(VALOR) NOT IN ('N/A') 
+     AND UPPER(VALOR) IS NOT NULL
+   GROUP BY ANO;      
+
+DROP TABLE workspace.pucrio.emissao_co2_pib;
+
+
+WITH EMISSIONS AS (       
+       SELECT ANO, 
+              GAS,
+              SECTOR,
+              SIGLA_PAIS,
+              SUM(CAST(VALOR AS NUMERIC)) VALOR
+       FROM (
+       SELECT YEAR ANO,  
+              GAS,
+              SECTOR,
+              ISO SIGLA_PAIS, 
+              EMISSIONS VALOR --CO2  MtCO₂e
+              FROM workspace.pucrio.cw_historical_emissions   
+              UNPIVOT (
+              EMISSIONS FOR YEAR IN (
+                     `1961`, `1962`, `1963`, `1964`, `1965`, `1966`, `1967`, `1968`, `1969`, `1970`,
+                     `1971`, `1972`, `1973`, `1974`, `1975`, `1976`, `1977`, `1978`, `1979`, `1980`,
+                     `1981`, `1982`, `1983`, `1984`, `1985`, `1986`, `1987`, `1988`, `1989`, `1990`,
+                     `1991`, `1992`, `1993`, `1994`, `1995`, `1996`, `1997`, `1998`, `1999`, `2000`,
+                     `2001`, `2002`, `2003`, `2004`, `2005`, `2006`, `2007`, `2008`, `2009`, `2010`,
+                     `2011`, `2012`, `2013`, `2014`, `2015`, `2016`, `2017`, `2018`, `2019`, `2020`,
+                     `2021`, `2022`, `2023`
+              )
+              ) AS unpivoted_data  
+       )   
+       WHERE UPPER(GAS) LIKE '%CO2%' 
+       AND UPPER(VALOR) NOT IN ('N/A') 
+       AND UPPER(VALOR) IS NOT NULL
+       GROUP BY ANO, 
+              GAS,
+              SECTOR,
+              SIGLA_PAIS  
+)
+SELECT PAIS.id_pais,
+       SETOR.ID_SETOR,
+       10, --ID_FONTE_DADOS
+       SUM(b.valor * formato_valores.fator_conversao) VALOR_CONVERSAO
+  FROM EMISSIONS B 
+ INNER JOIN workspace.pucrio.formato_valores
+    ON formato_valores.id_formato = 1  
+ INNER JOIN workspace.pucrio.pais
+    ON PAIS.sigla_pais = B.sigla_pais 
+ INNER JOIN workspace.pucrio.setor
+    ON UPPER(SETOR.sigla_setor) = UPPER(B.sectoR)
+WHERE B.sigla_pais NOT IN ('BASIC', 'NONANNEXI', 'WORLD', 'ANNEXI', 'AOSIS', 'UMBRELLA')
+GROUP BY 
+      PAIS.id_pais,
+      SETOR.ID_SETOR;
+   
+
+
+   CREATE TABLE IF NOT EXISTS workspace.pucrio.emissao_co2_per_capita (
+  id_ano            BIGINT NOT NULL,
+  id_fonte_dados    INT NOT NULL,
+  ID_PAIS           BIGINT NOT NULL,
+  valor_emissao     DOUBLE,
+  CONSTRAINT pk_per_capita PRIMARY KEY (id_ano),
+  CONSTRAINT fk_per_capita_ano FOREIGN KEY (id_ano) REFERENCES workspace.pucrio.ano(id_ano),
+  CONSTRAINT fk_emissao_per_capita_fonte_dados FOREIGN KEY (id_fonte_dados) REFERENCES workspace.pucrio.catalogo_fontes_dados(ID_FONTE),
+  CONSTRAINT FK_emissao_co2_per_capita_PAIS FOREIGN KEY (ID_PAIS) REFERENCES WORKSPACE.PUCRIO.PAIS (id_pais)
+)
+USING DELTA; 
+
+ALTER TABLE workspace.pucrio.emissao_co2_regiao_setor
+ADD COLUMN id_fonte_dados INT;
+
+ALTER TABLE workspace.pucrio.emissao_co2_regiao_setor
+ADD CONSTRAINT FK_EMISSAO_REGIAO_SETOR_FONTE_DADOS FOREIGN KEY (id_fonte_dados) REFERENCES workspace.pucrio.catalogo_fontes_dados(ID_FONTE);
+
+INSERT INTO workspace.pucrio.formato_valores ( sigla_formato, nome_formato, fator_conversao) VALUES ('kt', 'kilotonelada métrica', 1000);
+
+
+
+CREATE TABLE IF NOT EXISTS workspace.pucrio.emissao_co2_anual (
+  id_ano            BIGINT NOT NULL,
+  id_fonte_dados    INT NOT NULL,
+  valor_emissao     DOUBLE NOT NULL,  -- em toneladas (padrão)
+  CONSTRAINT pk_anual PRIMARY KEY (id_ano),
+  CONSTRAINT fk_anual_ano FOREIGN KEY (id_ano) REFERENCES workspace.pucrio.ano(id_ano),
+  CONSTRAINT fk_emissao_anual_fonte_dados FOREIGN KEY (id_fonte_dados) REFERENCES  workspace.pucrio.catalogo_fontes_dados(ID_FONTE)
+)
+USING DELTA;
+
+INSERT INTO workspace.pucrio.produto 
+(sigla_produto, nome_produto, descricao_produto, id_formato_valores)
+VALUES
+-- === Cultivo ===
+('CROP_RESIDUES', 'Crop Residues', 'Emissões de resíduos agrícolas (ex: palha) — principalmente N₂O da decomposição.', 5),
+('RICE_CULTIVATION', 'Rice Cultivation', 'Metano (CH₄) emitido pelo cultivo de arroz irrigado em solos alagados.', 5),
+('BURNING_CROP_RESIDUES', 'Burning - Crop residues', 'Queima de resíduos no campo — emite CO₂, CH₄ e N₂O.', 5),
+
+-- === Pecuária ===
+('ENTERIC_FERMENTATION', 'Enteric Fermentation', 'Fermentação entérica em ruminantes (bovinos, ovinos, etc.) — principal fonte de CH₄ agrícola.', 5),
+('MANURE_MANAGEMENT', 'Manure Management', 'Manejo de dejetos em sistemas confinados (barragens, tanques) — emite CH₄ e N₂O.', 5),
+('MANURE_PASTURE', 'Manure left on Pasture', 'Dejetos depositados diretamente em pastagens — fonte de N₂O.', 5),
+('MANURE_SOILS', 'Manure applied to Soils', 'Dejetos usados como fertilizante orgânico — emite N₂O.', 5),
+
+-- === Insumos agrícolas ===
+('SYNTHETIC_FERTILIZERS', 'Synthetic Fertilizers', 'Uso de fertilizantes nitrogenados — principal fonte antropogênica de N₂O direto.', 5),
+('AGRICULTURAL_SOILS', 'Agricultural Soils', 'Emissões diretas e indiretas de N₂O de solos agrícolas (inclui fertilizantes, resíduos, deposição atmosférica).', 5),
+
+-- === Outros setores (agregados ou complementares) ===
+('ENERGY', 'Energy', 'Emissões de energia no setor agrícola (máquinas, irrigação, processamento).', 5),
+('IPPU', 'IPPU', 'Industrial Processes and Product Use — processos industriais no contexto agrícola (ex: produção de calcário, agroquímicos).', 5),
+('WASTE', 'Waste', 'Tratamento de resíduos orgânicos agrícolas (ex: vinhaça, resíduos de frigorífico).', 5),
+('OTHER', 'Other', 'Fontes residuais não categorizadas (ex: queima de biomassa não-crop, emissões de incêndios controlados).', 5),
+
+-- === Agregados temáticos (FAOSTAT/IPCC) ===
+('EMISSIONS_CROPS', 'Emissions from crops', 'Agregado de emissões associadas ao cultivo vegetal (arroz, resíduos, fertilizantes, solos).', 5),
+('EMISSIONS_LIVESTOCK', 'Emissions from livestock', 'Agregado de emissões pecuárias (fermentação entérica + manejo de dejetos).', 5),
+('IPCC_AGRICULTURE', 'IPCC Agriculture', 'Total de emissões do setor agrícola conforme metodologia IPCC (Capítulo 5 — Agricultura, Florestas e Outros Usos da Terra).', 5);
+
+
+SELECT DISTINCT
+  UPPER(Entity) AS entity_upper,
+  INSTR(Entity, ' ') AS pos_espaco,
+  UPPER(CASE 
+    WHEN INSTR(Entity, ' ') > 0 THEN SUBSTRING(Entity, 1, INSTR(Entity, ' ') - 1)
+    ELSE Entity
+  END) AS primeira_palavra,
+   UPPER(owd_annual_co_2_emissions_per_country.Entity) ||'%'
+FROM workspace.pucrio.owd_annual_co_2_emissions_per_country
+WHERE CODE IS NULL;
+
+SELECT YEAR,
+       ENTITY,
+       SUM(owd_annual_co_2_emissions_per_country.`Annual CO₂ emissions`) VALOR 
+FROM workspace.pucrio.owd_annual_co_2_emissions_per_country
+WHERE CODE IS NULL
+   AND owd_annual_co_2_emissions_per_country.Year > 1950   
+   AND Entity NOT IN ('International aviation', 'International shipping', 'Asia (excl. China and India)',
+   'Low-income countries', 'High-income countries', 'Africa (GCP)', 'Asia (GCP)', 'Central America (GCP)',
+   'Europe (GCP)', 'Europe (excl. EU-27)', 'Europe (excl. EU-28)', 'European Union (27)', 
+   'European Union (28)', 'Lower-middle-income countries', 'Middle East (GCP)', 'Non-OECD (GCP)',
+   'North America (GCP)', 'North America (excl. USA)', 'OECD (GCP)', 'Oceania (GCP)',
+   'Ryukyu Islands (GCP)', 'South America (GCP)', 'Kuwaiti Oil Fires (GCP)', 
+   'Upper-middle-income countries')
+   GROUP BY YEAR, ENTITY
+HAVING SUM(owd_annual_co_2_emissions_per_country.`Annual CO₂ emissions`) > 0;
+
+SELECT * FROM REGIAO;
+
+
+ALTER TABLE REGIAO ADD COLUMN NOME_REGIAO_INGLES STRING;
+
+UPDATE WORKSPACE.PUCRIO.REGIAO 
+   SET NOME_REGIAO_INGLES = 'ANTARCTICA'
+ WHERE sigla_regiao = 'ANT';
+UPDATE WORKSPACE.PUCRIO.REGIAO 
+   SET NOME_REGIAO_INGLES = 'ARCTIC'
+ WHERE sigla_regiao = 'ART';
+UPDATE WORKSPACE.PUCRIO.REGIAO 
+   SET NOME_REGIAO_INGLES = 'SEA'
+   WHERE sigla_regiao = 'SEA';
+UPDATE WORKSPACE.PUCRIO.REGIAO 
+   SET NOME_REGIAO_INGLES = 'SOUTH AMERICA'
+   WHERE sigla_regiao = 'AMS';
+UPDATE WORKSPACE.PUCRIO.REGIAO 
+   SET NOME_REGIAO_INGLES = 'CENTRAL AMERICA'
+   WHERE sigla_regiao = 'AMC';
+UPDATE WORKSPACE.PUCRIO.REGIAO 
+   SET NOME_REGIAO_INGLES = 'NORTH AMERICA'
+   WHERE sigla_regiao = 'AMN';
+UPDATE WORKSPACE.PUCRIO.REGIAO 
+   SET NOME_REGIAO_INGLES = 'EUROPE'
+   WHERE sigla_regiao = 'EUR';
+UPDATE WORKSPACE.PUCRIO.REGIAO 
+   SET NOME_REGIAO_INGLES = 'AFRICA'
+   WHERE sigla_regiao = 'AFR';
+UPDATE WORKSPACE.PUCRIO.REGIAO 
+   SET NOME_REGIAO_INGLES = 'ASIA'
+   WHERE sigla_regiao = 'ASI'; 
+UPDATE WORKSPACE.PUCRIO.REGIAO 
+   SET NOME_REGIAO_INGLES = 'OCEANIA'
+   WHERE sigla_regiao = 'OCE';
+UPDATE WORKSPACE.PUCRIO.REGIAO 
+   SET NOME_REGIAO_INGLES = 'WORLD'
+   WHERE sigla_regiao = 'WOR';
+
+   
+SELECT COALESCE(ea.valor_emissao, 0) AS emissao_ton FROM workspace.pucrio.emissao_co2_anual_pib ea
+WHERE EA.id_ano = 6
+AND EA.id_pais = 295;
+
+SELECT COUNT(*) FROM emissao_co2_pais_produto WHERE ID_PAIS = 295 ;
+
+SELECT DISTINCT catalogo_fontes_dados.DESCRICAO_FONTE, catalogo_fontes_dados.NOME_FONTE, catalogo_fontes_dados.ID_FONTE
+ FROM workspace.pucrio.emissao_co2_pais_setor
+INNER JOIN catalogo_fontes_dados ON catalogo_fontes_dados.ID_FONTE = emissao_co2_pais_setor.id_fonte_dados
+; 
+
+
+
+SELECT DISTINCT catalogo_fontes_dados.DESCRICAO_FONTE, catalogo_fontes_dados.NOME_FONTE, catalogo_fontes_dados.ID_FONTE
+ FROM workspace.pucrio.emissao_co2_per_capita
+INNER JOIN catalogo_fontes_dados ON catalogo_fontes_dados.ID_FONTE = emissao_co2_per_capita.id_fonte_dados;
+
+SELECT DISTINCT catalogo_fontes_dados.DESCRICAO_FONTE, catalogo_fontes_dados.NOME_FONTE, catalogo_fontes_dados.ID_FONTE
+ FROM workspace.pucrio.emissao_co2_produto
+INNER JOIN catalogo_fontes_dados ON catalogo_fontes_dados.ID_FONTE = emissao_co2_produto.id_fonte_dados;
+
+SELECT DISTINCT catalogo_fontes_dados.DESCRICAO_FONTE, catalogo_fontes_dados.NOME_FONTE, catalogo_fontes_dados.ID_FONTE
+ FROM workspace.pucrio.emissao_co2_regiao_produto
+INNER JOIN catalogo_fontes_dados ON catalogo_fontes_dados.ID_FONTE = emissao_co2_regiao_produto.id_fonte_dados;
+
+
+select * from workspace.pucrio.emissao_co2_regiao_setor where valor_emissao < 0;
+
+SELECT * FROM catalogo_fontes_dados WHERE ID_FONTE = 10;
+
+
+select * from workspace.pucrio.emissao_co2_setor;
+
+SELECT DISTINCT catalogo_fontes_dados.DESCRICAO_FONTE, catalogo_fontes_dados.NOME_FONTE, catalogo_fontes_dados.ID_FONTE
+ FROM workspace.pucrio.emissao_co2_setor
+INNER JOIN catalogo_fontes_dados ON catalogo_fontes_dados.ID_FONTE = emissao_co2_setor.id_fonte_dados;
+
+
+
+SELECT DISTINCT catalogo_fontes_dados.DESCRICAO_FONTE, catalogo_fontes_dados.NOME_FONTE, catalogo_fontes_dados.ID_FONTE
+ FROM workspace.pucrio.emissao_co2_anual_regiao
+INNER JOIN catalogo_fontes_dados ON catalogo_fontes_dados.ID_FONTE = emissao_co2_anual_regiao.id_fonte_dados;
+
+SELECT DISTINCT id_fonte_dados FROM workspace.pucrio.emissao_co2_anual_produto WHERE valor_emissao < 0 AND id_produto IN (40, 41);
+
+
+SELECT DISTINCT id_fonte_dados FROM workspace.pucrio.emissao_co2_pais_produto WHERE valor_emissao < 0 AND id_produto IN (40, 41);
+
+
+SELECT * FROM WORKSPACE.PUCRIO.PAIS WHERE NOME_PAIS = 'INDIA';
+
+WITH ultimos_25_anos AS (
+  SELECT 
+    p.id_pais,
+    a.ano,
+    p.pib_pais
+  FROM workspace.pucrio.PIB_PAIS p
+  JOIN workspace.pucrio.ano a ON p.ID_ANO = a.id_ano
+  WHERE a.ano >= 2000 AND a.ano <= 2024
+    AND p.pib_pais IS NOT NULL
+    AND p.pib_pais > 0
+),
+media_pib AS (
+  SELECT 
+    id_pais,
+    AVG(pib_pais) AS pib_medio
+  FROM ultimos_25_anos
+  GROUP BY id_pais
+  ORDER BY pib_medio DESC
+  LIMIT 10
+)
+SELECT 
+  u.id_pais,
+  pa.nome_pais,
+  u.ano,
+  u.pib_pais
+FROM ultimos_25_anos u
+JOIN media_pib m ON u.id_pais = m.id_pais
+JOIN workspace.pucrio.pais pa ON u.id_pais = pa.id_pais
+ORDER BY m.pib_medio DESC, u.ano;
