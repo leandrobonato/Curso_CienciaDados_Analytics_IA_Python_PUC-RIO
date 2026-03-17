@@ -1,6 +1,6 @@
-*.csv
 *.pack
 Text_Classification_example.ipynb
 cats-vs-dogs-binaryclassify-dl.ipynb
 *.rtb
 Object_Detection.ipynb
+*.ps1
