@@ -1,31 +1,3 @@
-
-
-C:\Program Files\MongoDB\Tools\100\bin>mongoimport --uri mongodb+srv://bonato16_db_user:L2VFXXTL3uI6GvVO@datalake.omoipit.mongodb.net/PUC_RIO --collection MVP_Análise_de_Dados --type csv --headerline --file "D:\dados_nc\FoodData_Central_csv_2025-12-18\FoodData_Central_csv_2025-12-18\food_nutrient.csv"
-
-
-C:\Program Files\MongoDB\Tools\100\bin>mongoimport --uri mongodb+srv://bonato16_db_user:L2VFXXTL3uI6GvVO@datalake.omoipit.mongodb.net/PUC_RIO --collection MVP_Análise_de_Dados --type csv --headerline --file "D:\dados_nc\FoodData_Central_csv_2025-12-18\FoodData_Central_csv_2025-12-18\food.csv"
-
-C:\Program Files\MongoDB\Tools\100\bin>mongoimport --uri mongodb+srv://bonato16_db_user:L2VFXXTL3uI6GvVO@datalake.omoipit.mongodb.net/PUC_RIO --collection MVP_Análise_de_Dados --type csv --headerline --file "D:\dados_nc\FoodData_Central_csv_2025-12-18\FoodData_Central_csv_2025-12-18\nutrient.csv"
-
-
---gratuito
-mongoimport --uri mongodb+srv://bonato16_db_user:L2VFXXTL3uI6GvVO@gratuito.83i2ou8.mongodb.net/PUC_RIO --collection MVP_Análise_de_Dados --type csv --headerline --file "D:\dados_nc\FoodData_Central_csv_2025-12-18\FoodData_Central_csv_2025-12-18\food_parte001.csv"
-
-mongoimport --uri mongodb+srv://bonato16_db_user:L2VFXXTL3uI6GvVO@gratuito.83i2ou8.mongodb.net/PUC_RIO --collection MVP_Análise_de_Dados --type csv --headerline --file "D:\dados_nc\FoodData_Central_csv_2025-12-18\FoodData_Central_csv_2025-12-18\food_nutrient_parte001.csv"
-
-mongoimport --uri mongodb+srv://bonato16_db_user:L2VFXXTL3uI6GvVO@gratuito.83i2ou8.mongodb.net/PUC_RIO --collection MVP_Análise_de_Dados --type csv --headerline --file "D:\dados_nc\FoodData_Central_csv_2025-12-18\FoodData_Central_csv_2025-12-18\nutrient.csv"
-
-C:\Program Files\MongoDB\Tools\100\bin
-
-
-
-https://dbc-fe6e1359-936c.cloud.databricks.com/explore/data/workspace/pucrio_mvp2/alimentos_pt_br?o=2166701943793317
-
-
-workspace.pucrio_mvp2.alimentos_pt_br
-
-
-
 <#
 .SYNOPSIS
     Script para exportar dados do Databricks para CSV usando API REST
