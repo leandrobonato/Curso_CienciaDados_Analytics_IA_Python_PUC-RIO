@@ -1,0 +1,207 @@
+
+
+C:\Program Files\MongoDB\Tools\100\bin>mongoimport --uri mongodb+srv://bonato16_db_user:L2VFXXTL3uI6GvVO@datalake.omoipit.mongodb.net/PUC_RIO --collection MVP_Análise_de_Dados --type csv --headerline --file "D:\dados_nc\FoodData_Central_csv_2025-12-18\FoodData_Central_csv_2025-12-18\food_nutrient.csv"
+
+
+C:\Program Files\MongoDB\Tools\100\bin>mongoimport --uri mongodb+srv://bonato16_db_user:L2VFXXTL3uI6GvVO@datalake.omoipit.mongodb.net/PUC_RIO --collection MVP_Análise_de_Dados --type csv --headerline --file "D:\dados_nc\FoodData_Central_csv_2025-12-18\FoodData_Central_csv_2025-12-18\food.csv"
+
+C:\Program Files\MongoDB\Tools\100\bin>mongoimport --uri mongodb+srv://bonato16_db_user:L2VFXXTL3uI6GvVO@datalake.omoipit.mongodb.net/PUC_RIO --collection MVP_Análise_de_Dados --type csv --headerline --file "D:\dados_nc\FoodData_Central_csv_2025-12-18\FoodData_Central_csv_2025-12-18\nutrient.csv"
+
+
+--gratuito
+mongoimport --uri mongodb+srv://bonato16_db_user:L2VFXXTL3uI6GvVO@gratuito.83i2ou8.mongodb.net/PUC_RIO --collection MVP_Análise_de_Dados --type csv --headerline --file "D:\dados_nc\FoodData_Central_csv_2025-12-18\FoodData_Central_csv_2025-12-18\food_parte001.csv"
+
+mongoimport --uri mongodb+srv://bonato16_db_user:L2VFXXTL3uI6GvVO@gratuito.83i2ou8.mongodb.net/PUC_RIO --collection MVP_Análise_de_Dados --type csv --headerline --file "D:\dados_nc\FoodData_Central_csv_2025-12-18\FoodData_Central_csv_2025-12-18\food_nutrient_parte001.csv"
+
+mongoimport --uri mongodb+srv://bonato16_db_user:L2VFXXTL3uI6GvVO@gratuito.83i2ou8.mongodb.net/PUC_RIO --collection MVP_Análise_de_Dados --type csv --headerline --file "D:\dados_nc\FoodData_Central_csv_2025-12-18\FoodData_Central_csv_2025-12-18\nutrient.csv"
+
+C:\Program Files\MongoDB\Tools\100\bin
+
+
+
+https://dbc-fe6e1359-936c.cloud.databricks.com/explore/data/workspace/pucrio_mvp2/alimentos_pt_br?o=2166701943793317
+
+
+workspace.pucrio_mvp2.alimentos_pt_br
+
+
+
+<#
+.SYNOPSIS
+    Script para exportar dados do Databricks para CSV usando API REST
+.DESCRIPTION
+    Conecta à API SQL do Databricks, executa uma consulta e salva o resultado em CSV
+.NOTES
+    Autor: Seu Nome
+    Data: $(Get-Date)
+    Versão: 1.0
+#>
+
+# ===== CONFIGURAÇÕES - PREENCHA COM SEUS DADOS =====
+$config = @{
+    WorkspaceUrl = "https://dbc-fe6e1359-936c.cloud.databricks.com"  # URL do seu workspace
+
+    OutputPath = "D:\dados_nc\FoodData_Central_csv_2025-12-18\FoodData_Central_csv_2025-12-18\alimentos_pt_br.csv"  # Local para salvar
+}
+
+# Sua consulta SQL
+$query = @"
+SELECT * 
+FROM workspace.pucrio_mvp2.alimentos_pt_br 
+ORDER BY ID 
+ 
+"@
+
+# ===== FUNÇÕES =====
+
+function Write-Log {
+    param(
+        [string]$Message,
+        [string]$Color = "White"
+    )
+    Write-Host "$(Get-Date -Format 'HH:mm:ss') | $Message" -ForegroundColor $Color
+}
+
+function Invoke-DatabricksQuery {
+    param(
+        [hashtable]$Config,
+        [string]$Query
+    )
+    
+    try {
+        # Preparar a requisição
+        $body = @{
+            statements = @(@{
+                statement = $Query
+                warehouseId = ($Config.HttpPath -split "/")[-1]  # Extrai o ID do warehouse
+            })
+            defaultSchema = "default"
+            waitTimeout = "30s"
+        } | ConvertTo-Json -Depth 10
+        
+        $headers = @{
+            "Authorization" = "Bearer $($Config.Token)"
+            "Content-Type" = "application/json"
+        }
+        
+        $apiUrl = "$($Config.WorkspaceUrl)/api/2.0/sql/statements"
+        
+        Write-Log "📡 Enviando requisição para API..." -Color Yellow
+        Write-Log "🔗 URL: $apiUrl" -Color Cyan
+        
+        # Fazer a requisição
+        $response = Invoke-RestMethod -Uri $apiUrl `
+                                     -Method Post `
+                                     -Headers $headers `
+                                     -Body $body `
+                                     -TimeoutSec 300  # 5 minutos de timeout
+        
+        return $response
+        
+    } catch {
+        Write-Log "❌ Erro na requisição: $($_.Exception.Message)" -Color Red
+        
+        # Tentar extrair mais detalhes do erro
+        if ($_.Exception.Response) {
+            $reader = New-Object System.IO.StreamReader($_.Exception.Response.GetResponseStream())
+            $reader.BaseStream.Position = 0
+            $responseBody = $reader.ReadToEnd()
+            Write-Log "📄 Detalhes do erro: $responseBody" -Color Red
+        }
+        
+        throw
+    }
+}
+
+function Export-QueryResultToCsv {
+    param(
+        [hashtable]$Config,
+        [string]$Query
+    )
+    
+    Write-Log "🚀 Iniciando exportação do Databricks..." -Color Cyan
+    Write-Log "📊 Consulta: $($Query.Substring(0, [Math]::Min(50, $Query.Length)))..." -Color Yellow
+    
+    try {
+        # Executar a consulta
+        $response = Invoke-DatabricksQuery -Config $Config -Query $Query
+        
+        # Verificar se há resultados
+        if ($response.manifest.totalRowCount -eq 0) {
+            Write-Log "⚠️ Nenhum resultado encontrado para a consulta." -Color Yellow
+            return $false
+        }
+        
+        Write-Log "📊 Total de linhas: $($response.manifest.totalRowCount)" -Color Green
+        
+        # Extrair cabeçalhos
+        $headers = $response.manifest.schema.columns.name
+        Write-Log "📋 Colunas encontradas: $($headers -join ', ')" -Color Cyan
+        
+        # Extrair dados
+        $rows = $response.result.dataArray
+        
+        Write-Log "🔄 Processando $($rows.Count) registros..." -Color Yellow
+        
+        # Converter para objetos PowerShell
+        $table = $rows | ForEach-Object {
+            $hash = [ordered]@{}
+            for ($i = 0; $i -lt $headers.Count; $i++) {
+                # Tratar valores nulos
+                $value = if ($null -eq $_[$i]) { "" } else { $_[$i] }
+                $hash[$headers[$i]] = $value
+            }
+            [PSCustomObject]$hash
+        }
+        
+        # Exportar para CSV
+        Write-Log "💾 Salvando arquivo em: $($Config.OutputPath)" -Color Yellow
+        $table | Export-Csv -Path $Config.OutputPath -NoTypeInformation -Encoding UTF8 -Delimiter ';'
+        
+        # Verificar resultado
+        if (Test-Path $Config.OutputPath) {
+            $fileInfo = Get-Item $Config.OutputPath
+            Write-Log "✅ Exportação concluída com sucesso!" -Color Green
+            Write-Log "📁 Arquivo: $($Config.OutputPath)" -Color Green
+            Write-Log "📦 Tamanho: $([math]::Round($fileInfo.Length/1MB, 2)) MB" -Color Green
+            Write-Log "📊 Registros: $($table.Count)" -Color Green
+            Write-Log "📋 Colunas: $($headers.Count)" -Color Green
+            return $true
+        } else {
+            Write-Log "❌ Erro: Arquivo não foi criado!" -Color Red
+            return $false
+        }
+        
+    } catch {
+        Write-Log "❌ Erro durante a exportação: $($_.Exception.Message)" -Color Red
+        return $false
+    }
+}
+
+# ===== EXECUÇÃO PRINCIPAL =====
+
+Write-Log "="*60 -Color Cyan
+Write-Log "EXPORTADOR DATABRICKS VIA API REST" -Color Cyan
+Write-Log "="*60 -Color Cyan
+
+# Validar configurações
+if ($config.Token -eq "seu_token_pessoal_aqui") {
+    Write-Log "❌ Token não configurado. Edite o script e insira seu token." -Color Red
+    exit 1
+}
+
+# Executar exportação
+$resultado = Export-QueryResultToCsv -Config $config -Query $query
+
+if ($resultado) {
+    Write-Log "`n✨ Processo finalizado com sucesso!" -Color Green
+    
+    # Abrir a pasta do arquivo
+    $pasta = Split-Path $config.OutputPath -Parent
+    Write-Log "📂 Abrindo pasta: $pasta" -Color Cyan
+    Invoke-Item $pasta
+} else {
+    Write-Log "`n❌ Processo finalizado com erros." -Color Red
+}
+
+Write-Log "="*60 -Color Cyan
