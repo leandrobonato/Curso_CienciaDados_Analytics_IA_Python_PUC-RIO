@@ -1,0 +1,10 @@
+rascunho sobre doação de sangue:
+
+
+Com notebook que servirá de exemplo e de template
+https://www.kaggle.com/code/tarekmasryo/global-blood-donation-registry/notebook
+
+Dados para a importação
+https://www.kaggle.com/datasets/tarekmasryo/blood-donor-registry-dataset
+
+ 
