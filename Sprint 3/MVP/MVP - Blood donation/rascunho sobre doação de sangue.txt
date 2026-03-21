@@ -8,3 +8,48 @@ Dados para a importação
 https://www.kaggle.com/datasets/tarekmasryo/blood-donor-registry-dataset
 
  
+Hipóteses levantadas 
+ 
+1. Qual o tipo de sangue que possuí a maior quantidade de doadores com restrições.
+
+2. Quantidade de doadores por sexo.
+
+3. Doadores de sangue fumantes.
+ 
+
+
+Perguntas para os professores: 
+1. Sobre o google colab, que parece ter um bug no momento que importo os dados, quando executo tudo, ai executo novamente a importação e ele funciona.
+
+2. Sobre as análises estatísticas, a cada item devo fazer um parágrafo de comentário. (concluído e a resposta é sim).
+
+
+O que precisará ser feito:
+1. Histogramas de hipótese 2 e 3, deverão ter as barras invertidas para que fiquem mais legíveis e as cores de cada uma deverão ser padronizadas
+2. Histograma da hipótese 1 não ficou legal e por isso coloquei dois gráficos de barras, entretanto deverá ser estudado um novo gráfico para conseguir realizar esse trabalho, pois as informações do gráfico da hipotestese ficou bom, mas o gráfico em si ficou ruim.
+3. Desvio padrão para a hipótese 3 as informações ficaram muito grudadas e houveram algumas quebras, deverão ser escolhidos alguns gráficos que melhor representam as informações e reformatados.
+4. A tabela da hipótese 1, 2 e 3 ficou com muitas colunas e um espaço vazio em branco muito grande, deverá ser suprimida algumas informações para melhor visualização.
+5. Desvio padrão para a hipótese 2 ficou parecendo alguns gráficos com boxplot e não com desvio padrão, deverá ser escolhido outros gráficos e também suprimidas as informações.
+6. Gráficos de desvio padrão da hipótese 1 ficou estranho, talvez suprimi-los para obter melhor as informações.
+7. Os dados de tabagismo para a média da hipótese 3 não faz muito sentido para os valores.
+8. Média para a hipótese 2 está sobreposta e as informações meio incoerentes, deverá ser revisado os valores e entender se estão corretos. 
+9. Faltou um gráfico para a hipótese 1 da média.
+10. Acrescentar comentários após cada gráfico e informações do que pode ser os gráficos e o que houve com os dados. Um conclusão sobre a análise e o entendimento.
+11. O Boxplot para a hipótese 1 a legenda não está bem posicionada e as informações não estão claras.
+12. As informações do boxplot da hipótese 2 estão muito juntas e não estão claras do que o gráfico está tentando mostrar.
+13. Analisar os dois gráficos para a hipótese 3 do boxplot que não parecem estar coerentes.
+14. 
+
+
+Parte da conclusão final e considerações finais:
+
+Os países neste dataset não estão muito bem de acordo, o que impossibilitou levantar algumas perguntas e hipóteses, por exemplo: 
+Quais países possuem a maior quantidade de doadores de sangue.
+Quais países possuem a maior quantidade de doadores de sangue com contagens de doações igual ou maior que 2. (contagens de doação na vida)
+Qual sexo por país com maiores quantidades de doadores de sangue.
+Qual país possuí mais doadores inaptos às doações (permanentes).
+Entre outras hipóteses que poderiam ser levantadas. 
+Ou ainda, outro dataset que está com problemas é o de população por países, onde exemplo o Brasil está com 100 milhões de habitantes, o que estaria com a informação com o valor na metade.
+
+
+
