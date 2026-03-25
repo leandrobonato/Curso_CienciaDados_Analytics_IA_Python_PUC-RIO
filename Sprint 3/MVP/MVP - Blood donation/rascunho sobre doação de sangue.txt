@@ -24,21 +24,54 @@ Perguntas para os professores:
 2. Sobre as análises estatísticas, a cada item devo fazer um parágrafo de comentário. (concluído e a resposta é sim).
 
 
-O que precisará ser feito:
-1. Histogramas de hipótese 2 e 3, deverão ter as barras invertidas para que fiquem mais legíveis e as cores de cada uma deverão ser padronizadas
-2. Histograma da hipótese 1 não ficou legal e por isso coloquei dois gráficos de barras, entretanto deverá ser estudado um novo gráfico para conseguir realizar esse trabalho, pois as informações do gráfico da hipotestese ficou bom, mas o gráfico em si ficou ruim.
-3. Desvio padrão para a hipótese 3 as informações ficaram muito grudadas e houveram algumas quebras, deverão ser escolhidos alguns gráficos que melhor representam as informações e reformatados.
-4. A tabela da hipótese 1, 2 e 3 ficou com muitas colunas e um espaço vazio em branco muito grande, deverá ser suprimida algumas informações para melhor visualização.
-5. Desvio padrão para a hipótese 2 ficou parecendo alguns gráficos com boxplot e não com desvio padrão, deverá ser escolhido outros gráficos e também suprimidas as informações.
-6. Gráficos de desvio padrão da hipótese 1 ficou estranho, talvez suprimi-los para obter melhor as informações.
-7. Os dados de tabagismo para a média da hipótese 3 não faz muito sentido para os valores.
-8. Média para a hipótese 2 está sobreposta e as informações meio incoerentes, deverá ser revisado os valores e entender se estão corretos. 
-9. Faltou um gráfico para a hipótese 1 da média.
-10. Acrescentar comentários após cada gráfico e informações do que pode ser os gráficos e o que houve com os dados. Um conclusão sobre a análise e o entendimento.
-11. O Boxplot para a hipótese 1 a legenda não está bem posicionada e as informações não estão claras.
-12. As informações do boxplot da hipótese 2 estão muito juntas e não estão claras do que o gráfico está tentando mostrar.
-13. Analisar os dois gráficos para a hipótese 3 do boxplot que não parecem estar coerentes.
-14. 
+
+Correções nas informações:
+1. Histogramas de hipótese 2 e 3, deverão ter as barras invertidas para que fiquem mais legíveis e as cores de cada uma deverão ser padronizadas. (Concluído)
+
+2. Histograma da hipótese 1 não ficou legal e por isso coloquei dois gráficos de barras, entretanto deverá ser estudado um novo gráfico para conseguir realizar esse trabalho, pois as informações do gráfico da hipóteses ficou bom, mas o gráfico em si ficou ruim. (Concluído)
+
+3. Desvio padrão para a hipótese 3 as informações ficaram muito grudadas e houveram algumas quebras, deverão ser escolhidos alguns gráficos que melhor representam as informações e reformatados. (Concluído)
+
+4. A tabela da hipótese 1, 2 e 3 ficou com muitas colunas e um espaço vazio em branco muito grande, deverá ser suprimida algumas informações para melhor visualização. (Concluído)
+
+5. Desvio padrão para a hipótese 2 ficou parecendo alguns gráficos com boxplot e não com desvio padrão, deverá ser escolhido outros gráficos e também suprimidas as informações. (Concluído)
+
+6. Gráficos de desvio padrão da hipótese 1 ficou estranho, talvez suprimi-los para obter melhor as informações. (Concluído)
+
+7. Os dados de tabagismo para a média da hipótese 3 não faz muito sentido para os valores. (Concluído)
+
+8. Média para a hipótese 2 está sobreposta e as informações meio incoerentes, deverá ser revisado os valores e entender se estão corretos. (Concluído)
+
+9. Faltou um gráfico para a hipótese 1 da média. (Concluído)
+
+10. O Boxplot para a hipótese 1 a legenda não está bem posicionada e as informações não estão claras. (Concluído)
+
+11. As informações do boxplot da hipótese 2 estão muito juntas e não estão claras do que o gráfico está tentando mostrar. (Concluído)
+
+12. Acrescentar uma tabela de informações para os boxplots em hipóteses 1, 2 e 3. (Concluído)
+
+13. Acrescentar uma tabela de informações para a média em hipóteses 2. (Concluído)
+
+14. Separar os gráficos de média em hipóteses 3. (Concluído)
+
+15. Separar os gráficos de Desvio padrão em hipótese 2. (Concluído)
+
+16. Separar os gráficos de desvio padrão em hipótese 3. (Concluído)
+
+17. Fazer uma tabela para cada hipótese (1, 2 e 3) para os gráficos de histograma. (Concluído)
+
+18. Fazer uma tabela para cada hipótese (1, 2 e 3) para os gráficos de matrizes. (Concluído).
+
+19. Verificar todas as tabelas de dados e informações de todas as hipóteses senão é melhor colocá-las ao invés de várias colunas inverter e colocá-las em linhas.
+
+
+Acréscimos de informações:
+1. Acrescentar comentários após cada gráfico e informações do que pode ser os gráficos e o que houve com os dados. Um conclusão sobre a análise e o entendimento.
+
+
+Análises de informações (extras):
+1. Analisar os dois gráficos para a hipótese 3 do boxplot que não parecem estar coerentes. 
+
 
 
 Parte da conclusão final e considerações finais:
