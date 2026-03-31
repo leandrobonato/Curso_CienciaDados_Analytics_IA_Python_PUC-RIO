@@ -23,6 +23,10 @@ Perguntas para os professores:
 
 2. Sobre as análises estatísticas, a cada item devo fazer um parágrafo de comentário. (concluído e a resposta é sim).
 
+3. Sobre a mudança das ordens do template, porque possuo 3 hipóteses, então coloquei cada assunto (exemplo: média, tratamento de outliers, histograma, boxplot, etc) tudo em um grupo chamado: Hipótese 1, 2 e 3, dentro de cada 1 tem uma conclusão final. Pode isso?
+
+4. No template, há apenas 2 etapas de pré-processamento de dados, então coloquei 6 tipos, pode?
+
 
 
 Correções nas informações:
@@ -62,15 +66,21 @@ Correções nas informações:
 
 18. Fazer uma tabela para cada hipótese (1, 2 e 3) para os gráficos de matrizes. (Concluído).
 
-19. Verificar todas as tabelas de dados e informações de todas as hipóteses senão é melhor colocá-las ao invés de várias colunas inverter e colocá-las em linhas.
+19. Verificar todas as tabelas de dados e informações de todas as hipóteses senão é melhor colocá-las ao invés de várias colunas inverter e colocá-las em linhas. (concluído)
 
 
 Acréscimos de informações:
-1. Acrescentar comentários após cada gráfico e informações do que pode ser os gráficos e o que houve com os dados. Um conclusão sobre a análise e o entendimento.
+1. Acrescentar comentários após cada gráfico e informações do que pode ser os gráficos e o que houve com os dados. Um conclusão sobre a análise e o entendimento. (Concluído)
 
 
 Análises de informações (extras):
-1. Analisar os dois gráficos para a hipótese 3 do boxplot que não parecem estar coerentes. 
+1. Analisar os dois gráficos para a hipótese 3 do boxplot que não parecem estar coerentes. (concluído)
+
+
+Reorganização dos itens:
+1. Reorganizar todo o projeto por hipóteses, dentro delas possuir cada assunto e cada gráfico, e então todas as etapas de análise para cada 1. 
+2. Cada item poderá manter as conclusões.
+3. Refatorar todos os códigos retirando variáveis não usadas, repetição de código, recarregamento de informações, variáveis entre os notebooks repetidos.
 
 
 
