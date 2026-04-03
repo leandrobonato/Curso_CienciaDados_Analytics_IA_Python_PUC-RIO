@@ -19,13 +19,13 @@ Hipóteses levantadas
 
 
 Perguntas para os professores: 
-1. Sobre o google colab, que parece ter um bug no momento que importo os dados, quando executo tudo, ai executo novamente a importação e ele funciona.
+1. Sobre o google colab, que parece ter um bug no momento que importo os dados, quando executo tudo, ai executo novamente a importação e ele funciona. (concluído)
 
 2. Sobre as análises estatísticas, a cada item devo fazer um parágrafo de comentário. (concluído e a resposta é sim).
 
-3. Sobre a mudança das ordens do template, porque possuo 3 hipóteses, então coloquei cada assunto (exemplo: média, tratamento de outliers, histograma, boxplot, etc) tudo em um grupo chamado: Hipótese 1, 2 e 3, dentro de cada 1 tem uma conclusão final. Pode isso?
+3. Sobre a mudança das ordens do template, porque possuo 3 hipóteses, então coloquei cada assunto (exemplo: média, tratamento de outliers, histograma, boxplot, etc) tudo em um grupo chamado: Hipótese 1, 2 e 3, dentro de cada 1 tem uma conclusão final. Pode isso? (Concluído)
 
-4. No template, há apenas 2 etapas de pré-processamento de dados, então coloquei 6 tipos, pode?
+4. No template, há apenas 2 etapas de pré-processamento de dados, então coloquei 6 tipos, pode? (concluído)
 
 
 
@@ -78,11 +78,20 @@ Análises de informações (extras):
 
 
 Reorganização dos itens:
-1. Reorganizar todo o projeto por hipóteses, dentro delas possuir cada assunto e cada gráfico, e então todas as etapas de análise para cada 1. 
-2. Cada item poderá manter as conclusões.
+1. Reorganizar todo o projeto por hipóteses, dentro delas possuir cada assunto e cada gráfico, e então todas as etapas de análise para cada 1. (Concluído)
+2. Cada item poderá manter as conclusões no final de cada sessão. (concluído)
 3. Refatorar todos os códigos retirando variáveis não usadas, repetição de código, recarregamento de informações, variáveis entre os notebooks repetidos.
-
-
+4. Criar uma célula para traducao_features, deverá ser no início (concluído)
+5. Criar uma célula para o carregamento dos dados  (concluído)
+6. Criar uma célula para as variáveis (concluído)
+7. Criar uma célula para as functions (concluído)
+8. Normalização e padronização para a hipótese 2 está errada, ,está pegando tabagismo, sendo que deveria ser por sexo.
+9. Codificação de variáveis categóricas não está presente na hipótese 3.
+10. A conclusão de análise de dados deverá ser revisada.
+11. Refazer as conclusões no final que ficaram confusas após a junção, e a conclusão deverá ser um texto englobando todas as análises.
+12. Colocar o arquivo do kaggle que está sendo carregado online pela API, direto pelo GitHub se der errado o do Kaggle.
+13. Acrescentar em todos os campos que possuem valores separadores de milhares e tratamentos para casas decimais.
+14. Verificar a edentação dos códigos que possuem dois tabs sendo que o correto é apenas 1.
 
 Parte da conclusão final e considerações finais:
 
@@ -96,3 +105,142 @@ Ou ainda, outro dataset que está com problemas é o de população por países,
 
 
 
+#dataset para tipo sanguíneo com ordem alfabética
+dataset_tipo_sanguineo = sorted(dataset['blood_type'].unique())
+total_doadores_por_tipo = dataset['blood_type'].value_counts()
+
+#dataset para doadores com restrição de doação
+dataset_com_restricao = dataset[dataset['eligible_to_donate'] == 0].copy() 
+
+#dataset para doadores com base no dataset de restrição por tipo sanguineo
+restricoes_por_tipo = dataset_com_restricao.groupby('blood_type').agg({
+    'donor_id': 'count',
+    'chronic_condition_flag': ['mean', 'std', 'max', 'min'],
+    'smoker': ['mean', 'std', 'max', 'min'],
+    'age': ['mean', 'std', 'max', 'min', 'median'],
+    'blood_type': 'count'
+}).round(2)
+restricoes_por_tipo.columns = ['Doadores_com_restricao',
+                               'Cond_cronica_media', 'Cond_cronica_desvio', 'Cond_cronica_max', 'Cond_cronica_min',
+                               'Fumantes_media', 'Fumantes_desvio', 'Fumantes_max', 'Fumantes_min',
+                               'Idade_media', 'Idade_desvio', 'Idade_max', 'Idade_min', 'Idade_mediana',
+                               'tipo_sanguino_cont']
+restricoes_por_tipo['Cond_cronica_media'] = restricoes_por_tipo['Cond_cronica_media'] * 100
+restricoes_por_tipo['Fumantes_media'] = restricoes_por_tipo['Fumantes_media'] * 100
+restricoes_por_tipo['Cond_cronica_desvio'] = restricoes_por_tipo['Cond_cronica_desvio'] * 100
+restricoes_por_tipo['Fumantes_desvio'] = restricoes_por_tipo['Fumantes_desvio'] * 100
+restricoes_por_tipo = restricoes_por_tipo.sort_values(
+    'Doadores_com_restricao', ascending=False
+)
+restricoes_por_tipo['erro_padrao_cond'] = restricoes_por_tipo['Cond_cronica_desvio'] / np.sqrt(restricoes_por_tipo['tipo_sanguino_cont']).round(2)
+restricoes_por_tipo['erro_padrao_fum'] = restricoes_por_tipo['Fumantes_desvio'] / np.sqrt(restricoes_por_tipo['tipo_sanguino_cont']).round(2)
+restricoes_por_tipo['erro_padrao_idade'] = restricoes_por_tipo['Idade_desvio'] / np.sqrt(restricoes_por_tipo['tipo_sanguino_cont']).round(2)
+restricoes_por_tipo['ic_95_cond'] = 1.96 * restricoes_por_tipo['erro_padrao_cond'].round(2)
+restricoes_por_tipo['ic_95_fum'] = 1.96 * restricoes_por_tipo['erro_padrao_fum'].round(2)
+restricoes_por_tipo['ic_95_idade'] = 1.96 * restricoes_por_tipo['erro_padrao_idade'].round(2)
+restricoes_por_tipo['cond_ic_inferior'] = restricoes_por_tipo['Cond_cronica_media'] - restricoes_por_tipo['ic_95_cond'].round(2)
+restricoes_por_tipo['cond_ic_superior'] = restricoes_por_tipo['Cond_cronica_media'] + restricoes_por_tipo['ic_95_cond'].round(2)
+restricoes_por_tipo['fum_ic_inferior'] = restricoes_por_tipo['Fumantes_media'] - restricoes_por_tipo['ic_95_fum'].round(2)
+restricoes_por_tipo['fum_ic_superior'] = restricoes_por_tipo['Fumantes_media'] + restricoes_por_tipo['ic_95_fum'].round(2)
+restricoes_por_tipo['idade_ic_inferior'] = restricoes_por_tipo['Idade_media'] - restricoes_por_tipo['ic_95_idade'].round(2)
+restricoes_por_tipo['idade_ic_superior'] = restricoes_por_tipo['Idade_media'] + restricoes_por_tipo['ic_95_idade'].round(2)
+restricoes_por_tipo['Total_doadores'] = restricoes_por_tipo.index.map(total_doadores_por_tipo)
+restricoes_por_tipo['Pct_geral'] = ((restricoes_por_tipo['Doadores_com_restricao'] / restricoes_por_tipo['Total_doadores']) * 100).round(1)
+
+dataset_boxplot_restricao_tipo = dataset_com_restricao[['blood_type', 'age']].copy()
+dataset_boxplot_restricao_tipo = dataset_boxplot_restricao_tipo[dataset_boxplot_restricao_tipo['blood_type'].isin(dataset_tipo_sanguineo)]
+
+traducao_variaveis = {
+    'age': 'Idade',
+    'chronic_condition_flag': 'Cond. Crônica',
+    'smoker': 'Fumante',
+    'donation_count_last_12m': 'Doações (12m)',
+    'lifetime_donation_count': 'Doações (Vida)',
+    'years_since_first_donation': 'Anos desde 1ª doação',
+    'is_regular_donor': 'Doador Regular'
+}
+variaveis_correlacao = ['age', 'chronic_condition_flag', 'smoker',
+                        'donation_count_last_12m', 'lifetime_donation_count',
+                        'years_since_first_donation', 'is_regular_donor']
+variaveis_existentes = [v for v in variaveis_correlacao if v in dataset_com_restricao.columns]
+
+variaveis_agregadas = ['Idade_media', 'Cond_cronica_media', 'Fumantes_media', 
+                       'Doadores_com_restricao', 'Pct_geral']
+                       
+variaveis_existentes_agregadas = [v for v in variaveis_agregadas if v in restricoes_por_tipo.columns]
+
+traducao_agregadas = {
+    'Idade_media': 'Idade Média',
+    'Cond_cronica_media': 'Cond. Crônica (%)',
+    'Fumantes_media': 'Fumantes (%)',
+    'Doadores_com_restricao': 'Doadores Restritos',
+    'Pct_geral': 'Percentual Restrição'
+}
+
+traducao_nomes = {
+    'idade': 'Idade',
+    'doacoes_vida': 'Doações na Vida', 
+    'doacoes_ultimos_12_meses': 'Doações (últimos 12 meses)',
+    'anos_desde_primeira_doacao': 'Anos desde 1ª doação',
+    'dias_desde_ultima_doacao': 'Dias desde última doação'
+}
+ 
+
+
+
+
+
+%pip install kagglehub
+
+
+
+import kagglehub
+
+import shutil
+
+import os
+
+
+
+# Baixa o dataset
+
+path = kagglehub.dataset_download(
+
+    "wardabilal/spotify-global-music-dataset-20092025"
+
+)
+
+
+
+# Caminho do Unity Catalog Volume
+uc_volume_path = "/Volumes/mvp_eng_dados/staging/track_spotify_data/"
+
+os.makedirs(uc_volume_path, exist_ok=True)
+
+
+
+# Nome do arquivo que queremos
+
+target_file = "track_data_final.csv"
+
+
+
+# Percorre os arquivos baixados
+
+for file_name in os.listdir(path):
+
+    if file_name == target_file:
+
+        src_file = os.path.join(path, file_name)
+
+        dst_file = os.path.join(uc_volume_path, file_name)
+
+        shutil.copy2(src_file, dst_file)
+
+        print(f"Arquivo {file_name} copiado com sucesso para {uc_volume_path}")
+
+        break
+
+else:
+
+    raise FileNotFoundError(f"O arquivo {target_file} não foi encontrado no dataset.")
