@@ -85,13 +85,15 @@ Reorganização dos itens:
 5. Criar uma célula para o carregamento dos dados  (concluído)
 6. Criar uma célula para as variáveis (concluído)
 7. Criar uma célula para as functions (concluído)
-8. Normalização e padronização para a hipótese 2 está errada, ,está pegando tabagismo, sendo que deveria ser por sexo.
+8. Normalização e padronização para a hipótese 2 está errada, ,está pegando tabagismo, sendo que deveria ser por sexo. (Concluído)
 9. Codificação de variáveis categóricas não está presente na hipótese 3.
 10. A conclusão de análise de dados deverá ser revisada.
 11. Refazer as conclusões no final que ficaram confusas após a junção, e a conclusão deverá ser um texto englobando todas as análises.
 12. Colocar o arquivo do kaggle que está sendo carregado online pela API, direto pelo GitHub se der errado o do Kaggle.
 13. Acrescentar em todos os campos que possuem valores separadores de milhares e tratamentos para casas decimais.
 14. Verificar a edentação dos códigos que possuem dois tabs sendo que o correto é apenas 1.
+15. Após finalizar, exportar para o formato HTML ensinado em uma das aulas.
+16. Após finalizar, procurar variáveis que comecem com df ou contenham hip1, hip2, sexo para genero  e Renomear para um novo nome padrão.
 
 Parte da conclusão final e considerações finais:
 
@@ -102,6 +104,10 @@ Qual sexo por país com maiores quantidades de doadores de sangue.
 Qual país possuí mais doadores inaptos às doações (permanentes).
 Entre outras hipóteses que poderiam ser levantadas. 
 Ou ainda, outro dataset que está com problemas é o de população por países, onde exemplo o Brasil está com 100 milhões de habitantes, o que estaria com a informação com o valor na metade.
+
+
+texto para solicitação:
+agora faça para o tratamento de outliers, não esqueça de usar as variáveis globais e functions globais, seaborn, tabela com genero nas colunas e linhas os indicadores 
 
 
 
