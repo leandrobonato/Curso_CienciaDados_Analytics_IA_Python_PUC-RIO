@@ -27,6 +27,10 @@ Perguntas para os professores:
 
 4. No template, há apenas 2 etapas de pré-processamento de dados, então coloquei 6 tipos, pode? (concluído)
 
+5. É obrigatório criar um Readme?
+
+
+
 
 
 Correções nas informações:
@@ -80,20 +84,26 @@ Análises de informações (extras):
 Reorganização dos itens:
 1. Reorganizar todo o projeto por hipóteses, dentro delas possuir cada assunto e cada gráfico, e então todas as etapas de análise para cada 1. (Concluído)
 2. Cada item poderá manter as conclusões no final de cada sessão. (concluído)
-3. Refatorar todos os códigos retirando variáveis não usadas, repetição de código, recarregamento de informações, variáveis entre os notebooks repetidos.
+3. Refatorar todos os códigos retirando variáveis não usadas, repetição de código, recarregamento de informações, variáveis entre os notebooks repetidos. (Concluído)
 4. Criar uma célula para traducao_features, deverá ser no início (concluído)
 5. Criar uma célula para o carregamento dos dados  (concluído)
 6. Criar uma célula para as variáveis (concluído)
 7. Criar uma célula para as functions (concluído)
 8. Normalização e padronização para a hipótese 2 está errada, ,está pegando tabagismo, sendo que deveria ser por sexo. (Concluído)
-9. Codificação de variáveis categóricas não está presente na hipótese 3.
+9. Codificação de variáveis categóricas não está presente na hipótese 3. (Concluído)
 10. A conclusão de análise de dados deverá ser revisada.
 11. Refazer as conclusões no final que ficaram confusas após a junção, e a conclusão deverá ser um texto englobando todas as análises.
 12. Colocar o arquivo do kaggle que está sendo carregado online pela API, direto pelo GitHub se der errado o do Kaggle.
 13. Acrescentar em todos os campos que possuem valores separadores de milhares e tratamentos para casas decimais.
-14. Verificar a edentação dos códigos que possuem dois tabs sendo que o correto é apenas 1.
+14. Verificar a endentação dos códigos que possuem dois tabs sendo que o correto é apenas 1.
 15. Após finalizar, exportar para o formato HTML ensinado em uma das aulas.
 16. Após finalizar, procurar variáveis que comecem com df ou contenham hip1, hip2, sexo para genero  e Renomear para um novo nome padrão.
+17. Matriz de correlação e boxplot para a hipótese 2 está com problemas. (Concluído)
+18. Normalização para a hipótese 1 não tem a tabela, deverá ser criada.
+19. Normalização de todas as hipóteses devem possuir a tabela.
+20. Seleção de features tem apenas 1 barra e deverá ter uma para cada situação comparativa (sexo: masculino x feminino) - fumante x não fumante
+
+
 
 Parte da conclusão final e considerações finais:
 
@@ -107,7 +117,8 @@ Ou ainda, outro dataset que está com problemas é o de população por países,
 
 
 texto para solicitação:
-agora faça para o tratamento de outliers, não esqueça de usar as variáveis globais e functions globais, seaborn, tabela com genero nas colunas e linhas os indicadores 
+agora faça para redução de dimensionalidade  para o pré-processamento de dados , não esqueça de usar as variáveis globais e functions globais, seaborn para a hipotese 3 - Doadores de sangue fumantes.
+
 
 
 
