@@ -91,12 +91,12 @@ Reorganização dos itens:
 7. Criar uma célula para as functions (concluído)
 8. Normalização e padronização para a hipótese 2 está errada, ,está pegando tabagismo, sendo que deveria ser por sexo. (Concluído)
 9. Codificação de variáveis categóricas não está presente na hipótese 3. (Concluído)
-10. A conclusão de análise de dados deverá ser revisada.
-11. Refazer as conclusões no final que ficaram confusas após a junção, e a conclusão deverá ser um texto englobando todas as análises.
+
+
 12. Colocar o arquivo do kaggle que está sendo carregado online pela API, direto pelo GitHub se der errado o do Kaggle.  (Concluído)
 13. Acrescentar em todos os campos que possuem valores separadores de milhares e tratamentos para casas decimais. (COncluído)
 14. Verificar a endentação dos códigos que possuem dois tabs sendo que o correto é apenas 1. (Concluído)
-15. Após finalizar, exportar para o formato HTML ensinado em uma das aulas.
+
 16. Após finalizar, procurar variáveis que comecem com df ou contenham hip1, hip2, sexo para genero  e Renomear para um novo nome padrão. (Concluído)
 17. Matriz de correlação e boxplot para a hipótese 2 está com problemas. (Concluído)
 18. Normalização para a hipótese 1 não tem a tabela, deverá ser criada. (Concluído)
@@ -105,6 +105,13 @@ Reorganização dos itens:
 21. A função formatar numero br quando o valor está negativo o mesmo está buscando errado os valores e se perdendo. (concluído)
 22. deverá ter uma sessão no final falando sobre os desafios do projeto. (Concluído)
 23. Alguns gráficos estão com warnings. (Concluído)
+
+
+Revisão final após a finalização:
+1. Após finalizar, exportar para o formato HTML ensinado em uma das aulas.
+2. Refazer as conclusões no final que ficaram confusas após a junção, e a conclusão deverá ser um texto englobando todas as análises.
+3. A conclusão de análise de dados deverá ser revisada.
+4. Deverá ser feita um revisão conforme os itens do projeto que está no portal da PucRio.
 
 
 Parte da conclusão final e considerações finais:
