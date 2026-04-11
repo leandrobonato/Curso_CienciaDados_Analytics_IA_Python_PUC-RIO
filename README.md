@@ -4,7 +4,11 @@ MVP - Engenharia de dados: https://github.com/leandrobonato/Curso\_CienciaDados\
 
 MVP - Análise e pré-processamento de dados:
 
-link no github: Sprint 3/MVP/MVP - Blood donation/MVP\_Análise\_de\_Dados\_e\_Boas\_Práticas\_Doação\_de\_sangue.ipynb
+caminho no github: Sprint 3/MVP/MVP - Blood donation/MVP\_Análise\_de\_Dados\_e\_Boas\_Práticas\_Doação\_de\_sangue.ipynb
+
+
+
+link direto: https://github.com/leandrobonato/Curso\_CienciaDados\_Analytics\_IA\_Python\_PUC-RIO/tree/main/Sprint%203/MVP/MVP%20-%20Blood%20donation
 
 
 
