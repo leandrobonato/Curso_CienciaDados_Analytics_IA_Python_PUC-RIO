@@ -108,9 +108,9 @@ Reorganização dos itens:
 
 
 Revisão final após a finalização:
-1. Após finalizar, exportar para o formato HTML ensinado em uma das aulas.
-2. Refazer as conclusões no final que ficaram confusas após a junção, e a conclusão deverá ser um texto englobando todas as análises.
-3. A conclusão de análise de dados deverá ser revisada.
+1. Após finalizar, exportar para o formato HTML ensinado em uma das aulas. 
+2. Refazer as conclusões no final que ficaram confusas após a junção, e a conclusão deverá ser um texto englobando todas as análises. (Concluído)
+3. A conclusão de análise de dados deverá ser revisada. 
 4. Deverá ser feita um revisão conforme os itens do projeto que está no portal da PucRio.
 
 
@@ -123,10 +123,18 @@ Qual sexo por país com maiores quantidades de doadores de sangue.
 Qual país possuí mais doadores inaptos às doações (permanentes).
 Entre outras hipóteses que poderiam ser levantadas. 
 Ou ainda, outro dataset que está com problemas é o de população por países, onde exemplo o Brasil está com 100 milhões de habitantes, o que estaria com a informação com o valor na metade.
+- O histograma e desvio padrão para as faixas etárias não fazem muito sentido, pelo fato de que as doações começam com 18 a nos e terminam em 65-70 anos, ou seja, esse dado acaba sempre sendo o mesmo e/ou parecido indiferente pelas perguntas feitas, entretanto, são válidos e muito valioso quando está entre 30 e 60 anos
+- Condições crônicas entre fumantes e não fumantes, em que as conclusões, gráficos, matrizes e tabelas que mostram que doadores fumantes tem menos percentual de condições crônicas, acredito que essa informação não seja tão real assim, pois pode-se considerar o fato de que não fumantes possuem quase 76% da quantidade de doadores, então proporcionalmente pode ser que doadores fumantes tem menos condições crônicas.
+
 
 
 texto para solicitação:
 agora faça para redução de dimensionalidade  para o pré-processamento de dados , não esqueça de usar as variáveis globais e functions globais, seaborn para a hipotese 3 - Doadores de sangue fumantes.
+
+
+
+
+
 
 
 
@@ -158,3 +166,10 @@ axes[2].set_xticklabels(xticks_formatados_2)
     formatar_eixo_y(axes[2], 0)
     formatar_eixo_x(axes[2], 3)
  
+
+
+
+faltou a conclusão da hipótese 3 
+tratamento de outliers
+seleção de features
+redução de dimensionalidade
