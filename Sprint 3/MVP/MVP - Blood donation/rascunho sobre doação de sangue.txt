@@ -149,3 +149,12 @@ axes[2].set_yticklabels(yticks_formatados_2)
 xticks_2 = axes[2].get_xticks()
 xticks_formatados_2 = [f"{tick:.3f}".replace('.', ',') for tick in xticks_2]
 axes[2].set_xticklabels(xticks_formatados_2)  
+
+
+
+
+
+
+    formatar_eixo_y(axes[2], 0)
+    formatar_eixo_x(axes[2], 3)
+ 
