@@ -1,0 +1,29 @@
+Resumo MVP 
+
+-> Perguntas aos instrutores:
+1. Pode ser usado para apresentar os dados o TensorBoard?
+
+
+
+-> Anotações 
+1. Criar 2 notebooks para o MVP
+1.1. O primeiro notebook com o resumo do MVP, os dados, o assunto, a importação dos dados e tudo mais.
+1.2. O segundo notebook será para o treinamento dos machine learnings e também  mostrará os resultados distintos.
+Resumo - Então será criado o problema no primeiro notebook, descrito tudo conforme exigido no MVP, no segundo notebook serão criados os scripts para treinamento do MVP, mas apenas 1 script, pois será no primeiro MVP que esses scripts estarão contidos. 
+
+-> Assunto
+1. Será referente aos jogos da copa do mundo, de todas as fases possíveis antes do término do MVP, segue abaixo o planejamento de como que será isso:
+1.1. Primeiramente será buscada alguma base de dados sobre as seleções participantes.
+1.2. Após isso será buscada a base de dados sobre os jogadores e comissões técnicas participantes.
+1.2.1. As informações devem conter: idade, time atual, altura, peso atual, posição, pé dominante
+1.2.2. Deverá possuir informações de desempenho: ofensivo, passes acertados e errados, estatística defensiva, distância percorrida por partida, velocidade máxima, assistências, gols, pênaltis defendidos (goleiros), defesas (goleiros), gols sofridos (goleiros), gols evitados (goleiros), precisão no tiro de meta e passes (goleiros), desarmes.
+1.2.3. Sobre lesões: tipo da lesão, local da lesão, tratamento da lesão, tempo de lesionado, tempo que voltou a jogar.
+1.3. Para cada posição de jogador terá uma estatística gols na última temporada
+1.4. Então será analisado todo o desempenho e a fase que cada jogador e seu time atual está.
+1.5. Serão acrescentado os dados das últimas 4 copas do mundo, eurocopa, nations league, copa américa, copa ouro e liga das nações da concacaf, copa da asia e copa das nações da Oceania para fins de históricos sobre a fase de cada seleção.
+1.6. A maquina será treinada da seguinte forma
+1.6.1. Os jogadores terão uma pontuação de 0 a 100.
+1.6.2. Cada jogador terá duas características que o diferencia. 
+1.6.3. Uma principal e uma secundária característica.
+1.6.4.
+ 
