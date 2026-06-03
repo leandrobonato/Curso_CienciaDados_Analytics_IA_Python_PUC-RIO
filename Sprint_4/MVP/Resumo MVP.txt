@@ -3,6 +3,15 @@ Resumo MVP
 -> Perguntas aos instrutores:
 1. Pode ser usado para apresentar os dados o TensorBoard?
 
+2. É obrigatório acrescentar as seguintes perguntas no MVP?
+O que incluir:
+Qual é o contexto do problema?
+Qual decisão, previsão, classificação, agrupamento ou análise o modelo deve apoiar?
+Quem seria o usuário ou interessado nessa solução?
+Por que esse problema é relevante?
+
+3. Posso conectar em alguma API e processar os dados, baixá-los e criar uma base de dados, e então à partir disso fazer o MVP?
+
 
 
 -> Anotações 
@@ -27,3 +36,9 @@ Resumo - Então será criado o problema no primeiro notebook, descrito tudo conf
 1.6.3. Uma principal e uma secundária característica.
 1.6.4.
  
+
+-> Documentações
+1. Site de API para baixar os dados: 
+
+2. 
+Código
