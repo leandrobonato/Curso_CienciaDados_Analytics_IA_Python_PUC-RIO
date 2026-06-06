@@ -39,6 +39,23 @@ Resumo - Então será criado o problema no primeiro notebook, descrito tudo conf
 
 -> Documentações
 1. Site de API para baixar os dados: 
+https://www.football-data.org/documentation/quickstart
 
-2. 
-Código
+2. Código para pegar o ID da competição, que neste caso é a copa do mundo de 2026
+https://api.football-data.org/v4/competitions
+
+3. Link e código para pegar todos os jogos da copa do mundo
+https://api.football-data.org/v4/competitions/WC/matches
+
+4. Link para o JSON dos detalhes dos times
+https://api.football-data.org/v4/teams/{id_team}
+
+
+5. Arquivos baixados: 
+Arquivo	Conteúdo
+competitions.csv	Todas as competições disponíveis
+teams.csv	Times com detalhes e elenco
+players.csv	Jogadores com posição e nacionalidade
+matches.csv	Histórico completo de partidas
+standings.csv	Classificações das ligas
+

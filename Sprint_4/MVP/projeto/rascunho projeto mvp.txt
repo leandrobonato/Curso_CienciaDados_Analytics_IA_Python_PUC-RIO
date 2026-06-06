@@ -1,0 +1,30 @@
+Resumo MVP 
+
+-> Perguntas aos instrutores:
+1. Pode ser usado para apresentar os dados o TensorBoard?
+
+2. É obrigatório acrescentar as seguintes perguntas no MVP?
+O que incluir:
+Qual é o contexto do problema?
+Qual decisão, previsão, classificação, agrupamento ou análise o modelo deve apoiar?
+Quem seria o usuário ou interessado nessa solução?
+Por que esse problema é relevante?
+
+3. Posso conectar em alguma API e processar os dados, baixá-los e criar uma base de dados, e então à partir disso fazer o MVP?
+
+4. Fiz o projeto baseado em previsão da cotação de preço de uma empresa na bolsa de valores da NASDAQ. Com isso são 5169 empresas listadas nessa bolsa. Então fiz da seguinte forma: 
+4.1. Cada empresa encontrada em um dataset foi realizado uma operação de baixar do Yahoo Finance as seguintes informações: cotações, dividendos, valor de mercado, indicadores, tão como: RSI, MACD, Média Móvel, Bollinger, Fibonacci, Tendencia e volatidade.
+4.2 Pra organizar todas essas informações e evitar o limite de tamanho por arquivo no GitHub que é 25 mb (o que é relativamente baixo), eu separei cada um desses itens mencionados anteriormente em uma pasta, respectiva à sua informação e cada pasta contém um arquivo csv com um símbolo da companhia.
+4.3. A pergunta é: toda essa estrutura está detalhada no notebook só que por pastas, e não por exemplo, em um único dataset, tanto porque depois disso é transformado cada arquivo em um dataframe e juntado por empresa. Como está no template.
+
+
+
+-> Anotações 
+1. Criar 2 notebooks para o MVP
+1.1. O primeiro notebook com o resumo do MVP, os dados, o assunto, a importação dos dados e tudo mais.
+1.2. O segundo notebook será para o treinamento dos machine learnings e também  mostrará os resultados distintos.
+Resumo - Então será criado o problema no primeiro notebook, descrito tudo conforme exigido no MVP, no segundo notebook serão criados os scripts para treinamento do MVP, mas apenas 1 script, pois será no primeiro MVP que esses scripts estarão contidos. 
+
+
+-> Observações para revisão
+1. Realizar o preenchimento da tabela sobre os campos do dataset - para preencher a coluna: Uso no modelo -> sim ou não.
