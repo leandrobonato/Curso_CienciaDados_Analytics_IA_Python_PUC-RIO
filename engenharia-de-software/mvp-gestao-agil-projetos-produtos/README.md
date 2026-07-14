@@ -1,17 +1,16 @@
-Esse diretório apresenta dicas para a entrega do MVP da Sprint Gestão Ágil de Projetos e Produtos.
+# MVP — Agile Project & Product Management: EasyBola
 
-O diretório contém os seguintes exemplos:
-- Diretório do wireframe do protótipo de interface do app EasyBola
-- Arquivo README.md com as instruções para a entrega do MVP
-- PDF com backlog do produto e da sprint
+Capstone project for the Agile Project & Product Management module of the PUC-Rio "Ciência de Dados e Analytics" postgraduate program. Product discovery and backlog for **EasyBola**, an app concept for organizing and joining pickup soccer games ("peladas"): finding a game nearby, scheduling one, managing your player profile, and viewing an overview of upcoming matches.
 
-A nota será composta pelos seguintes itens:
-- ⁠Lean Inception detalhada no Miro, incluindo o MVP Canvas (3,0 pts)
-- ⁠Backlog do Produto, Definition of Ready e Definition of Done - incluindo ao menos um requisito não funcional (1,5 pts) 
-- ⁠Backlog da Sprint, com histórias de usuário detalhadas, estimadas e com critérios de aceitação (1,5 pts) 
-- Imagens dos Protótipos de Interface (2,0 pts) 
-- Vídeo de Apresentação (2,0 pts)
+## Process
 
-Link para o template Lean Inception: https://miro.com/miroverse/lean-inception-workshop/
-Basta clicar em "Use template" e seguir as instruções.
+Following a Lean Inception approach: product vision → MVP Canvas → product backlog (with Definition of Ready / Definition of Done) → sprint backlog with estimated, acceptance-criteria-bound user stories → interface prototypes.
 
+## Contents
+
+- [`backlog-easybola.pdf`](backlog-easybola.pdf) / [`backlog-easybola-textual.docx`](backlog-easybola-textual.docx) — product and sprint backlog, including a non-functional requirement.
+- [`wireframe-easybola/`](wireframe-easybola) — interface prototypes: login, sign-up, find a game, schedule a game, profile, overview.
+
+## Tech stack
+
+Product management: Lean Inception, MVP Canvas, agile backlog management.
