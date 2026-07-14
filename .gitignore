@@ -1,6 +1,30 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+.claude/
+
+# Secrets / local config — never commit credentials
+.env
+*.env
+*secret*
+*credentials*
+
+# Large export artifacts
 *.pack
-Text_Classification_example.ipynb
-cats-vs-dogs-binaryclassify-dl.ipynb
 *.rtb
-Object_Detection.ipynb
-*.ps1
+
+# Local, unversioned archive of coursework not meant for the public repo
+/_arquivo-local/
